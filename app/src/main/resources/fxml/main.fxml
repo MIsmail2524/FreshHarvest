@@ -11,10 +11,23 @@
   
   <!-- Sidebar -->
   <left>
-    <VBox fx:id="sidebar" spacing="8.0" styleClass="sidebar" prefWidth="220.0">
+    <VBox fx:id="sidebar" styleClass="sidebar,spacing-small" prefWidth="240.0">
       <Label text="FreshHarvest" styleClass="brand"/>
       <Separator/>
-      <Button fx:id="btnDashboard" text="Dashboard" onAction="#onDashboard"/>
+      
+      <!-- Navigation Menu -->
+      <Button fx:id="btnDashboard" text="Dashboard" onAction="#onDashboard" styleClass="active"/>
+      <Button fx:id="btnProducts" text="Products" onAction="#onProducts"/>
+      <Button fx:id="btnOrders" text="Orders" onAction="#onOrders"/>
+      <Button fx:id="btnCustomers" text="Customers" onAction="#onCustomers"/>
+      <Button fx:id="btnInventory" text="Inventory" onAction="#onInventory"/>
+      <Button fx:id="btnReports" text="Reports" onAction="#onReports"/>
+      
+      <!-- Bottom section -->
+      <Region VBox.vgrow="ALWAYS"/>
+      <Separator/>
+      <Button fx:id="btnSettings" text="Settings" onAction="#onSettings"/>
+      <Button fx:id="btnLogout" text="Logout" onAction="#onLogout" styleClass="button-secondary"/>
     </VBox>
   </left>
 
