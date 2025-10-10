@@ -1,0 +1,26 @@
+# Gradle
+.gradle/
+build/
+.settings/
+*.log
+*.jar
+*.war
+*.ear
+*.zip
+*.tar
+*.tar.gz
+
+# IDE-specific files (e.g., IntelliJ IDEA, Eclipse)
+.idea/
+.project
+.classpath
+.externalToolBuilders/
+.settings/
+.vscode/
+
+# Operating System files
+.DS_Store
+Thumbs.db
+
+# Local configuration files (if applicable)
+gradle.properties.local

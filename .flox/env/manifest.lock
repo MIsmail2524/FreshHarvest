@@ -1,0 +1,261 @@
+{
+  "lockfile-version": 1,
+  "manifest": {
+    "version": 1,
+    "install": {
+      "gradle_9": {
+        "pkg-path": "gradle_9"
+      },
+      "jdk21": {
+        "pkg-path": "jdk21"
+      }
+    },
+    "hook": {},
+    "profile": {},
+    "options": {}
+  },
+  "packages": [
+    {
+      "attr_path": "gradle_9",
+      "broken": false,
+      "derivation": "/nix/store/9xv0ygz222msp675lgx28r06mn52kxrs-gradle-9.1.0.drv",
+      "description": "Enterprise-grade build system",
+      "install_id": "gradle_9",
+      "license": "Apache-2.0",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=7df7ff7d8e00218376575f0acdcc5d66741351ee",
+      "name": "gradle-9.1.0",
+      "pname": "gradle_9",
+      "rev": "7df7ff7d8e00218376575f0acdcc5d66741351ee",
+      "rev_count": 870157,
+      "rev_date": "2025-10-02T04:57:58Z",
+      "scrape_date": "2025-10-03T04:40:09.734318Z",
+      "stabilities": [
+        "staging",
+        "unstable"
+      ],
+      "unfree": false,
+      "version": "9.1.0",
+      "outputs_to_install": [
+        "out"
+      ],
+      "outputs": {
+        "out": "/nix/store/gmng35iasylcn7k0b9igj17fiq1qkljl-gradle-9.1.0"
+      },
+      "system": "aarch64-darwin",
+      "group": "toplevel",
+      "priority": 5
+    },
+    {
+      "attr_path": "gradle_9",
+      "broken": false,
+      "derivation": "/nix/store/m8nn5i7jsbyg7944s4mh4yi0dyix95rr-gradle-9.1.0.drv",
+      "description": "Enterprise-grade build system",
+      "install_id": "gradle_9",
+      "license": "Apache-2.0",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=7df7ff7d8e00218376575f0acdcc5d66741351ee",
+      "name": "gradle-9.1.0",
+      "pname": "gradle_9",
+      "rev": "7df7ff7d8e00218376575f0acdcc5d66741351ee",
+      "rev_count": 870157,
+      "rev_date": "2025-10-02T04:57:58Z",
+      "scrape_date": "2025-10-03T04:56:40.185271Z",
+      "stabilities": [
+        "staging",
+        "unstable"
+      ],
+      "unfree": false,
+      "version": "9.1.0",
+      "outputs_to_install": [
+        "out"
+      ],
+      "outputs": {
+        "out": "/nix/store/k2c5hd7v9q4v5b6va3fdjl7w3gmvw2fs-gradle-9.1.0"
+      },
+      "system": "aarch64-linux",
+      "group": "toplevel",
+      "priority": 5
+    },
+    {
+      "attr_path": "gradle_9",
+      "broken": false,
+      "derivation": "/nix/store/ix1r8jmf1m2h1idwffvkji6w3rhyis1k-gradle-9.1.0.drv",
+      "description": "Enterprise-grade build system",
+      "install_id": "gradle_9",
+      "license": "Apache-2.0",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=7df7ff7d8e00218376575f0acdcc5d66741351ee",
+      "name": "gradle-9.1.0",
+      "pname": "gradle_9",
+      "rev": "7df7ff7d8e00218376575f0acdcc5d66741351ee",
+      "rev_count": 870157,
+      "rev_date": "2025-10-02T04:57:58Z",
+      "scrape_date": "2025-10-03T05:12:16.423822Z",
+      "stabilities": [
+        "staging",
+        "unstable"
+      ],
+      "unfree": false,
+      "version": "9.1.0",
+      "outputs_to_install": [
+        "out"
+      ],
+      "outputs": {
+        "out": "/nix/store/ziyi5r4n8sjngpcbbnishbbjcl51hk1q-gradle-9.1.0"
+      },
+      "system": "x86_64-darwin",
+      "group": "toplevel",
+      "priority": 5
+    },
+    {
+      "attr_path": "gradle_9",
+      "broken": false,
+      "derivation": "/nix/store/ql7fjk50s8a4jaljf72r3g7iq131l08v-gradle-9.1.0.drv",
+      "description": "Enterprise-grade build system",
+      "install_id": "gradle_9",
+      "license": "Apache-2.0",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=7df7ff7d8e00218376575f0acdcc5d66741351ee",
+      "name": "gradle-9.1.0",
+      "pname": "gradle_9",
+      "rev": "7df7ff7d8e00218376575f0acdcc5d66741351ee",
+      "rev_count": 870157,
+      "rev_date": "2025-10-02T04:57:58Z",
+      "scrape_date": "2025-10-03T05:27:33.856709Z",
+      "stabilities": [
+        "staging",
+        "unstable"
+      ],
+      "unfree": false,
+      "version": "9.1.0",
+      "outputs_to_install": [
+        "out"
+      ],
+      "outputs": {
+        "out": "/nix/store/q32gswmjra19gf3paqznck9ia86q5blq-gradle-9.1.0"
+      },
+      "system": "x86_64-linux",
+      "group": "toplevel",
+      "priority": 5
+    },
+    {
+      "attr_path": "jdk21",
+      "broken": false,
+      "derivation": "/nix/store/h6k1xd8hav0sc7qkbr0m20s5n5dpy1xh-zulu-ca-jdk-21.0.8.drv",
+      "description": "Certified builds of OpenJDK",
+      "install_id": "jdk21",
+      "license": "GPL-2.0-only",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=7df7ff7d8e00218376575f0acdcc5d66741351ee",
+      "name": "zulu-ca-jdk-21.0.8",
+      "pname": "jdk21",
+      "rev": "7df7ff7d8e00218376575f0acdcc5d66741351ee",
+      "rev_count": 870157,
+      "rev_date": "2025-10-02T04:57:58Z",
+      "scrape_date": "2025-10-03T04:40:23.683769Z",
+      "stabilities": [
+        "staging",
+        "unstable"
+      ],
+      "unfree": false,
+      "version": "21.0.8",
+      "outputs_to_install": [
+        "out"
+      ],
+      "outputs": {
+        "out": "/nix/store/wyi32zphr3jh1npsz0yj8bbswvjs3w8m-zulu-ca-jdk-21.0.8"
+      },
+      "system": "aarch64-darwin",
+      "group": "toplevel",
+      "priority": 5
+    },
+    {
+      "attr_path": "jdk21",
+      "broken": false,
+      "derivation": "/nix/store/ksfnca86sj4lls68ifhql9a8klvp2mb7-openjdk-21.0.8+9.drv",
+      "description": "Open-source Java Development Kit",
+      "install_id": "jdk21",
+      "license": "GPL-2.0-only",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=7df7ff7d8e00218376575f0acdcc5d66741351ee",
+      "name": "openjdk-21.0.8+9",
+      "pname": "jdk21",
+      "rev": "7df7ff7d8e00218376575f0acdcc5d66741351ee",
+      "rev_count": 870157,
+      "rev_date": "2025-10-02T04:57:58Z",
+      "scrape_date": "2025-10-03T04:56:58.923761Z",
+      "stabilities": [
+        "staging",
+        "unstable"
+      ],
+      "unfree": false,
+      "version": "21.0.8+9",
+      "outputs_to_install": [
+        "out"
+      ],
+      "outputs": {
+        "debug": "/nix/store/kn22yymknn23bwqjq7pysi9xypzj6bb6-openjdk-21.0.8+9-debug",
+        "out": "/nix/store/7qc7ppjqm9fmzk5d3k7qk3b0kd7m93dy-openjdk-21.0.8+9"
+      },
+      "system": "aarch64-linux",
+      "group": "toplevel",
+      "priority": 5
+    },
+    {
+      "attr_path": "jdk21",
+      "broken": false,
+      "derivation": "/nix/store/17hkgm5iqanfg02j6p6yxg4p5pm79dak-zulu-ca-jdk-21.0.8.drv",
+      "description": "Certified builds of OpenJDK",
+      "install_id": "jdk21",
+      "license": "GPL-2.0-only",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=7df7ff7d8e00218376575f0acdcc5d66741351ee",
+      "name": "zulu-ca-jdk-21.0.8",
+      "pname": "jdk21",
+      "rev": "7df7ff7d8e00218376575f0acdcc5d66741351ee",
+      "rev_count": 870157,
+      "rev_date": "2025-10-02T04:57:58Z",
+      "scrape_date": "2025-10-03T05:12:30.367377Z",
+      "stabilities": [
+        "staging",
+        "unstable"
+      ],
+      "unfree": false,
+      "version": "21.0.8",
+      "outputs_to_install": [
+        "out"
+      ],
+      "outputs": {
+        "out": "/nix/store/vhb3vgnnzf6alzlrs8b0acrvrvf1p1yp-zulu-ca-jdk-21.0.8"
+      },
+      "system": "x86_64-darwin",
+      "group": "toplevel",
+      "priority": 5
+    },
+    {
+      "attr_path": "jdk21",
+      "broken": false,
+      "derivation": "/nix/store/b7v3y787njkh7lph9d9gnzyvfj0p9xy7-openjdk-21.0.8+9.drv",
+      "description": "Open-source Java Development Kit",
+      "install_id": "jdk21",
+      "license": "GPL-2.0-only",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=7df7ff7d8e00218376575f0acdcc5d66741351ee",
+      "name": "openjdk-21.0.8+9",
+      "pname": "jdk21",
+      "rev": "7df7ff7d8e00218376575f0acdcc5d66741351ee",
+      "rev_count": 870157,
+      "rev_date": "2025-10-02T04:57:58Z",
+      "scrape_date": "2025-10-03T05:27:53.642878Z",
+      "stabilities": [
+        "staging",
+        "unstable"
+      ],
+      "unfree": false,
+      "version": "21.0.8+9",
+      "outputs_to_install": [
+        "out"
+      ],
+      "outputs": {
+        "debug": "/nix/store/wb2p0g0v3bvzrps8zx908qaa6qd1w9ps-openjdk-21.0.8+9-debug",
+        "out": "/nix/store/hm028d05qs6138ggq02239sh6qf5xwd6-openjdk-21.0.8+9"
+      },
+      "system": "x86_64-linux",
+      "group": "toplevel",
+      "priority": 5
+    }
+  ]
+}
