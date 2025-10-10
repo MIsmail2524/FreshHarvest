@@ -28,8 +28,8 @@ public class FreshHarvestApp extends Application {
         SceneManager sceneManager = SceneManager.getInstance();
         sceneManager.initialize(stage);
         
-        // Load the main/dashboard screen
-        sceneManager.switchToScene("dashboard");
+    // Load the main layout (contains sidebar + content area)
+    sceneManager.switchToScene("main");
         
         stage.show();
     }

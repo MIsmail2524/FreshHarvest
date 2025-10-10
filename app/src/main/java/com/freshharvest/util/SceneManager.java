@@ -21,22 +21,20 @@ public class SceneManager {
     private Stage primaryStage;
     private Map<String, Scene> sceneCache;
     private Map<String, Object> controllerCache;
+    private Map<String, Parent> viewCache;
     
     // FXML file paths mapping
     private static final Map<String, String> SCENE_PATHS = new HashMap<>();
     
     static {
+        SCENE_PATHS.put("main", "/fxml/main.fxml");
         SCENE_PATHS.put("dashboard", "/fxml/dashboard.fxml");
-        SCENE_PATHS.put("products", "/fxml/products.fxml");
-        SCENE_PATHS.put("inventory", "/fxml/inventory.fxml");
-        SCENE_PATHS.put("orders", "/fxml/orders.fxml");
-        SCENE_PATHS.put("customers", "/fxml/customers.fxml");
-        SCENE_PATHS.put("settings", "/fxml/settings.fxml");
     }
     
     private SceneManager() {
         sceneCache = new HashMap<>();
         controllerCache = new HashMap<>();
+        viewCache = new HashMap<>();
     }
     
     public static SceneManager getInstance() {
@@ -92,6 +90,25 @@ public class SceneManager {
         
         return scene;
     }
+
+    /**
+     * Load and return the FXML root (Parent) for a sceneId.
+     * Useful to embed screens into a persistent main layout.
+     */
+    public javafx.scene.Parent getView(String sceneId) throws IOException {
+        if (viewCache.containsKey(sceneId)) {
+            return viewCache.get(sceneId);
+        }
+        String fxmlPath = SCENE_PATHS.get(sceneId);
+        if (fxmlPath == null) {
+            throw new IllegalArgumentException("View not found: " + sceneId);
+        }
+        javafx.fxml.FXMLLoader loader = new javafx.fxml.FXMLLoader(getClass().getResource(fxmlPath));
+        javafx.scene.Parent root = loader.load();
+        viewCache.put(sceneId, root);
+        controllerCache.put(sceneId, loader.getController());
+        return root;
+    }
     
     /**
      * Get the controller for a specific scene
@@ -108,6 +125,9 @@ public class SceneManager {
     public void clearCache() {
         sceneCache.clear();
         controllerCache.clear();
+        if (viewCache != null) {
+            viewCache.clear();
+        }
     }
     
     /**

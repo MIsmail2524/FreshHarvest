@@ -12,6 +12,8 @@ public class DashboardController {
     
     @FXML
     private void closeApplication() {
-        // Close Application here
+        if (com.freshharvest.app.FreshHarvestApp.getPrimaryStage() != null) {
+            com.freshharvest.app.FreshHarvestApp.getPrimaryStage().close();
+        }
     }
 }
