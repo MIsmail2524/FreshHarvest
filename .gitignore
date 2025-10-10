@@ -24,3 +24,6 @@ Thumbs.db
 
 # Local configuration files (if applicable)
 gradle.properties.local
+
+# Libs
+libs/
