@@ -1,0 +1,36 @@
+/* FreshHarvest Application Styles */
+
+/* Root styling */
+.root {
+    -fx-font-family: "Segoe UI", Arial, sans-serif;
+    -fx-font-size: 14px;
+    -fx-background-color: #f5f5f5;
+}
+
+/* Page titles */
+.page-title {
+    -fx-text-fill: #2e7d32;
+    -fx-font-weight: bold;
+}
+
+.page-subtitle {
+    -fx-text-fill: #666666;
+}
+
+/* Button styling */
+.button {
+    -fx-background-color: #4caf50;
+    -fx-text-fill: white;
+    -fx-border-radius: 4;
+    -fx-background-radius: 4;
+    -fx-padding: 8 16 8 16;
+    -fx-cursor: hand;
+}
+
+.button:hover {
+    -fx-background-color: #45a049;
+}
+
+.button:pressed {
+    -fx-background-color: #3d8b40;
+}

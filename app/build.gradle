@@ -21,7 +21,7 @@ dependencies {
 }
 
 application {
-    mainClass = 'org.example.App'
+    mainClass = 'com.freshharvest.app.FreshHarvestApp'
 }
 
 tasks.withType(JavaExec) {

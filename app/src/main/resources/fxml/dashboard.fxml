@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" 
+            fx:controller="com.freshharvest.controller.DashboardController"
+            stylesheets="@../css/application.css">
+
+   <center>
+      <VBox alignment="CENTER" spacing="20.0">
+         <Label text="Dashboard" styleClass="page-title">
+            <font>
+               <Font name="System Bold" size="32.0" />
+            </font>
+         </Label>
+         <Label text="This screen is under development" styleClass="page-subtitle">
+            <font>
+               <Font size="18.0" />
+            </font>
+         </Label>
+         <Button text="Close Application" onAction="#closeApplication" />
+      </VBox>
+   </center>
+</BorderPane>
