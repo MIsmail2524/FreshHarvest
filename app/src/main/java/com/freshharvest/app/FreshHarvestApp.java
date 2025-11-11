@@ -1,5 +1,8 @@
 package com.freshharvest.app;
 
+import java.sql.Connection;
+
+import com.freshharvest.util.DBHandle;
 import com.freshharvest.util.SceneManager;
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -39,6 +42,13 @@ public class FreshHarvestApp extends Application {
     }
     
     public static void main(String[] args) {
-        launch(args);
+        DBHandle db = DBHandle.getInstance();
+        try (Connection conn = db.getConnection()) {
+            System.out.println("DB connection valid? " + conn.isValid(2));
+            launch(args);
+        } catch (Exception e) {
+            e.printStackTrace();
+            primaryStage.close();
+        }
     }
 }

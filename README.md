@@ -25,3 +25,10 @@ Run the app
 ```
 
 That's it — the app should launch using the Gradle run task.
+
+## Environment File (app/.env)
+```.env
+DB_URL=jdbc:mysql://localhost:3306/testdb
+DB_USER=root
+DB_PASS=123
+```

@@ -27,3 +27,6 @@ gradle.properties.local
 
 # Libs
 libs/
+
+# Env
+.env
