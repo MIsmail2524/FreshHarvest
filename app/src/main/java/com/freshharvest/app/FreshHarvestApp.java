@@ -1,54 +1,53 @@
 package com.freshharvest.app;
 
-import java.sql.Connection;
-
-import com.freshharvest.util.DBHandle;
-import com.freshharvest.util.SceneManager;
+import java.io.IOException;
+import java.net.URL;
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-/**
- * Main Application Class for FreshHarvest
- * 
- * This class serves as the entry point for the JavaFX application.
- * 
- */
 public class FreshHarvestApp extends Application {
-    
-    private static Stage primaryStage;
-    
+
     @Override
-    public void start(Stage stage) throws Exception {
-        primaryStage = stage;
-        
-        // Configure the primary stage
-        stage.setTitle("FreshHarvest - Farm Management System");
-        stage.setMinWidth(800);
-        stage.setMinHeight(600);
-        stage.setMaximized(false);
-        
-        // Initialize the scene manager and show the main screen
-        SceneManager sceneManager = SceneManager.getInstance();
-        sceneManager.initialize(stage);
-        
-    // Load the main layout (contains sidebar + content area)
-    sceneManager.switchToScene("main");
-        
-        stage.show();
-    }
-    
-    public static Stage getPrimaryStage() {
-        return primaryStage;
-    }
-    
-    public static void main(String[] args) {
-        DBHandle db = DBHandle.getInstance();
-        try (Connection conn = db.getConnection()) {
-            System.out.println("DB connection valid? " + conn.isValid(2));
-            launch(args);
-        } catch (Exception e) {
+    public void start(Stage primaryStage) {
+        try {
+            // 1. Get the URL for the main FXML file
+            URL fxmlUrl = getClass().getResource("/fxml/main.fxml");
+            if (fxmlUrl == null) {
+                System.err.println("Cannot find main.fxml. Check path.");
+                return;
+            }
+
+            // 2. Load the FXML file
+            Parent root = FXMLLoader.load(fxmlUrl);
+
+            // 3. Create the main scene
+            Scene scene = new Scene(root);
+
+            // 4. Get the URL for the CSS file
+            URL cssUrl = getClass().getResource("/css/application.css");
+            if (cssUrl != null) {
+                // 5. Apply the stylesheet
+                scene.getStylesheets().add(cssUrl.toExternalForm());
+            } else {
+                System.err.println("Cannot find application.css. Check path.");
+            }
+
+            // 6. Set up and show the stage (the main window)
+            primaryStage.setTitle("FreshHarvest - Farm Management System");
+            primaryStage.setScene(scene);
+            primaryStage.setMinHeight(720);
+            primaryStage.setMinWidth(1280);
+            primaryStage.show();
+
+        } catch (IOException e) {
             e.printStackTrace();
-            primaryStage.close();
         }
+    }
+
+    public static void main(String[] args) {
+        launch(args);
     }
 }

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
+    fx:controller="com.freshharvest.controller.FactoryDashboardController"
+    styleClass="content-pane" spacing="20">
+    
+    <padding>
+        <Insets top="20" right="30" bottom="20" left="30" />
+    </padding>
+
+    <Label text="Factory Dashboard" styleClass="page-title" />
+    <Label text="Overview of factory operations and batch statuses." styleClass="page-subtitle" />
+    
+    <Separator />
+
+    <GridPane hgap="20" vgap="20">
+        <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="200.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="200.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="200.0" />
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="100.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+        <children>
+            <VBox styleClass="card" GridPane.columnIndex="0">
+                <Label text="Batches Awaiting Processing" styleClass="card-title" />
+                <Label fx:id="lblPendingBatches" text="0" styleClass="card-value" />
+            </VBox>
+            
+            <VBox styleClass="card" GridPane.columnIndex="1">
+                <Label text="Batches in Progress" styleClass="card-title" />
+                <Label fx:id="lblInProgressBatches" text="0" styleClass="card-value" />
+            </VBox>
+
+            <VBox styleClass="card" GridPane.columnIndex="2">
+                <Label text="Packaged &amp; Ready" styleClass="card-title" />
+                <Label fx:id="lblPackagedBatches" text="0" styleClass="card-value" />
+            </VBox>
+        </children>
+    </GridPane>
+
+    <Separator />
+
+    <Label text="Pending Action Items" styleClass="content-title" />
+    <TableView fx:id="pendingActionsTable" prefHeight="300.0">
+        <columns>
+            <TableColumn fx:id="colBatchId" prefWidth="100.0" text="Batch ID" />
+            <TableColumn fx:id="colCropType" prefWidth="150.0" text="Crop Type" />
+            <TableColumn fx:id="colStatus" prefWidth="200.0" text="Required Action" />
+            <TableColumn fx:id="colReceived" prefWidth="150.0" text="Date Received" />
+        </columns>
+    </TableView>
+
+</VBox>

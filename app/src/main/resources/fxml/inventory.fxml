@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
+    fx:controller="com.freshharvest.controller.InventoryController"
+    styleClass="content-pane" spacing="20">
+    
+    <padding>
+        <Insets top="20" right="30" bottom="20" left="30" />
+    </padding>
+
+    <Label text="Inventory &amp; Storage" styleClass="page-title" />
+    <Label text="Manage packaged stock and assign to warehouse locations." styleClass="page-subtitle" />
+    
+    <Separator />
+
+    <Label text="Packaged Batches (Awaiting Storage)" styleClass="content-title" />
+    <TableView fx:id="packagedBatchTable" prefHeight="300.0">
+        <columns>
+            <TableColumn fx:id="colBatchId" prefWidth="100.0" text="Batch ID" />
+            <TableColumn fx:id="colCropType" prefWidth="150.0" text="Crop Type" />
+            <TableColumn fx:id="colGrade" prefWidth="75.0" text="Grade" />
+            <TableColumn fx:id="colPackageType" prefWidth="150.0" text="Package Type" />
+            <TableColumn fx:id="colQuantity" prefWidth="100.0" text="Quantity" />
+        </columns>
+    </TableView>
+
+    <Separator />
+
+    <Label text="Assign to Storage Location" styleClass="content-title" />
+    <GridPane hgap="10" vgap="15" maxWidth="700">
+        <children>
+            <Label text="Selected Batch:" GridPane.rowIndex="0" GridPane.columnIndex="0" />
+            <Label fx:id="lblSelectedBatch" text="None" styleClass="text-bold" GridPane.rowIndex="0" GridPane.columnIndex="1" />
+
+            <Label text="Warehouse Location:" GridPane.rowIndex="1" GridPane.columnIndex="0" />
+            <TextField fx:id="txtLocation" promptText="e.g., Cold Storage A-01" prefWidth="250" GridPane.rowIndex="1" GridPane.columnIndex="1" />
+
+            <Label text="Storage Conditions:" GridPane.rowIndex="1" GridPane.columnIndex="2" />
+            <TextField fx:id="txtConditions" promptText="e.g., 5°C, 80% Humidity" prefWidth="250" GridPane.rowIndex="1" GridPane.columnIndex="3" />
+
+            <Button fx:id="btnStoreBatch" text="Store Batch" onAction="#onStoreBatch" GridPane.rowIndex="1" GridPane.columnIndex="4" />
+        </children>
+    </GridPane>
+</VBox>

@@ -549,3 +549,55 @@
     -fx-background-color: #e8f5e8;
     -fx-text-fill: #2e7d32;
 }
+
+
+
+
+/* === Add these to your application.css === */
+
+.card {
+    -fx-background-color: -fx-light-grey;
+    -fx-padding: 20px;
+    -fx-background-radius: 8px;
+    -fx-alignment: CENTER_LEFT;
+    -fx-spacing: 5;
+}
+
+.card-title {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -fx-text-base;
+}
+
+.card-value {
+    -fx-font-size: 32px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -fx-primary-color;
+}
+
+/* === These styles should already exist === */
+.root {
+    -fx-primary-color: #4CAF50; /* Green from your screenshot */
+    -fx-secondary-color: #f4f4f4; /* Light grey background */
+    -fx-light-grey: #ffffff;
+    -fx-text-base: #333333;
+    -fx-text-light: #666666;
+    -fx-accent-color: #FF5722;
+}
+
+.page-title {
+    -fx-font-size: 28px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -fx-primary-color;
+}
+
+.page-subtitle {
+    -fx-font-size: 16px;
+    -fx-text-fill: -fx-text-light;
+}
+
+.content-title {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -fx-text-base;
+}

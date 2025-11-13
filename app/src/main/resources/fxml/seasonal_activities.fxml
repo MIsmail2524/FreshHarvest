@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
+    fx:controller="com.freshharvest.controller.SeasonalActivityController"
+    styleClass="content-pane" spacing="20">
+    
+    <padding>
+        <Insets top="20" right="30" bottom="20" left="30" />
+    </padding>
+
+    <Label text="Track Seasonal Activities" styleClass="page-title" />
+    <Label text="Log maintenance, harvesting, and other activities." styleClass="page-subtitle" />
+    
+    <Separator />
+
+    <Label text="Add New Activity Record" styleClass="content-title" />
+    <GridPane hgap="10" vgap="15" maxWidth="700">
+        <children>
+            <Label text="Plantation Record:" GridPane.rowIndex="0" GridPane.columnIndex="0" />
+            <ComboBox fx:id="cmbPlantation" promptText="Select plantation" prefWidth="250" GridPane.rowIndex="0" GridPane.columnIndex="1" />
+
+            <Label text="Activity Type:" GridPane.rowIndex="1" GridPane.columnIndex="0" />
+            <ComboBox fx:id="cmbActivityType" promptText="Select activity type" prefWidth="250" GridPane.rowIndex="1" GridPane.columnIndex="1" />
+
+            <Label text="Date:" GridPane.rowIndex="2" GridPane.columnIndex="0" />
+            <DatePicker fx:id="dpActivityDate" prefWidth="250" GridPane.rowIndex="2" GridPane.columnIndex="1" />
+
+            <Label text="Cost (PKR):" GridPane.rowIndex="1" GridPane.columnIndex="2" />
+            <TextField fx:id="txtCost" promptText="e.g., 15000" GridPane.rowIndex="1" GridPane.columnIndex="3" />
+
+            <Label text="Notes:" GridPane.rowIndex="2" GridPane.columnIndex="2" />
+            <TextField fx:id="txtNotes" promptText="e.g., Labor cost for 10 workers" prefWidth="250" GridPane.rowIndex="2" GridPane.columnIndex="3" />
+
+            <Button fx:id="btnLogActivity" text="Log Activity" onAction="#onLogActivity" GridPane.rowIndex="3" GridPane.columnIndex="3" />
+        </children>
+    </GridPane>
+    
+    <Separator />
+
+    <Label text="Logged Activities" styleClass="content-title" />
+    <TableView fx:id="activityTable" prefHeight="300.0">
+        <columns>
+            <TableColumn fx:id="colActivityId" prefWidth="75.0" text="ID" />
+            <TableColumn fx:id="colPlantation" prefWidth="150.0" text="Plantation" />
+            <TableColumn fx:id="colActivityType" prefWidth="150.0" text="Activity" />
+            <TableColumn fx:id="colDate" prefWidth="120.0" text="Date" />
+            <TableColumn fx:id="colCost" prefWidth="100.0" text="Cost" />
+            <TableColumn fx:id="colNotes" prefWidth="250.0" text="Notes" />
+        </columns>
+    </TableView>
+</VBox>

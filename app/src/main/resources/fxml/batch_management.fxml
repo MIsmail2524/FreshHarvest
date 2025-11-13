@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
+    fx:controller="com.freshharvest.controller.BatchManagementController"
+    styleClass="content-pane" spacing="20">
+    
+    <padding>
+        <Insets top="20" right="30" bottom="20" left="30" />
+    </padding>
+
+    <Label text="Batch Management" styleClass="page-title" />
+    <Label text="Process, grade, and package incoming harvested batches." styleClass="page-subtitle" />
+    
+    <Separator />
+
+    <Label text="Incoming Batches" styleClass="content-title" />
+    <TableView fx:id="batchTable" prefHeight="250.0">
+        <columns>
+            <TableColumn fx:id="colBatchId" prefWidth="100.0" text="Batch ID" />
+            <TableColumn fx:id="colCropType" prefWidth="150.0" text="Crop Type" />
+            <TableColumn fx:id="colHarvestDate" prefWidth="120.0" text="Harvest Date" />
+            <TableColumn fx:id="colStatus" prefWidth="150.0" text="Status" />
+            <TableColumn fx:id="colGrade" prefWidth="75.0" text="Grade" />
+        </columns>
+    </TableView>
+
+    <Separator />
+
+    <Label text="Process Selected Batch" styleClass="content-title" />
+    <GridPane hgap="10" vgap="15" maxWidth="700">
+        <children>
+            <Label text="Selected Batch:" GridPane.rowIndex="0" GridPane.columnIndex="0" />
+            <Label fx:id="lblSelectedBatch" text="None" styleClass="text-bold" GridPane.rowIndex="0" GridPane.columnIndex="1" />
+
+            <Label text="Assign Grade:" GridPane.rowIndex="1" GridPane.columnIndex="0" />
+            <ComboBox fx:id="cmbGrade" promptText="Select grade" prefWidth="200" GridPane.rowIndex="1" GridPane.columnIndex="1" />
+
+            <Label text="Set Status:" GridPane.rowIndex="1" GridPane.columnIndex="2" />
+            <ComboBox fx:id="cmbStatus" promptText="Set status" prefWidth="200" GridPane.rowIndex="1" GridPane.columnIndex="3" />
+
+            <Button fx:id="btnSaveGrading" text="Save Grade &amp; Status" onAction="#onSaveGrading" GridPane.rowIndex="1" GridPane.columnIndex="4" />
+
+            <Label text="Package Type:" GridPane.rowIndex="2" GridPane.columnIndex="0" />
+            <ComboBox fx:id="cmbPackageType" promptText="Select box/crate" prefWidth="200" GridPane.rowIndex="2" GridPane.columnIndex="1" />
+
+            <Label text="Quantity per Box:" GridPane.rowIndex="2" GridPane.columnIndex="2" />
+            <TextField fx:id="txtPackageQty" promptText="e.g., 20" GridPane.rowIndex="2" GridPane.columnIndex="3" />
+
+            <Button fx:id="btnSavePackaging" text="Confirm Packaging" onAction="#onSavePackaging" GridPane.rowIndex="2" GridPane.columnIndex="4" />
+        </children>
+    </GridPane>
+</VBox>

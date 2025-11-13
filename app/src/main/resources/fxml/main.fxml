@@ -22,6 +22,13 @@
       <Button fx:id="btnCustomers" text="Customers" onAction="#onCustomers"/>
       <Button fx:id="btnInventory" text="Inventory" onAction="#onInventory"/>
       <Button fx:id="btnReports" text="Reports" onAction="#onReports"/>
+      <Button fx:id="btnReports" text="Reports" onAction="#onReports"/>
+      
+      <Separator />
+      <Label text="Factory" styleClass="sidebar-heading"/> <Button fx:id="btnFactoryDashboard" text="Factory Dashboard" onAction="#onFactoryDashboard"/>
+      <Button fx:id="btnBatchManagement" text="Batch Management" onAction="#onBatchManagement"/>
+      <Button fx:id="btnInventory" text="Inventory" onAction="#onInventory"/>
+      <Region VBox.vgrow="ALWAYS"/>
       
       <!-- Bottom section -->
       <Region VBox.vgrow="ALWAYS"/>
