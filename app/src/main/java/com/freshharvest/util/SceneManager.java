@@ -27,6 +27,7 @@ public class SceneManager {
     private static final Map<String, String> SCENE_PATHS = new HashMap<>();
     
     static {
+        SCENE_PATHS.put("login", "/fxml/login.fxml");
         SCENE_PATHS.put("main", "/fxml/main.fxml");
         SCENE_PATHS.put("dashboard", "/fxml/dashboard.fxml");
     }

@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<ScrollPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="com.freshharvest.controller.LoginController"
+           fitToWidth="true" fitToHeight="true"
+           hbarPolicy="NEVER" vbarPolicy="AS_NEEDED"
+           stylesheets="@../css/application.css">
+           
+<VBox styleClass="login-container"
+      prefWidth="500.0" minHeight="700.0"
+      alignment="CENTER">
+
+    <!-- Header Section -->
+    <VBox alignment="CENTER" spacing="6">
+        <VBox.margin>
+            <Insets bottom="24.0"/>
+        </VBox.margin>
+        
+        <Label text="FreshHarvest" styleClass="login-brand"/>
+        <Label text="Farm Management System" styleClass="login-subtitle"/>
+    </VBox>
+
+    <!-- Login Card -->
+    <VBox styleClass="login-card" alignment="CENTER" spacing="24">
+        <VBox.margin>
+            <Insets/>
+        </VBox.margin>
+
+        <!-- Welcome Header -->
+        <VBox alignment="CENTER" spacing="6">
+            <Label fx:id="lblWelcome" text="Welcome Back" styleClass="login-welcome"/>
+            <Label text="Please sign in to your account" styleClass="login-subtitle"/>
+        </VBox>
+
+        <!-- Login Form -->
+        <VBox spacing="18" alignment="CENTER_LEFT" prefWidth="320.0">
+
+            <!-- Username Field -->
+            <VBox styleClass="login-form-field">
+                <Label text="Username" styleClass="login-field-label"/>
+                <TextField fx:id="txtUsername" 
+                          promptText="Enter your username"
+                          styleClass="login-text-field"
+                          prefWidth="320.0" 
+                          onKeyPressed="#onKeyPressed"/>
+            </VBox>
+
+            <!-- Password Field -->
+            <VBox styleClass="login-form-field">
+                <Label text="Password" styleClass="login-field-label"/>
+                <PasswordField fx:id="txtPassword" 
+                              promptText="Enter your password"
+                              styleClass="login-text-field"
+                              prefWidth="320.0" 
+                              onKeyPressed="#onKeyPressed"/>
+            </VBox>
+
+            <!-- Error Message -->
+            <Label fx:id="lblError" 
+                   text="Error message" 
+                   styleClass="login-error"
+                   visible="false" 
+                   wrapText="true" 
+                   maxWidth="320.0"
+                   prefWidth="320.0"/>
+        </VBox>
+
+        <!-- Login Button Section -->
+        <VBox spacing="12" alignment="CENTER" prefWidth="320.0">
+            
+            <!-- Login Button -->
+            <Button fx:id="btnLogin" 
+                   text="Sign In" 
+                   styleClass="login-button"
+                   prefWidth="320.0"
+                   onAction="#onLogin" 
+                   defaultButton="true"/>
+
+            <!-- Loading Indicator -->
+            <ProgressIndicator fx:id="progressIndicator" 
+                              styleClass="login-progress-indicator"
+                              prefWidth="28.0" 
+                              prefHeight="28.0"
+                              visible="false"/>
+        </VBox>
+    </VBox>
+
+    <!-- Footer Section -->
+    <VBox alignment="CENTER" spacing="12">
+        <VBox.margin>
+            <Insets top="24.0" bottom="20.0"/>
+        </VBox.margin>
+        
+        <Button fx:id="btnExit" 
+               text="Exit Application" 
+               styleClass="login-secondary-button"
+               onAction="#onExit" 
+               cancelButton="true"/>
+               
+        <Label text="© 2025 FreshHarvest v1.0" 
+               styleClass="login-footer"/>
+    </VBox>
+
+</VBox>
+</ScrollPane>
