@@ -1,10 +1,18 @@
 package com.freshharvest.controller;
 
+import com.freshharvest.model.Batch;
+import com.freshharvest.util.DBHandle;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-// import com.freshharvest.model.Batch;
-// import com.freshharvest.util.DBHandler;
+import javafx.scene.control.cell.PropertyValueFactory;
+
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class FactoryDashboardController {
 
@@ -18,48 +26,53 @@ public class FactoryDashboardController {
 
     // FXML fields for table
     @FXML
-    private TableView<Object> pendingActionsTable; // Replace 'Object' with Batch model
-    // ... (TableColumn fields) ...
+    private TableView<Batch> pendingActionsTable;
+    @FXML
+    private TableColumn<Batch, Integer> colBatchId;
+    @FXML
+    private TableColumn<Batch, String> colCropType;
+    @FXML
+    private TableColumn<Batch, String> colStatus;
+    @FXML
+    private TableColumn<Batch, String> colReceived;
     
-    // private DBHandler dbHandler;
+    private DBHandle dbHandler;
 
-    /**
-     * Initializes the controller.
-     */
     @FXML
     public void initialize() {
-        // dbHandler = DBHandler.getInstance();
+        dbHandler = DBHandle.getInstance();
+        
+        // Setup table columns
+        colBatchId.setCellValueFactory(new PropertyValueFactory<>("batchId"));
+        colCropType.setCellValueFactory(new PropertyValueFactory<>("cropType"));
+        colStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
+        colReceived.setCellValueFactory(new PropertyValueFactory<>("harvestDate"));
+
         loadDashboardStats();
         loadPendingActions();
     }
 
-    /**
-     * Fetches data from the database to populate the top-level stats.
-     */
     private void loadDashboardStats() {
         // --- Database Logic ---
-        // int pending = dbHandler.getBatchCountByStatus("Pending");
-        // int inProgress = dbHandler.getBatchCountByStatus("Processing");
-        // int packaged = dbHandler.getBatchCountByStatus("Packaged");
-        
-        // Placeholder data:
-        int pending = 12;
-        int inProgress = 5;
-        int packaged = 42;
+        Map<String, Integer> counts = dbHandler.getBatchStatusCounts();
+
+        int pending = counts.getOrDefault("Pending", 0);
+        int inProgress = counts.getOrDefault("Processing", 0);
+        int packaged = counts.getOrDefault("Packaged", 0);
 
         lblPendingBatches.setText(String.valueOf(pending));
         lblInProgressBatches.setText(String.valueOf(inProgress));
         lblPackagedBatches.setText(String.valueOf(packaged));
     }
 
-    /**
-     * Fetches data for the table of items needing immediate attention.
-     */
     private void loadPendingActions() {
         // --- Database Logic ---
-        // ObservableList<Batch> pendingBatches = dbHandler.getPendingBatches();
-        // pendingActionsTable.setItems(pendingBatches);
+        // Get all batches and filter for those needing action (e.g., 'Pending')
+        ObservableList<Batch> pendingBatches = dbHandler.getAllBatches()
+                .stream()
+                .filter(b -> b.getStatus().equals("Pending"))
+                .collect(Collectors.toCollection(FXCollections::observableArrayList));
         
-        // (You would also set cell value factories here)
+        pendingActionsTable.setItems(pendingBatches);
     }
 }
