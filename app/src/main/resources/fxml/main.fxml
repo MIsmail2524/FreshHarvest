@@ -9,28 +9,26 @@
     fx:controller="com.freshharvest.controller.MainController"
     stylesheets="@../css/application.css">
   
-  <!-- Sidebar -->
   <left>
     <VBox fx:id="sidebar" styleClass="sidebar,spacing-small" prefWidth="240.0">
       <Label text="FreshHarvest" styleClass="brand"/>
       <Separator/>
       
-      <!-- Navigation Menu -->
       <Button fx:id="btnDashboard" text="Dashboard" onAction="#onDashboard" styleClass="active"/>
       <Button fx:id="btnProducts" text="Products" onAction="#onProducts"/>
       <Button fx:id="btnOrders" text="Orders" onAction="#onOrders"/>
       <Button fx:id="btnCustomers" text="Customers" onAction="#onCustomers"/>
-      <Button fx:id="btnInventory" text="Inventory" onAction="#onInventory"/>
-      <Button fx:id="btnReports" text="Reports" onAction="#onReports"/>
-      <Button fx:id="btnReports" text="Reports" onAction="#onReports"/>
-      
+      <Button fx:id="btnInventory" text="Main Inventory" onAction="#onInventory"/>
+      <Button fx:id="btnReports" text="Main Reports" onAction="#onReports"/>
       <Separator />
-      <Label text="Factory" styleClass="sidebar-heading"/> <Button fx:id="btnFactoryDashboard" text="Factory Dashboard" onAction="#onFactoryDashboard"/>
+      <Label text="Factory" styleClass="sidebar-heading"/> 
+      <Button fx:id="btnFactoryDashboard" text="Factory Dashboard" onAction="#onFactoryDashboard"/>
       <Button fx:id="btnBatchManagement" text="Batch Management" onAction="#onBatchManagement"/>
-      <Button fx:id="btnInventory" text="Inventory" onAction="#onInventory"/>
-      <Region VBox.vgrow="ALWAYS"/>
       
-      <!-- Bottom section -->
+      <Button fx:id="btnFactoryInventory" text="Factory Inventory" onAction="#onFactoryInventory"/>
+
+      <Button fx:id="btnFactoryReport" text="Factory Reports" onAction="#onFactoryReport"/>
+      
       <Region VBox.vgrow="ALWAYS"/>
       <Separator/>
       <Button fx:id="btnSettings" text="Settings" onAction="#onSettings"/>
@@ -38,7 +36,6 @@
     </VBox>
   </left>
 
-  <!-- Main content area where child screens are loaded -->
   <center>
     <AnchorPane fx:id="contentPane" styleClass="content-pane"/>
   </center>

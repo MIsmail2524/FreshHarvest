@@ -23,15 +23,21 @@ public class MainController {
     @FXML
     private Button btnCustomers;
     @FXML
-    private Button btnInventory;
+    private Button btnInventory; // This is for "Main Inventory"
     @FXML
-    private Button btnReports;
+    private Button btnReports; // This is for "Main Reports"
 
-    // --- New Factory Buttons ---
+    // --- Factory Buttons ---
     @FXML
     private Button btnFactoryDashboard;
     @FXML
     private Button btnBatchManagement;
+    
+    // --- UPDATED: Added new FXML variables ---
+    @FXML
+    private Button btnFactoryInventory;
+    @FXML
+    private Button btnFactoryReport;
 
     // --- Bottom Sidebar Buttons ---
     @FXML
@@ -48,10 +54,11 @@ public class MainController {
      */
     @FXML
     public void initialize() {
-        // Add all navigation buttons to the list
+        // --- UPDATED: Added new buttons to the list ---
         navigationButtons = Arrays.asList(
             btnDashboard, btnProducts, btnOrders, btnCustomers, 
-            btnInventory, btnReports, btnFactoryDashboard, btnBatchManagement
+            btnInventory, btnReports, btnFactoryDashboard, 
+            btnBatchManagement, btnFactoryInventory, btnFactoryReport
         );
 
         // Load the default dashboard screen on startup
@@ -88,19 +95,24 @@ public class MainController {
     }
 
     /**
-     * Handles clicking the Inventory button (Use Case 7).
+     * Handles clicking the Main Inventory button.
      */
     @FXML
     private void onInventory() {
         updateActiveButton(btnInventory);
-        SceneManager.loadScene(contentPane, "inventory.fxml");
+        // This can load a different inventory screen (e.g., for the farmer)
+       // SceneManager.loadScene(contentPane, "inventory.fxml");
     }
 
+    /**
+     * Handles clicking the Main Reports button.
+     * FIXED: Uncommented the SceneManager line.
+     */
     @FXML
     private void onReports() {
         updateActiveButton(btnReports);
-        // SceneManager.loadScene(contentPane, "reports.fxml"); // TODO: Create this screen
-        System.out.println("Reports screen not yet implemented.");
+        // This can load a different report screen (e.g., for the farmer)
+        SceneManager.loadScene(contentPane, "report.fxml"); 
     }
 
     /**
@@ -119,6 +131,28 @@ public class MainController {
     private void onBatchManagement() {
         updateActiveButton(btnBatchManagement);
         SceneManager.loadScene(contentPane, "batch_management.fxml");
+    }
+
+    // --- NEW: Added handler methods for new buttons ---
+
+    /**
+     * Handles clicking the Factory Inventory button.
+     */
+    @FXML
+    private void onFactoryInventory() {
+        updateActiveButton(btnFactoryInventory);
+        // This loads the "inventory.fxml" you already built
+        SceneManager.loadScene(contentPane, "inventory.fxml");
+    }
+
+    /**
+     * Handles clicking the Factory Report button.
+     */
+    @FXML
+    private void onFactoryReport() {
+        updateActiveButton(btnFactoryReport);
+        // This loads the "report.fxml" you already built
+        SceneManager.loadScene(contentPane, "Report.fxml");
     }
 
     // --- Bottom Button Handlers ---
