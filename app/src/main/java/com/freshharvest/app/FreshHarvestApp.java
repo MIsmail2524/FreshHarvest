@@ -27,12 +27,12 @@ public class FreshHarvestApp extends Application {
         stage.setMinHeight(600);
         stage.setMaximized(false);
         
-        // Initialize the scene manager and show the main screen
+        // Initialize the scene manager and show the login screen
         SceneManager sceneManager = SceneManager.getInstance();
         sceneManager.initialize(stage);
         
-    // Load the main layout (contains sidebar + content area)
-    sceneManager.switchToScene("main");
+        // Start with login screen
+        sceneManager.switchToScene("login");
         
         stage.show();
     }

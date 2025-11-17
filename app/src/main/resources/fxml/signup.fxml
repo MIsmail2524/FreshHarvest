@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<ScrollPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
+           fx:id="rootScroll"
+           fx:controller="com.freshharvest.controller.SignupController"
+           fitToWidth="true" fitToHeight="true"
+           hbarPolicy="NEVER" vbarPolicy="AS_NEEDED"
+           stylesheets="@../css/application.css">
+           
+<VBox styleClass="login-container"
+    prefWidth="500.0"
+      alignment="CENTER">
+
+    <!-- Header Section -->
+    <VBox alignment="CENTER" spacing="6">
+        <VBox.margin>
+            <Insets bottom="24.0"/>
+        </VBox.margin>
+        
+        <Label text="FreshHarvest" styleClass="login-brand"/>
+        <Label text="Farm Management System" styleClass="login-subtitle"/>
+    </VBox>
+
+    <!-- Signup Card -->
+    <VBox styleClass="login-card" alignment="CENTER" spacing="20">
+        <VBox.margin>
+            <Insets/>
+        </VBox.margin>
+
+        <!-- Welcome Header -->
+        <VBox alignment="CENTER" spacing="6">
+            <Label text="Create Your Account" styleClass="login-welcome"/>
+            <Label text="Join FreshHarvest today" styleClass="login-subtitle"/>
+        </VBox>
+
+        <!-- Signup Form -->
+        <VBox spacing="16" alignment="CENTER_LEFT" prefWidth="320.0">
+
+            <!-- Full Name Field -->
+            <VBox styleClass="login-form-field">
+                <Label text="Full Name" styleClass="login-field-label"/>
+                <TextField fx:id="txtFullName" 
+                          promptText="Enter your full name"
+                          styleClass="login-text-field"
+                          prefWidth="320.0" 
+                          onKeyPressed="#onKeyPressed"/>
+            </VBox>
+
+            <!-- Username Field -->
+            <VBox styleClass="login-form-field">
+                <Label text="Username" styleClass="login-field-label"/>
+                <TextField fx:id="txtUsername" 
+                          promptText="Choose a username"
+                          styleClass="login-text-field"
+                          prefWidth="320.0" 
+                          onKeyPressed="#onKeyPressed"/>
+            </VBox>
+
+            <!-- Email Field -->
+            <VBox styleClass="login-form-field">
+                <Label text="Email Address" styleClass="login-field-label"/>
+                <TextField fx:id="txtEmail" 
+                          promptText="Enter your email address"
+                          styleClass="login-text-field"
+                          prefWidth="320.0" 
+                          onKeyPressed="#onKeyPressed"/>
+            </VBox>
+
+            <!-- Password Field -->
+            <VBox styleClass="login-form-field">
+                <Label text="Password" styleClass="login-field-label"/>
+                <PasswordField fx:id="txtPassword" 
+                              promptText="Create a password (min 6 characters)"
+                              styleClass="login-text-field"
+                              prefWidth="320.0" 
+                              onKeyPressed="#onKeyPressed"/>
+            </VBox>
+
+            <!-- Confirm Password Field -->
+            <VBox styleClass="login-form-field">
+                <Label text="Confirm Password" styleClass="login-field-label"/>
+                <PasswordField fx:id="txtConfirmPassword" 
+                              promptText="Confirm your password"
+                              styleClass="login-text-field"
+                              prefWidth="320.0" 
+                              onKeyPressed="#onKeyPressed"/>
+            </VBox>
+
+            <!-- Role Field -->
+            <VBox styleClass="login-form-field">
+                <Label text="Role" styleClass="login-field-label"/>
+                <ComboBox fx:id="cmbRole" 
+                         promptText="Select your role"
+                         styleClass="login-text-field"
+                         prefWidth="320.0"/>
+            </VBox>
+
+            <!-- Terms Checkbox -->
+            <HBox spacing="8" alignment="CENTER_LEFT">
+                <CheckBox fx:id="chkTerms"/>
+                <Label text="I agree to the Terms and Conditions" styleClass="login-field-label"/>
+            </HBox>
+
+            <!-- Error Message -->
+            <Label fx:id="lblError" 
+                   text="Error message" 
+                   styleClass="login-error"
+                   visible="false" 
+                   wrapText="true" 
+                   maxWidth="320.0"
+                   prefWidth="320.0"/>
+        </VBox>
+
+        <!-- Signup Button Section -->
+        <VBox spacing="12" alignment="CENTER" prefWidth="320.0">
+            
+            <!-- Signup Button -->
+            <Button fx:id="btnSignup" 
+                   text="Create Account" 
+                   styleClass="login-button"
+                   prefWidth="320.0"
+                   onAction="#onSignup" 
+                   defaultButton="true"/>
+
+            <!-- Loading Indicator -->
+            <ProgressIndicator fx:id="progressIndicator" 
+                              styleClass="login-progress-indicator"
+                              prefWidth="28.0" 
+                              prefHeight="28.0"
+                              visible="false"/>
+        </VBox>
+    </VBox>
+
+    <!-- Footer Section -->
+    <VBox alignment="CENTER" spacing="12">
+        <VBox.margin>
+            <Insets top="20.0" bottom="20.0"/>
+        </VBox.margin>
+        
+        <!-- Navigation -->
+        <HBox spacing="16" alignment="CENTER">
+            <Button fx:id="btnBackToLogin" 
+                   text="Back to Login" 
+                   styleClass="login-secondary-button"
+                   onAction="#onBackToLogin"/>
+                   
+            <Button fx:id="btnExit" 
+                   text="Exit" 
+                   styleClass="login-secondary-button"
+                   onAction="#onExit" 
+                   cancelButton="true"/>
+        </HBox>
+               
+        <Label text="© 2025 FreshHarvest v1.0" 
+               styleClass="login-footer"/>
+    </VBox>
+
+</VBox>
+</ScrollPane>

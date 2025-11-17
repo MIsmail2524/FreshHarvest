@@ -4,13 +4,16 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import com.freshharvest.model.UserSession;
 import com.freshharvest.util.SceneManager;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.layout.AnchorPane;
 
 public class MainController implements Initializable {
@@ -36,8 +39,22 @@ public class MainController implements Initializable {
     @FXML
     private Button btnLogout;
 
+    private UserSession userSession;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        userSession = UserSession.getInstance();
+
+        // Check if user is logged in
+        if (!userSession.isLoggedIn()) {
+            // Redirect to login if not authenticated
+            SceneManager.getInstance().switchToScene("login");
+            return;
+        }
+
+        // Setup role-based menu visibility
+        setupRoleBasedAccess();
+
         // Load the dashboard by default
         loadView("dashboard");
         setActiveButton(btnDashboard);
@@ -94,12 +111,48 @@ public class MainController implements Initializable {
 
     @FXML
     private void onLogout(ActionEvent e) { 
-        // TODO: Implement proper logout logic (save state, confirm dialog, etc.)
-        System.out.println("Logout clicked - implement proper logout logic");
-        
-        // For now, just close the application
-        if (com.freshharvest.app.FreshHarvestApp.getPrimaryStage() != null) {
-            com.freshharvest.app.FreshHarvestApp.getPrimaryStage().close();
+        // Show confirmation dialog
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Logout Confirmation");
+        alert.setHeaderText("Are you sure you want to logout?");
+        alert.setContentText("You will be redirected to the login screen.");
+
+        alert.showAndWait().ifPresent(response -> {
+            if (response == ButtonType.OK) {
+                // Perform logout
+                userSession.logout();
+                System.out.println("User logged out successfully");
+
+                // Redirect to login screen
+                SceneManager.getInstance().switchToScene("login");
+            }
+        });
+    }
+
+    /**
+     * Setup role-based access control for menu items
+     * Different user roles have different menu access levels
+     */
+    private void setupRoleBasedAccess() {
+        // Get current user role
+        var currentRole = userSession.getCurrentUserRole();
+
+        if (currentRole == null) return;
+
+        if (currentRole == com.freshharvest.model.User.Role.FARMER) {
+            // TODO: Mange UI
+            return;
+        }
+
+        if (currentRole == com.freshharvest.model.User.Role.FACTORY_MANAGER) {
+            // TODO: Manage UI
+            return;
+        }
+
+        if (currentRole == com.freshharvest.model.User.Role.CUSTOMER) {
+            if (btnReports != null) btnReports.setVisible(false);
+            if (btnSettings != null) btnSettings.setVisible(false);
+            return;
         }
     }
 
