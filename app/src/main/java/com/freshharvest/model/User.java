@@ -7,9 +7,10 @@ package com.freshharvest.model;
 public class User {
 
     public enum Role {
+        ADMIN("Administrator"),
         FARMER("Farmer"),
-        FACTORY_MANAGER("Manager"),
-        CUSTOMER("Employee");
+        FACTORY_MANAGER("Factory Manager"),
+        CUSTOMER("Customer");
 
         private final String displayName;
 

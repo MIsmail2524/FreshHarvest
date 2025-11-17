@@ -95,11 +95,19 @@
             <Insets top="24.0" bottom="20.0"/>
         </VBox.margin>
         
-        <Button fx:id="btnExit" 
-               text="Exit Application" 
-               styleClass="login-secondary-button"
-               onAction="#onExit" 
-               cancelButton="true"/>
+        <!-- Navigation -->
+        <HBox spacing="16" alignment="CENTER">
+            <Button fx:id="btnSignup" 
+                   text="Create Account" 
+                   styleClass="login-secondary-button"
+                   onAction="#onSignup"/>
+                   
+            <Button fx:id="btnExit" 
+                   text="Exit Application" 
+                   styleClass="login-secondary-button"
+                   onAction="#onExit" 
+                   cancelButton="true"/>
+        </HBox>
                
         <Label text="© 2025 FreshHarvest v1.0" 
                styleClass="login-footer"/>

@@ -35,6 +35,9 @@ public class LoginController implements Initializable {
     private Button btnExit;
 
     @FXML
+    private Button btnSignup;
+
+    @FXML
     private Label lblError;
 
     @FXML
@@ -80,6 +83,14 @@ public class LoginController implements Initializable {
     @FXML
     private void onExit(ActionEvent event) {
         System.exit(0);
+    }
+
+    /**
+     * Handle signup button click
+     */
+    @FXML
+    private void onSignup(ActionEvent event) {
+        SceneManager.getInstance().switchToScene("signup");
     }
 
     /**

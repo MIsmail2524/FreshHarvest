@@ -298,7 +298,7 @@ public class UserService {
                 password VARCHAR(255) NOT NULL,
                 full_name VARCHAR(100) NOT NULL,
                 email VARCHAR(100) UNIQUE NOT NULL,
-                role ENUM('FARMER', 'FACTORY_MANAGER', 'CUSTOMER') NOT NULL DEFAULT 'CUSTOMER',
+                role ENUM('ADMIN', 'FARMER', 'FACTORY_MANAGER', 'CUSTOMER') NOT NULL DEFAULT 'CUSTOMER',
                 is_active BOOLEAN NOT NULL DEFAULT TRUE,
                 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                 updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
