@@ -549,3 +549,155 @@
     -fx-background-color: #e8f5e8;
     -fx-text-fill: #2e7d32;
 }
+
+.primary-button {
+    -fx-background-color: #007bff;
+    -fx-text-fill: white;
+    -fx-font-size: 16;
+    -fx-font-weight: bold;
+}
+
+.success-button {
+    -fx-background-color: #28a745;
+    -fx-text-fill: white;
+    -fx-font-size: 16;
+}
+
+.warning-button {
+    -fx-background-color: #ffc107;
+    -fx-text-fill: black;
+    -fx-font-size: 16;
+}
+
+.danger-button {
+    -fx-background-color: #dc3545;
+    -fx-text-fill: white;
+    -fx-font-size: 16;
+}
+/* Crops Management Specific Styles */
+.section-title {
+    -fx-text-fill: #424242;
+    -fx-font-weight: bold;
+    -fx-font-size: 20px;
+    -fx-padding: 0 0 10 0;
+}
+
+/* Button spacing for action buttons */
+.button, .button-secondary, .button-warning, .button-danger {
+    -fx-padding: 10 20 10 20;
+    -fx-min-width: 120;
+}
+
+/* Table action buttons */
+.table-action-button {
+    -fx-padding: 4 8 4 8;
+    -fx-font-size: 12px;
+    -fx-min-width: 60;
+}
+
+/* Status badges for table */
+.status-active {
+    -fx-text-fill: #2e7d32;
+    -fx-font-weight: bold;
+    -fx-background-color: #e8f5e8;
+    -fx-background-radius: 10;
+    -fx-padding: 2 8 2 8;
+}
+
+.status-harvesting {
+    -fx-text-fill: #ff9800;
+    -fx-font-weight: bold;
+    -fx-background-color: #fff8e1;
+    -fx-background-radius: 10;
+    -fx-padding: 2 8 2 8;
+}
+
+.status-completed {
+    -fx-text-fill: #757575;
+    -fx-font-weight: bold;
+    -fx-background-color: #f5f5f5;
+    -fx-background-radius: 10;
+    -fx-padding: 2 8 2 8;
+}
+
+/* Add to application.css for order status colors */
+.status-pending {
+    -fx-text-fill: #ff9800;
+    -fx-font-weight: bold;
+}
+
+.status-confirmed {
+    -fx-text-fill: #2196f3;
+    -fx-font-weight: bold;
+}
+
+.status-processing {
+    -fx-text-fill: #9c27b0;
+    -fx-font-weight: bold;
+}
+
+.status-ready {
+    -fx-text-fill: #4caf50;
+    -fx-font-weight: bold;
+}
+
+.status-completed {
+    -fx-text-fill: #2e7d32;
+    -fx-font-weight: bold;
+}
+
+.status-cancelled {
+    -fx-text-fill: #f44336;
+    -fx-font-weight: bold;
+}
+
+/* Add to application.css */
+
+/* Inventory Status Colors */
+.status-in-stock {
+    -fx-text-fill: #4caf50;
+    -fx-font-weight: bold;
+}
+
+.status-low-stock {
+    -fx-text-fill: #ff9800;
+    -fx-font-weight: bold;
+}
+
+.status-out-of-stock {
+    -fx-text-fill: #f44336;
+    -fx-font-weight: bold;
+}
+
+/* Additional metric card colors */
+.danger-card {
+    -fx-border-color: #f44336;
+    -fx-border-width: 0 0 0 4px;
+    -fx-background-color: #ffebee;
+}
+
+.progress-card {
+    -fx-border-color: #2196f3;
+    -fx-border-width: 0 0 0 4px;
+    -fx-background-color: #e3f2fd;
+}
+
+/* Search field styling */
+.text-field {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #e0e0e0;
+    -fx-border-width: 1;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+    -fx-padding: 8 12 8 12;
+}
+
+.text-field:focused {
+    -fx-border-color: #4caf50;
+    -fx-border-width: 2;
+}
+/* Add to application.css */
+.button-small {
+    -fx-padding: 5 10 5 10;
+    -fx-font-size: 12px;
+}

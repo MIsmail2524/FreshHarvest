@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<VBox xmlns="http://javafx.com/javafx/11.0.1" 
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.freshharvest.controller.UpdateStockController" 
+      spacing="20" 
+      alignment="TOP_CENTER"
+      stylesheets="@../css/application.css">
+  
+    <padding><Insets top="25" right="30" bottom="25" left="30"/></padding>
+
+    <Label text="Update Stock" styleClass="page-title">
+        <font>
+            <Font name="System Bold" size="20.0" />
+        </font>
+    </Label>
+    
+    <!-- Stock Update Form -->
+    <VBox styleClass="card" spacing="15" alignment="CENTER_LEFT" prefWidth="400">
+        <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
+        
+        <!-- Product Information -->
+        <VBox spacing="10">
+            <Label text="Product Information" styleClass="section-title"/>
+            
+            <GridPane hgap="10" vgap="8">
+                <columnConstraints>
+                    <ColumnConstraints prefWidth="100"/>
+                    <ColumnConstraints prefWidth="250"/>
+                </columnConstraints>
+                
+                <Label text="Product:" styleClass="label-primary"/>
+                <Label fx:id="lblProductName" text="Loading..." GridPane.columnIndex="1"/>
+                
+                <Label text="Current Stock:" styleClass="label-primary" GridPane.rowIndex="1"/>
+                <Label fx:id="lblCurrentStock" text="Loading..." GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                
+                <Label text="Min Stock:" styleClass="label-primary" GridPane.rowIndex="2"/>
+                <Label fx:id="lblMinStock" text="Loading..." GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+                
+                <Label text="Unit:" styleClass="label-primary" GridPane.rowIndex="3"/>
+                <Label fx:id="lblUnit" text="Loading..." GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+            </GridPane>
+        </VBox>
+        
+        <!-- Stock Update -->
+        <VBox spacing="10">
+            <Label text="Update Stock" styleClass="section-title"/>
+            
+            <VBox spacing="5">
+                <Label text="New Stock Quantity *" styleClass="label-primary"/>
+                <TextField fx:id="txtNewStock" promptText="Enter new stock quantity" styleClass="text-field full-width"/>
+            </VBox>
+            
+            <!-- Quick Action Buttons -->
+            <HBox spacing="10" alignment="CENTER">
+                <Button text="Set to Zero" onAction="#handleSetToZero" styleClass="button-small button-danger"/>
+                <Button text="Set to Min" onAction="#handleSetToMin" styleClass="button-small button-warning"/>
+            </HBox>
+        </VBox>
+        
+        <!-- Action Buttons -->
+        <HBox spacing="15" alignment="CENTER" styleClass="full-width">
+            <Button text="Update Stock" onAction="#handleUpdateStock" styleClass="button" defaultButton="true"/>
+            <Button text="Cancel" onAction="#handleCancel" styleClass="button-secondary" cancelButton="true"/>
+        </HBox>
+    </VBox>
+</VBox>

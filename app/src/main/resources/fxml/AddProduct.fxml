@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<VBox xmlns="http://javafx.com/javafx/11.0.1" 
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.freshharvest.controller.AddProductController" 
+      spacing="20" 
+      alignment="TOP_CENTER"
+      stylesheets="@../css/application.css">
+  
+    <padding><Insets top="25" right="30" bottom="25" left="30"/></padding>
+
+    <Label text="Send Crop to Factory" styleClass="page-title">
+        <font>
+            <Font name="System Bold" size="20.0" />
+        </font>
+    </Label>
+    
+    <!-- Factory Processing Form -->
+    <VBox styleClass="card" spacing="15" alignment="CENTER_LEFT" prefWidth="450">
+        <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
+        
+        <!-- Crop Information -->
+        <VBox spacing="10">
+            <Label text="Crop Information" styleClass="section-title"/>
+            
+            <!-- Product Name -->
+            <VBox spacing="5">
+                <Label text="Crop/Product Name *" styleClass="label-primary"/>
+                <TextField fx:id="txtProductName" promptText="Enter crop name" styleClass="text-field full-width"/>
+            </VBox>
+            
+            <!-- Product Type and Quantity -->
+            <HBox spacing="15" alignment="CENTER_LEFT">
+                <VBox spacing="5" prefWidth="215">
+                    <Label text="Product Type *" styleClass="label-primary"/>
+                    <ComboBox fx:id="comboProductType" promptText="Select type" styleClass="combo-box full-width"/>
+                </VBox>
+                
+                <VBox spacing="5" prefWidth="215">
+                    <Label text="Quantity *" styleClass="label-primary"/>
+                    <TextField fx:id="txtQuantity" promptText="Enter quantity" styleClass="text-field full-width" onKeyReleased="#handleCalculateYield"/>
+                </VBox>
+            </HBox>
+            
+            <!-- Unit and Expected Yield -->
+            <HBox spacing="15" alignment="CENTER_LEFT">
+                <VBox spacing="5" prefWidth="215">
+                    <Label text="Unit *" styleClass="label-primary"/>
+                    <ComboBox fx:id="comboUnit" promptText="Select unit" styleClass="combo-box full-width"/>
+                </VBox>
+                
+                <VBox spacing="5" prefWidth="215">
+                    <Label text="Expected Yield *" styleClass="label-primary"/>
+                    <TextField fx:id="txtExpectedYield" promptText="Calculated yield" styleClass="text-field full-width"/>
+                </VBox>
+            </HBox>
+        </VBox>
+        
+        <!-- Factory Processing Details -->
+        <VBox spacing="10">
+            <Label text="Factory Processing Details" styleClass="section-title"/>
+            
+            <!-- Processing Type -->
+            <VBox spacing="5">
+                <Label text="Processing Type *" styleClass="label-primary"/>
+                <ComboBox fx:id="comboProcessingType" promptText="Select processing type" styleClass="combo-box full-width"/>
+            </VBox>
+            
+            <!-- Delivery Date -->
+            <VBox spacing="5">
+                <Label text="Expected Delivery Date *" styleClass="label-primary"/>
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <TextField fx:id="txtDeliveryDate" promptText="YYYY-MM-DD" styleClass="text-field" prefWidth="200"/>
+                    <Button text="Set Default" onAction="#handleSetDefaultDate" styleClass="button-small button-secondary"/>
+                </HBox>
+                <Label text="Format: YYYY-MM-DD (e.g., 2024-12-25)" styleClass="label-muted"/>
+            </VBox>
+            
+            <!-- Special Instructions -->
+            <VBox spacing="5">
+                <Label text="Special Instructions" styleClass="label-primary"/>
+                <TextArea fx:id="txtSpecialInstructions" promptText="Any special instructions for factory processing..." styleClass="text-field full-width" prefHeight="80" wrapText="true"/>
+            </VBox>
+        </VBox>
+        
+        <!-- Information Box -->
+        <VBox styleClass="alert-info" spacing="5">
+            <padding><Insets top="10" right="10" bottom="10" left="10"/></padding>
+            <Label text="ℹ️ Factory Processing Workflow" styleClass="label-primary"/>
+            <Label text="1. Crop sent to factory for processing" styleClass="label-muted"/>
+            <Label text="2. Factory processes and adds to inventory" styleClass="label-muted"/>
+            <Label text="3. Inventory automatically updated for orders" styleClass="label-muted"/>
+            <Label text="4. You manage orders from processed inventory" styleClass="label-muted"/>
+        </VBox>
+        
+        <!-- Action Buttons -->
+        <HBox spacing="15" alignment="CENTER" styleClass="full-width">
+            <Button text="Send to Factory" onAction="#handleSendToFactory" styleClass="button" defaultButton="true"/>
+            <Button text="Cancel" onAction="#handleCancel" styleClass="button-secondary" cancelButton="true"/>
+        </HBox>
+    </VBox>
+</VBox>

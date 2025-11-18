@@ -8,10 +8,13 @@ import com.freshharvest.util.SceneManager;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
 public class MainController implements Initializable {
 
@@ -53,35 +56,35 @@ public class MainController implements Initializable {
     @FXML
     private void onProducts(ActionEvent e) { 
         // TODO: Implement products view
-        loadView("dashboard"); // Placeholder - load dashboard for now
+        loadView("crops"); // Placeholder - load dashboard for now
         setActiveButton(btnProducts);
     }
 
     @FXML
     private void onOrders(ActionEvent e) { 
         // TODO: Implement orders view
-        loadView("dashboard"); // Placeholder - load dashboard for now
+       loadView("order"); // Placeholder - load dashboard for now
         setActiveButton(btnOrders);
     }
 
     @FXML
     private void onCustomers(ActionEvent e) { 
         // TODO: Implement customers view
-        loadView("dashboard"); // Placeholder - load dashboard for now
+        loadView("customer"); 
         setActiveButton(btnCustomers);
     }
 
     @FXML
     private void onInventory(ActionEvent e) { 
         // TODO: Implement inventory view
-        loadView("dashboard"); // Placeholder - load dashboard for now
+        loadView("inventory"); 
         setActiveButton(btnInventory);
     }
 
     @FXML
     private void onReports(ActionEvent e) { 
         // TODO: Implement reports view
-        loadView("dashboard"); // Placeholder - load dashboard for now
+        loadView("reports"); // Placeholder - load dashboard for now
         setActiveButton(btnReports);
     }
 
@@ -102,6 +105,39 @@ public class MainController implements Initializable {
             com.freshharvest.app.FreshHarvestApp.getPrimaryStage().close();
         }
     }
+
+    @FXML 
+    void openAddCrop() {
+    loadPopup("AddCrop.fxml");
+}
+
+public void openUpdateCrop() {
+    // This method should get the selected crop from CropsController and pass it to UpdateCropController
+    // If you're using a tabbed interface, you might need to get the current controller
+    System.out.println("📝 Opening update crop dialog...");
+    
+    Object cropsController = null;
+    // You might need to adjust this based on your MainController structure
+    // For now, let's assume we can access the CropsController instance
+    if (cropsController != null) {
+        ((CropsController) cropsController).updateCrop();
+    }
+}
+
+private void loadPopup(String fxml) {
+    try {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/" + fxml));
+        Parent root = loader.load();
+
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.setTitle("Crop Form");
+        stage.show();
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+}
+
 
     private void loadView(String sceneId) {
         try {
@@ -132,5 +168,14 @@ public class MainController implements Initializable {
         if (activeButton != null && !activeButton.getStyleClass().contains("active")) {
             activeButton.getStyleClass().add("active");
         }
+    }
+
+    public static MainController getInstance() {
+       return new MainController();
+    }
+
+    public void setActiveCropsController(CropsController cropsController) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'setActiveCropsController'");
     }
 }

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<VBox xmlns="http://javafx.com/javafx/11.0.1" 
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.freshharvest.controller.AddCropController" 
+      spacing="20" 
+      alignment="TOP_CENTER"
+      stylesheets="@../css/application.css">
+  
+    <padding><Insets top="25" right="30" bottom="25" left="30"/></padding>
+
+    <Label text="Add New Crop" styleClass="page-title">
+        <font>
+            <Font name="System Bold" size="24.0" />
+        </font>
+    </Label>
+    
+    <!-- Form Section -->
+    <VBox styleClass="card" spacing="15" alignment="CENTER_LEFT" prefWidth="600" prefHeight="500">
+        <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
+        
+        <!-- Crop Name -->
+        <VBox spacing="5">
+            <Label text="Crop Name *" styleClass="label-primary"/>
+            <TextField fx:id="txtCropName" promptText="Enter crop name" styleClass="text-field full-width"/>
+        </VBox>
+        
+        <!-- Crop Type -->
+        <VBox spacing="5">
+            <Label text="Crop Type *" styleClass="label-primary"/>
+            <TextField fx:id="txtCropType" promptText="Enter crop type" styleClass="text-field full-width"/>
+        </VBox>
+        
+        <!-- Season -->
+        <VBox spacing="5">
+            <Label text="Season" styleClass="label-primary"/>
+            <ComboBox fx:id="comboSeason" promptText="Select season" styleClass="combo-box full-width"/>
+        </VBox>
+        
+        <!-- Growth Time -->
+        <VBox spacing="5">
+            <Label text="Growth Time (days)" styleClass="label-primary"/>
+            <TextField fx:id="txtGrowthTime" promptText="Enter growth time in days" styleClass="text-field full-width"/>
+        </VBox>
+        
+        <!-- Action Buttons -->
+        <HBox spacing="15" alignment="CENTER" styleClass="full-width">
+            <Button text="Save Crop" onAction="#onSaveCrop" styleClass="button" defaultButton="true"/>
+            <Button text="Cancel" onAction="#onCancel" styleClass="button-secondary" cancelButton="true"/>
+        </HBox>
+    </VBox>
+</VBox>

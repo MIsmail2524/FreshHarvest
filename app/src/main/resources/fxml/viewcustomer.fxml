@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<VBox xmlns="http://javafx.com/javafx/11.0.1" 
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.freshharvest.controller.ViewCustomerController" 
+      spacing="20" 
+      alignment="TOP_CENTER"
+      stylesheets="@../css/application.css">
+  
+    <padding><Insets top="25" right="30" bottom="25" left="30"/></padding>
+
+    <Label text="Customer Details" styleClass="page-title">
+        <font>
+            <Font name="System Bold" size="20.0" />
+        </font>
+    </Label>
+    
+    <!-- Customer Information Card -->
+    <VBox styleClass="card" spacing="15" alignment="CENTER_LEFT" prefWidth="450">
+        <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
+        
+        <!-- Personal Information -->
+        <VBox spacing="10">
+            <Label text="Personal Information" styleClass="section-title"/>
+            
+            <GridPane hgap="10" vgap="8">
+                <columnConstraints>
+                    <ColumnConstraints prefWidth="120"/>
+                    <ColumnConstraints prefWidth="300"/>
+                </columnConstraints>
+                
+                <Label text="Name:" styleClass="label-primary"/>
+                <Label fx:id="lblCustomerName" text="Loading..." GridPane.columnIndex="1"/>
+                
+                <Label text="Email:" styleClass="label-primary" GridPane.rowIndex="1"/>
+                <Label fx:id="lblCustomerEmail" text="Loading..." GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                
+                <Label text="Phone:" styleClass="label-primary" GridPane.rowIndex="2"/>
+                <Label fx:id="lblCustomerPhone" text="Loading..." GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+                
+                <Label text="Address:" styleClass="label-primary" GridPane.rowIndex="3"/>
+                <Label fx:id="lblCustomerAddress" text="Loading..." GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+            </GridPane>
+        </VBox>
+        
+        <!-- Order Statistics -->
+        <VBox spacing="10">
+            <Label text="Order Statistics" styleClass="section-title"/>
+            
+            <GridPane hgap="10" vgap="8">
+                <columnConstraints>
+                    <ColumnConstraints prefWidth="120"/>
+                    <ColumnConstraints prefWidth="300"/>
+                </columnConstraints>
+                
+                <Label text="Total Orders:" styleClass="label-primary"/>
+                <Label fx:id="lblTotalOrders" text="0" GridPane.columnIndex="1"/>
+                
+                <Label text="Total Spent:" styleClass="label-primary" GridPane.rowIndex="1"/>
+                <Label fx:id="lblTotalSpent" text="$0.00" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                
+                <Label text="Last Order:" styleClass="label-primary" GridPane.rowIndex="2"/>
+                <Label fx:id="lblLastOrder" text="No orders" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+                
+                <Label text="Customer Since:" styleClass="label-primary" GridPane.rowIndex="3"/>
+                <Label fx:id="lblCustomerSince" text="N/A" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+            </GridPane>
+        </VBox>
+        
+        <!-- Action Buttons -->
+        <HBox spacing="15" alignment="CENTER" styleClass="full-width">
+            <Button text="View Order History" onAction="#handleViewOrderHistory" styleClass="button"/>
+            <Button text="Send Message" onAction="#handleSendMessage" styleClass="button-secondary"/>
+            <Button text="Close" onAction="#handleClose" styleClass="button-secondary"/>
+        </HBox>
+    </VBox>
+</VBox>

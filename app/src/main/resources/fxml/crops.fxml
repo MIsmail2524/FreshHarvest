@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<VBox xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.freshharvest.controller.CropsController" spacing="20" alignment="CENTER">
+
+
+    <Label text="Crops Management" styleClass="page-title">
+        <font>
+            <Font name="System Bold" size="32.0" />
+        </font>
+    </Label>
+    
+ <HBox spacing="20" alignment="CENTER">
+        <!-- Total Crops Box - FIXED: Added fx:id -->
+        <VBox styleClass="card" spacing="15" alignment="CENTER" prefWidth="300" prefHeight="120">
+            <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
+            <Label text="Total Crops" styleClass="label-primary"/>
+            <Label fx:id="totalCropsLabel" text="0 Total" styleClass="metric-value"/>
+        </VBox>                
+   </HBox>
+          
+   <!-- Action Buttons -->
+    <HBox spacing="15" alignment="CENTER">
+        <Button text="➕ Add New Crop" onAction="#addCrop" styleClass="button"/>
+        <Button text="👁️ View Crop" onAction="#viewCrop" styleClass="button-secondary"/>
+        <Button text="✏️ Update Crop" onAction="#updateCrop" styleClass="button-warning"/>
+        <Button text="🗑️ Delete Crop" onAction="#deleteCrop" styleClass="button-danger"/>
+        <Button text="🔄 Refresh" onAction="#refreshData" styleClass="button-secondary"/>
+    </HBox>
+  
+ <VBox spacing="15" styleClass="full-width">
+        <Label text="Crops Inventory" styleClass="section-title">
+            <font>
+                <Font name="System Bold" size="20.0" />
+            </font>
+        </Label>
+        
+       <TableView fx:id="cropsTable" styleClass="table-view" prefHeight="400">
+            <columns>
+                <!-- Match these fx:id with your controller -->
+                <TableColumn fx:id="colId" text="Crop ID" prefWidth="80"/>
+                <TableColumn fx:id="colName" text="Crop Name" prefWidth="150"/>
+                <TableColumn fx:id="colType" text="Type" prefWidth="120"/>
+                <TableColumn fx:id="colPlantingDate" text="Planting Date" prefWidth="120"/>
+                <TableColumn fx:id="colHarvestDate" text="Harvest Date" prefWidth="120"/>
+                <TableColumn fx:id="colStatus" text="Status" prefWidth="100"/>
+                <TableColumn fx:id="colQuantity" text="Quantity" prefWidth="100"/>
+                <TableColumn fx:id="colField" text="Field" prefWidth="120"/>
+            </columns>
+            <placeholder>
+                <Label text="No crops data available. Click 'Add New Crop' to get started." styleClass="label-muted"/>
+            </placeholder>
+        </TableView>
+    </VBox>
+    
+  
+    <Button text="Exit" onAction="#closeApplication" />
+</VBox>

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<VBox xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.freshharvest.controller.OrderController" 
+      spacing="20" 
+      alignment="TOP_CENTER"
+      stylesheets="@../css/application.css">
+  
+    <padding><Insets top="25" right="30" bottom="25" left="30"/></padding>
+
+    <Label fx:id="orderTitle" text="Orders Management" styleClass="page-title">
+        <font>
+            <Font name="System Bold" size="32.0" />
+        </font>
+    </Label>
+    
+    <!-- Order Statistics Cards -->
+    <HBox spacing="20" alignment="CENTER">
+        <!-- Total Orders -->
+        <VBox styleClass="card metric-card revenue-card" spacing="10" alignment="CENTER" prefWidth="200" prefHeight="120">
+            <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
+            <Label text="📦" styleClass="metric-icon"/>
+            <Label fx:id="lblTotalOrders" text="0" styleClass="metric-value"/>
+            <Label text="Total Orders" styleClass="metric-title"/>
+        </VBox>
+
+        <!-- Pending Orders -->
+        <VBox styleClass="card metric-card warning-card" spacing="10" alignment="CENTER" prefWidth="200" prefHeight="120">
+            <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
+            <Label text="⏳" styleClass="metric-icon"/>
+            <Label fx:id="lblPendingOrders" text="0" styleClass="metric-value"/>
+            <Label text="Pending Orders" styleClass="metric-title"/>
+        </VBox>
+
+        <!-- Completed Orders -->
+        <VBox styleClass="card metric-card success-card" spacing="10" alignment="CENTER" prefWidth="200" prefHeight="120">
+            <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
+            <Label text="✅" styleClass="metric-icon"/>
+            <Label fx:id="lblCompletedOrders" text="0" styleClass="metric-value"/>
+            <Label text="Completed Orders" styleClass="metric-title"/>
+        </VBox>
+    </HBox>
+
+    <!-- Action Buttons -->
+    <HBox spacing="15" alignment="CENTER">
+        <Button text="Pending Orders" onAction="#pendingOrders" styleClass="button"/>
+        <Button text="Completed Orders" onAction="#completedOrders" styleClass="button-secondary"/>
+        <Button text="All Orders" onAction="#allOrders" styleClass="button-warning"/>
+        <Button text="Notify Factory" onAction="#allOrders" styleClass="button-warning"/>
+        <Button text="Delete Order" onAction="#deleteOrder" styleClass="button-danger"/>
+        <Button text="Order Details" onAction="#showOrderDetails" styleClass="button-danger"/>
+        <Button text="Refresh" onAction="#refreshData" styleClass="button-secondary"/>
+    </HBox>
+
+    <!-- Orders Table -->
+    <VBox spacing="15" styleClass="full-width">
+        <Label text="Order Details" styleClass="section-title">
+            <font>
+                <Font name="System Bold" size="20.0" />
+            </font>
+        </Label>
+        
+        <TableView fx:id="ordersTable" styleClass="table-view" prefHeight="400">
+            <columns>
+                <TableColumn fx:id="colOrderId" text="Order ID" prefWidth="120"/>
+                <TableColumn fx:id="colCustomer" text="Customer" prefWidth="150"/>
+                <TableColumn fx:id="colOrderDate" text="Order Date" prefWidth="150"/>
+                <TableColumn fx:id="colTotalAmount" text="Total Amount" prefWidth="120"/>
+                <TableColumn fx:id="colStatus" text="Status" prefWidth="120"/>
+                <TableColumn fx:id="colItems" text="Items" prefWidth="150"/>
+                <TableColumn fx:id="colDeliveryType" text="Delivery Type" prefWidth="120"/> <!-- ADD THIS -->
+
+            </columns>
+            <placeholder>
+                <Label text="No orders found. Orders will appear here when customers place orders." styleClass="label-muted"/>
+            </placeholder>
+        </TableView>
+    </VBox>
+
+    <Button text="Close Window" onAction="#closeApplication" styleClass="button-secondary"/>
+</VBox>

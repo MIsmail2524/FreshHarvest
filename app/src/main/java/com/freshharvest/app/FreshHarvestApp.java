@@ -23,8 +23,8 @@ public class FreshHarvestApp extends Application {
         
         // Configure the primary stage
         stage.setTitle("FreshHarvest - Farm Management System");
-        stage.setMinWidth(800);
-        stage.setMinHeight(600);
+        stage.setMinWidth(1400);
+        stage.setMinHeight(800);
         stage.setMaximized(false);
         
         // Initialize the scene manager and show the main screen

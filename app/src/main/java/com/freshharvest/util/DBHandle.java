@@ -1,3 +1,4 @@
+
 package com.freshharvest.util;
 
 import java.sql.Connection;
@@ -14,7 +15,9 @@ public class DBHandle {
     private final String user;
     private final String password;
 
+
     private DBHandle() {
+        
         // Try to load .env (optional)
         Dotenv dotenv = Dotenv.configure()
                               .ignoreIfMissing()  // won't crash if no .env found

@@ -29,6 +29,14 @@ public class SceneManager {
     static {
         SCENE_PATHS.put("main", "/fxml/main.fxml");
         SCENE_PATHS.put("dashboard", "/fxml/dashboard.fxml");
+        SCENE_PATHS.put("crops", "/fxml/crops.fxml");
+        SCENE_PATHS.put("addcrop", "/fxml/AddCrop.fxml");
+        SCENE_PATHS.put("updatecrop", "/fxml/UpdateCrop.fxml");
+        SCENE_PATHS.put("order", "/fxml/Order.fxml");
+        SCENE_PATHS.put("customer", "/fxml/Customers.fxml");
+        SCENE_PATHS.put("inventory", "/fxml/inventory.fxml");
+        SCENE_PATHS.put("reports", "/fxml/reports.fxml");
+
     }
     
     private SceneManager() {
