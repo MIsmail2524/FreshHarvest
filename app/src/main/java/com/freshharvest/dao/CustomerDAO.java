@@ -11,43 +11,60 @@ import java.util.List;
 public class CustomerDAO {
     
     public List<Customer> findByFarmerId(int farmerId) {
-        List<Customer> customers = new ArrayList<>();
-        String sql = "SELECT * FROM customers";
-        
-        try (Connection conn = DBHandle.getInstance().getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
-            
-            ResultSet rs = stmt.executeQuery();
-            
-            while (rs.next()) {
-                Customer customer = new Customer();
-                customer.setCustomerId(rs.getInt("customer_id"));
-                customer.setFirstName(rs.getString("first_name"));
-                customer.setLastName(rs.getString("last_name"));
-                customer.setEmail(rs.getString("email"));
-                customer.setPhone(rs.getString("phone"));
-                customer.setTotalOrders(rs.getInt("total_orders"));
-                customer.setTotalSpent(rs.getDouble("total_spent"));
-                
-                Timestamp lastOrder = rs.getTimestamp("last_order_date");
-                if (lastOrder != null) {
-                    customer.setLastOrderDate(lastOrder.toLocalDateTime().toLocalDate());
-                }
-                
-                Timestamp customerSince = rs.getTimestamp("customer_since");
-                if (customerSince != null) {
-                    customer.setCustomerSince(customerSince.toLocalDateTime().toLocalDate());
-                }
-                
-                customers.add(customer);
+    List<Customer> customers = new ArrayList<>();
+
+    String sql =
+        "SELECT c.customer_id, c.first_name, c.last_name, c.email, c.phone, c.address, " +
+        "       COUNT(o.order_id) AS total_orders, " +
+        "       COALESCE(SUM(o.total_amount), 0) AS total_spent, " +
+        "       MAX(o.order_date) AS last_order_date, " +
+        "       c.registration_date " +
+        "FROM customers c " +
+        "LEFT JOIN orders o ON c.customer_id = o.customer_id " +
+        "WHERE o.farmer_id = ? " +
+        "GROUP BY c.customer_id";
+
+    try (Connection conn = DBHandle.getInstance().getConnection();
+         PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+        stmt.setInt(1, farmerId);
+
+        ResultSet rs = stmt.executeQuery();
+
+        while (rs.next()) {
+            Customer customer = new Customer();
+
+            customer.setCustomerId(rs.getInt("customer_id"));
+            customer.setFirstName(rs.getString("first_name"));
+            customer.setLastName(rs.getString("last_name"));
+            customer.setEmail(rs.getString("email"));
+            customer.setPhone(rs.getString("phone"));
+            customer.setAddress(rs.getString("address"));
+
+             customer.setTotalOrders(rs.getInt("total_orders"));
+             customer.setTotalSpent(rs.getDouble("total_spent"));
+
+            Timestamp lastOrder = rs.getTimestamp("last_order_date");
+            if (lastOrder != null) {
+                customer.setLastOrderDate(lastOrder.toLocalDateTime().toLocalDate());
             }
-            
-        } catch (SQLException e) {
-            System.err.println("DAO error finding customers: " + e.getMessage());
-            throw new RuntimeException("Database error while fetching customers", e);
+
+            Timestamp regDate = rs.getTimestamp("registration_date");
+            if (regDate != null) {
+                customer.setCustomerSince(regDate.toLocalDateTime().toLocalDate());
+            }
+
+            customers.add(customer);
         }
-        return customers;
+
+    } catch (SQLException e) {
+        System.err.println("DAO error finding customers: " + e.getMessage());
+        throw new RuntimeException(e);
     }
+
+    return customers;
+}
+
     
     public Customer findById(int customerId, int farmerId) {
         String sql = "SELECT * FROM customers";

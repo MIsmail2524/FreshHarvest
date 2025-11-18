@@ -128,24 +128,19 @@ public class CropsController {
         System.out.println("➕ Add Crop button clicked");
         MainController.getInstance().openAddCrop();
     }
-@FXML
-public void updateCrop() {
+    @FXML
+private void updateCrop() {
     Crop selected = cropsTable.getSelectionModel().getSelectedItem();
-    if (selected != null) {
-        System.out.println("🔄 Updating crop: " + selected.getName() + " (ID: " + selected.getId() + ")");
-        
-        // Pass the selected crop to UpdateCropController
-        boolean updated = UpdateCropController.showUpdateCropDialog(selected);
-        
-        if (updated) {
-            // Refresh the table after successful update
-            loadCropsData();
-            System.out.println("✅ Crop updated successfully, table refreshed");
-        }
-    } else {
-        showAlert("Selection Required", "Please select a crop to update.", Alert.AlertType.WARNING);
+
+    if (selected == null) {
+        showAlert("Select Crop", "Please select a crop to update.", Alert.AlertType.WARNING);
+        return;
     }
+
+    UpdateCropController.showUpdateCropDialog(this, selected);
 }
+
+
 
 // Add this method to refresh after update from other controllers
 public void refreshAfterUpdate() {

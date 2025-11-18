@@ -53,7 +53,8 @@ public class CropService {
     public boolean updateCrop(Crop crop) {
         try {
             System.out.println("🔄 CropService: Updating crop ID: " + crop.getId());
-            boolean success = cropDAO.update(crop);
+             boolean success = cropDAO.update(crop);
+           // boolean success=true;
             System.out.println(success ? "✅ Crop updated successfully" : "❌ Failed to update crop");
             return success;
         } catch (Exception e) {

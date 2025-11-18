@@ -14,48 +14,22 @@ public class CustomerService {
     /**
      * Get all customers for the current farmer
      */
-    public List<Customer> getCustomersByFarmer() {
-        try {
-            return customerDAO.findByFarmerId(getCurrentFarmerId());
-        } catch (Exception e) {
-            System.err.println("Service error getting customers: " + e.getMessage());
-            return List.of(); // Return empty list on error
-        }
-    }
-    
-    /**
-     * Get customer by ID
-     */
-    public Customer getCustomerById(int customerId) {
-        try {
-            if (customerId <= 0) {
-                throw new IllegalArgumentException("Invalid customer ID");
-            }
-            
-            return customerDAO.findById(customerId, getCurrentFarmerId());
-            
-        } catch (Exception e) {
-            System.err.println("Service error getting customer by ID: " + e.getMessage());
-            return null;
-        }
-    }
-    
-    /**
-     * Search customers by name, email, or phone
-     */
-    public List<Customer> searchCustomers(String searchTerm) {
-        try {
-            if (searchTerm == null || searchTerm.trim().isEmpty()) {
-                return getCustomersByFarmer(); // Return all if search is empty
-            }
-            
-            return customerDAO.searchByTerm(searchTerm, getCurrentFarmerId());
-            
-        } catch (Exception e) {
-            System.err.println("Service error searching customers: " + e.getMessage());
-            return List.of();
-        }
-    }
+public List<Customer> getCustomersByFarmer() {
+    return customerDAO.findByFarmerId(getCurrentFarmerId());
+}
+
+public Customer getCustomerById(int customerId) {
+    return customerDAO.findById(customerId, getCurrentFarmerId());
+}
+
+public List<Customer> searchCustomers(String searchTerm) {
+    return customerDAO.searchByTerm(searchTerm, getCurrentFarmerId());
+}
+
+public boolean updateCustomer(Customer customer) {
+    return customerDAO.update(customer, getCurrentFarmerId());
+}
+
     
     /**
      * Get top customers by total spent
@@ -98,35 +72,7 @@ public class CustomerService {
         }
     }
     
-    /**
-     * Update customer information
-     */
-    public boolean updateCustomer(Customer customer) {
-        try {
-            if (customer == null) {
-                throw new IllegalArgumentException("Customer cannot be null");
-            }
-            
-            if (customer.getCustomerId() <= 0) {
-                throw new IllegalArgumentException("Invalid customer ID");
-            }
-            
-            if (customer.getFirstName() == null || customer.getFirstName().trim().isEmpty()) {
-                throw new IllegalArgumentException("First name is required");
-            }
-            
-            if (customer.getEmail() == null || customer.getEmail().trim().isEmpty()) {
-                throw new IllegalArgumentException("Email is required");
-            }
-            
-            return customerDAO.update(customer, getCurrentFarmerId());
-            
-        } catch (Exception e) {
-            System.err.println("Service error updating customer: " + e.getMessage());
-            throw new RuntimeException("Failed to update customer: " + e.getMessage(), e);
-        }
-    }
-    
+
     /**
      * Get customer statistics
      */

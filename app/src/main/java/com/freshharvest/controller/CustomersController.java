@@ -1,6 +1,8 @@
 package com.freshharvest.controller;
 
 import com.freshharvest.app.Customer;
+import com.freshharvest.app.CustomerService;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -50,7 +52,7 @@ public class CustomersController implements Initializable {
             // Setup UI components
             setupTableColumns();
             setupSearchFilter();
-            loadSampleData(); // Load sample data for UI testing
+            loadCustomerDataFromDB();
             updateStatistics();
             
         } catch (Exception e) {
@@ -135,6 +137,17 @@ public class CustomersController implements Initializable {
             handleError("Search Error", "Failed to apply search filter: " + e.getMessage());
         }
     }
+    private void loadCustomerDataFromDB() {
+    try {
+        CustomerService service = new CustomerService();
+        customersData.clear();
+        customersData.addAll(service.getCustomersByFarmer());
+        updateStatistics();
+    } catch (Exception e) {
+        handleError("Data Load Error", "Failed to load customers from database: " + e.getMessage());
+    }
+}
+
 
     private void loadSampleData() {
         try {
@@ -204,15 +217,47 @@ public class CustomersController implements Initializable {
         }
     }
 
-    @FXML
-    private void handleViewCustomer() {
-        Customer selected = customersTable.getSelectionModel().getSelectedItem();
-        if (selected != null) {
-            showAlert("View Customer", "Viewing details for: " + selected.getFullName(), Alert.AlertType.INFORMATION);
-        } else {
-            showAlert("Warning", "Please select a customer to view details.", Alert.AlertType.WARNING);
-        }
+@FXML
+private void handleViewCustomer() {
+    Customer selected = customersTable.getSelectionModel().getSelectedItem();
+
+    if (selected == null) {
+        showAlert("Warning", "Please select a customer to view details.", Alert.AlertType.WARNING);
+        return;
     }
+
+    // Build full customer details message
+    StringBuilder details = new StringBuilder();
+    details.append("Customer ID: ").append(selected.getCustomerId()).append("\n")
+           .append("Name: ").append(selected.getFirstName()).append(" ").append(selected.getLastName()).append("\n")
+           .append("Email: ").append(selected.getEmail()).append("\n")
+           .append("Phone: ").append(selected.getPhone()).append("\n")
+           .append("Address: ").append(selected.getAddress()).append("\n")
+           .append("\n--- Order Stats ---\n")
+           .append("Total Orders: ").append(selected.getTotalOrders()).append("\n")
+           .append("Total Spent: Rs ").append(String.format("%.2f", selected.getTotalSpent())).append("\n")
+           .append("Last Order Date: ").append(
+                   selected.getLastOrderDate() != null ? selected.getLastOrderDate() : "No Orders Yet"
+           ).append("\n")
+           .append("Customer Since: ").append(
+                   selected.getCustomerSince() != null ? selected.getCustomerSince() : "N/A"
+           );
+
+    // Create popup dialog
+    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+    alert.setTitle("Customer Details");
+    alert.setHeaderText("Details for: " + selected.getFullName());
+
+    TextArea textArea = new TextArea(details.toString());
+    textArea.setEditable(false);
+    textArea.setWrapText(true);
+    textArea.setPrefWidth(380);
+    textArea.setPrefHeight(350);
+
+    alert.getDialogPane().setContent(textArea);
+    alert.showAndWait();
+}
+
 
     @FXML
     private void handleSendMessage() {
@@ -234,10 +279,6 @@ public class CustomersController implements Initializable {
         showAlert("Refreshed", "Customer data refreshed successfully!", Alert.AlertType.INFORMATION);
     }
 
-    @FXML
-    private void handleBackToDashboard() {
-        // Implementation for going back to dashboard
-    }
 
     private void updateStatistics() {
         try {

@@ -1,170 +1,361 @@
 package com.freshharvest.controller;
 
+import com.freshharvest.app.ReportData;
+import com.freshharvest.dao.ReportsDAO;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.chart.*;
 import javafx.scene.control.*;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class ReportsController implements Initializable {
 
-    // Key Metrics
-    @FXML private Label lblTotalRevenue;
-    @FXML private Label lblTotalExpenses;
-    @FXML private Label lblNetProfit;
-    @FXML private Label lblProfitMargin;
-
-    // Data Table
     @FXML private TableView<ReportData> reportTable;
     @FXML private TableColumn<ReportData, String> colReportDate;
     @FXML private TableColumn<ReportData, String> colReportCategory;
     @FXML private TableColumn<ReportData, String> colReportDescription;
     @FXML private TableColumn<ReportData, String> colReportAmount;
 
-    private ObservableList<ReportData> reportData;
+    // Chart containers
+    @FXML private VBox chartDisplayArea;
+    @FXML private StackPane chartContainer;
+    @FXML private Label currentChartTitle;
+
+    private final ObservableList<ReportData> reportData = FXCollections.observableArrayList();
+    private final ReportsDAO dao = new ReportsDAO();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        try {
-            System.out.println("Initializing Simple Reports Controller...");
-            
-            setupTable();
-            loadSampleData();
-            updateMetrics();
-            
-            System.out.println("Simple Reports Controller initialized successfully.");
-            
-        } catch (Exception e) {
-            System.err.println("Error in initialize: " + e.getMessage());
-            showAlert("Error", "Failed to initialize reports", Alert.AlertType.ERROR);
-        }
+        setupTable();
+        loadTransactions();
+        
+        // Show default chart
+        showCropPerformanceChart();
     }
 
     private void setupTable() {
-        try {
-            reportData = FXCollections.observableArrayList();
-            reportTable.setItems(reportData);
-            
-            // Setup cell value factories
-            colReportDate.setCellValueFactory(cellData -> 
-                new javafx.beans.property.SimpleStringProperty(cellData.getValue().getDate()));
-            colReportCategory.setCellValueFactory(cellData -> 
-                new javafx.beans.property.SimpleStringProperty(cellData.getValue().getCategory()));
-            colReportDescription.setCellValueFactory(cellData -> 
-                new javafx.beans.property.SimpleStringProperty(cellData.getValue().getDescription()));
-            colReportAmount.setCellValueFactory(cellData -> 
-                new javafx.beans.property.SimpleStringProperty(cellData.getValue().getAmount()));
-            
-        } catch (Exception e) {
-            System.err.println("Error setting up table: " + e.getMessage());
-        }
-    }
-
-    private void loadSampleData() {
-        try {
-            // Add sample transaction data
-            reportData.add(new ReportData("2024-01-15", "Revenue", "Tomatoes Sale", "+$1,200.00"));
-            reportData.add(new ReportData("2024-01-20", "Expense", "Seeds Purchase", "-$450.00"));
-            reportData.add(new ReportData("2024-02-10", "Revenue", "Carrots Sale", "+$850.00"));
-            reportData.add(new ReportData("2024-02-15", "Expense", "Labor Costs", "-$1,200.00"));
-            reportData.add(new ReportData("2024-03-05", "Revenue", "Lettuce Sale", "+$680.00"));
-            reportData.add(new ReportData("2024-03-12", "Expense", "Fertilizers", "-$320.00"));
-            reportData.add(new ReportData("2024-04-08", "Revenue", "Berries Sale", "+$2,100.00"));
-            reportData.add(new ReportData("2024-04-20", "Expense", "Equipment", "-$850.00"));
-            
-        } catch (Exception e) {
-            System.err.println("Error loading sample data: " + e.getMessage());
-        }
-    }
-
-    private void updateMetrics() {
-        try {
-            // Set sample metrics
-            lblTotalRevenue.setText("$45,230.00");
-            lblTotalExpenses.setText("$28,150.00");
-            lblNetProfit.setText("$17,080.00");
-            lblProfitMargin.setText("37.8%");
-            
-        } catch (Exception e) {
-            System.err.println("Error updating metrics: " + e.getMessage());
-        }
-    }
-
-    // Button handlers
-    @FXML
-    private void handleFinancialSummary() {
-        showAlert("Financial Summary", "Total Revenue: $45,230.00\nTotal Expenses: $28,150.00\nNet Profit: $17,080.00\nProfit Margin: 37.8%", 
-                 Alert.AlertType.INFORMATION);
+        colReportDate.setCellValueFactory(cell -> cell.getValue().dateProperty());
+        colReportCategory.setCellValueFactory(cell -> cell.getValue().categoryProperty());
+        colReportDescription.setCellValueFactory(cell -> cell.getValue().descriptionProperty());
+        colReportAmount.setCellValueFactory(cell -> cell.getValue().amountProperty());
+        reportTable.setItems(reportData);
     }
 
     @FXML
     private void handleCropPerformance() {
-        showAlert("Crop Performance", 
-                 "Tomatoes: $5,200 profit\nCarrots: $3,200 profit\nLettuce: $2,800 profit\nBerries: $6,300 profit", 
-                 Alert.AlertType.INFORMATION);
+        showCropPerformanceChart();
     }
 
     @FXML
-    private void handleSeasonalAnalysis() {
-        showAlert("Seasonal Analysis", 
-                 "Winter: $10,000 profit\nSpring: $21,000 profit\nSummer: $30,800 profit\nFall: $15,200 profit", 
-                 Alert.AlertType.INFORMATION);
+    private void handleRevenueAnalysis() {
+        showRevenueAnalysisChart();
     }
 
     @FXML
-    private void handleExpenseReport() {
-        showAlert("Expense Report", 
-                 "Labor: 45%\nSeeds & Plants: 20%\nFertilizers: 15%\nEquipment: 12%\nUtilities: 8%", 
-                 Alert.AlertType.INFORMATION);
+    private void handleExpenseBreakdown() {
+        showExpenseBreakdownChart();
     }
 
     @FXML
-    private void handleGenerateReport() {
-        showAlert("Report Generated", "Full farm report has been generated successfully!", Alert.AlertType.INFORMATION);
+    private void handleMonthlyTrends() {
+        showMonthlyTrendsChart();
     }
 
     @FXML
-    private void handleExportPDF() {
-        showAlert("Export", "Data exported successfully!", Alert.AlertType.INFORMATION);
+    private void handleProfitDistribution() {
+        showProfitDistributionChart();
     }
 
-    @FXML
-    private void handlePrint() {
-        showAlert("Print", "Report sent to printer!", Alert.AlertType.INFORMATION);
-    }
-
-    private void showAlert(String title, String message, Alert.AlertType alertType) {
+    private void showCropPerformanceChart() {
         try {
-            Alert alert = new Alert(alertType);
-            alert.setTitle(title);
-            alert.setHeaderText(null);
-            alert.setContentText(message);
-            alert.showAndWait();
+            currentChartTitle.setText("🌱 Crop Performance Analysis");
+            
+            BarChart<String, Number> barChart = new BarChart<>(new CategoryAxis(), new NumberAxis());
+            barChart.setTitle("Crop Profit Performance");
+            barChart.setLegendVisible(false);
+            barChart.setPrefSize(800, 450);
+            
+            CategoryAxis xAxis = (CategoryAxis) barChart.getXAxis();
+            xAxis.setLabel("Crops");
+            xAxis.setTickLabelRotation(45);
+            
+            NumberAxis yAxis = (NumberAxis) barChart.getYAxis();
+            yAxis.setLabel("Profit ($)");
+            
+            XYChart.Series<String, Number> series = new XYChart.Series<>();
+            series.setName("Profit");
+            
+            // Real data from database
+            List<ReportData> cropData = dao.getCropPerformance();
+            for (ReportData data : cropData) {
+                String cropName = data.getDescription();
+                double profit = Double.parseDouble(data.getAmount().replace("$", "").replace(",", ""));
+                
+                if (profit != 0) {
+                    series.getData().add(new XYChart.Data<>(cropName, profit));
+                }
+            }
+            
+            barChart.getData().clear();
+            barChart.getData().add(series);
+            
+            chartContainer.getChildren().clear();
+            chartContainer.getChildren().add(barChart);
+            
         } catch (Exception e) {
-            System.err.println("Error showing alert: " + e.getMessage());
+            System.err.println("Error showing crop performance chart: " + e.getMessage());
+            e.printStackTrace();
+            showAlert("Error", "Failed to load crop performance data: " + e.getMessage(), Alert.AlertType.ERROR);
         }
     }
 
-    // Simple inner class for report data
-    public static class ReportData {
-        private final String date;
-        private final String category;
-        private final String description;
-        private final String amount;
-
-        public ReportData(String date, String category, String description, String amount) {
-            this.date = date;
-            this.category = category;
-            this.description = description;
-            this.amount = amount;
+    private void showRevenueAnalysisChart() {
+        try {
+            currentChartTitle.setText("💰 Revenue Analysis by Crop");
+            
+            PieChart pieChart = new PieChart();
+            pieChart.setTitle("Revenue Distribution by Crop");
+            pieChart.setLabelsVisible(true);
+            pieChart.setLegendVisible(true);
+            pieChart.setPrefSize(800, 450);
+            
+            ObservableList<PieChart.Data> pieData = FXCollections.observableArrayList();
+            
+            // Real data from database
+            List<ReportData> revenueData = dao.getCropRevenueDistribution();
+            double totalRevenue = dao.getTotalRevenue();
+            
+            for (ReportData data : revenueData) {
+                String cropName = data.getDescription();
+                double revenue = Double.parseDouble(data.getAmount().replace("$", "").replace(",", ""));
+                
+                if (revenue > 0 && totalRevenue > 0) {
+                    double percentage = (revenue / totalRevenue) * 100;
+                    pieData.add(new PieChart.Data(
+                        String.format("%s (%.1f%%)", cropName, percentage), 
+                        revenue
+                    ));
+                }
+            }
+            
+            pieChart.setData(pieData);
+            
+            chartContainer.getChildren().clear();
+            chartContainer.getChildren().add(pieChart);
+            
+        } catch (Exception e) {
+            System.err.println("Error showing revenue analysis chart: " + e.getMessage());
+            e.printStackTrace();
+            showAlert("Error", "Failed to load revenue analysis data: " + e.getMessage(), Alert.AlertType.ERROR);
         }
+    }
 
-        public String getDate() { return date; }
-        public String getCategory() { return category; }
-        public String getDescription() { return description; }
-        public String getAmount() { return amount; }
+    private void showExpenseBreakdownChart() {
+        try {
+            currentChartTitle.setText("📈 Farm Expense Breakdown");
+            
+            PieChart pieChart = new PieChart();
+            pieChart.setTitle("Expense Distribution by Category");
+            pieChart.setLabelsVisible(true);
+            pieChart.setLegendVisible(true);
+            pieChart.setPrefSize(800, 450);
+            
+            ObservableList<PieChart.Data> pieData = FXCollections.observableArrayList();
+            
+            // Real data from database
+            List<ReportData> expenses = dao.getExpenseByCategory();
+            double totalExpenses = dao.getTotalExpenses();
+            
+            for (ReportData data : expenses) {
+                String category = data.getDescription();
+                double amount = Double.parseDouble(data.getAmount().replace("$", "").replace(",", ""));
+                
+                if (amount > 0 && totalExpenses > 0) {
+                    double percentage = (amount / totalExpenses) * 100;
+                    pieData.add(new PieChart.Data(
+                        String.format("%s (%.1f%%)", category, percentage), 
+                        amount
+                    ));
+                }
+            }
+            
+            pieChart.setData(pieData);
+            
+            chartContainer.getChildren().clear();
+            chartContainer.getChildren().add(pieChart);
+            
+        } catch (Exception e) {
+            System.err.println("Error showing expense breakdown chart: " + e.getMessage());
+            e.printStackTrace();
+            showAlert("Error", "Failed to load expense data: " + e.getMessage(), Alert.AlertType.ERROR);
+        }
+    }
+
+    private void showMonthlyTrendsChart() {
+        try {
+            currentChartTitle.setText("📅 Monthly Revenue & Profit Trends");
+            
+            LineChart<String, Number> lineChart = new LineChart<>(new CategoryAxis(), new NumberAxis());
+            lineChart.setTitle("Monthly Performance Trends");
+            lineChart.setLegendVisible(true);
+            lineChart.setPrefSize(800, 450);
+            
+            CategoryAxis xAxis = (CategoryAxis) lineChart.getXAxis();
+            xAxis.setLabel("Month");
+            
+            NumberAxis yAxis = (NumberAxis) lineChart.getYAxis();
+            yAxis.setLabel("Amount ($)");
+            
+            // Revenue Series - Real data from database
+            XYChart.Series<String, Number> revenueSeries = new XYChart.Series<>();
+            revenueSeries.setName("Revenue");
+            
+            List<ReportData> monthlyData = dao.getMonthlyRevenue();
+            for (ReportData data : monthlyData) {
+                String month = formatMonthForDisplay(data.getDescription());
+                double revenue = Double.parseDouble(data.getAmount().replace("$", "").replace(",", ""));
+                revenueSeries.getData().add(new XYChart.Data<>(month, revenue));
+            }
+            
+            // Profit Series - Calculate profit from revenue and expenses
+            XYChart.Series<String, Number> profitSeries = new XYChart.Series<>();
+            profitSeries.setName("Profit");
+            
+            for (ReportData data : monthlyData) {
+                String month = data.getDescription();
+                double revenue = Double.parseDouble(data.getAmount().replace("$", "").replace(",", ""));
+                double expenses = dao.getMonthlyExpenses(month);
+                double profit = revenue - expenses;
+                String displayMonth = formatMonthForDisplay(month);
+                profitSeries.getData().add(new XYChart.Data<>(displayMonth, profit));
+            }
+            
+            lineChart.getData().clear();
+            lineChart.getData().addAll(revenueSeries, profitSeries);
+            
+            chartContainer.getChildren().clear();
+            chartContainer.getChildren().add(lineChart);
+            
+        } catch (Exception e) {
+            System.err.println("Error showing monthly trends chart: " + e.getMessage());
+            e.printStackTrace();
+            showAlert("Error", "Failed to load monthly trends data: " + e.getMessage(), Alert.AlertType.ERROR);
+        }
+    }
+
+    private void showProfitDistributionChart() {
+        try {
+            currentChartTitle.setText("🥧 Profit Margin Analysis");
+            
+            BarChart<String, Number> barChart = new BarChart<>(new CategoryAxis(), new NumberAxis());
+            barChart.setTitle("Profit Margins by Crop");
+            barChart.setLegendVisible(false);
+            barChart.setPrefSize(800, 450);
+            
+            CategoryAxis xAxis = (CategoryAxis) barChart.getXAxis();
+            xAxis.setLabel("Crops");
+            xAxis.setTickLabelRotation(45);
+            
+            NumberAxis yAxis = (NumberAxis) barChart.getYAxis();
+            yAxis.setLabel("Profit Margin (%)");
+            
+            XYChart.Series<String, Number> series = new XYChart.Series<>();
+            series.setName("Profit Margin");
+            
+            // Real data from database - Calculate profit margins
+            List<ReportData> cropPerformance = dao.getCropPerformance();
+            List<ReportData> revenueDistribution = dao.getCropRevenueDistribution();
+            
+            for (ReportData perfData : cropPerformance) {
+                String cropName = perfData.getDescription();
+                double profit = Double.parseDouble(perfData.getAmount().replace("$", "").replace(",", ""));
+                
+                // Find corresponding revenue for this crop
+                double revenue = 0;
+                for (ReportData revData : revenueDistribution) {
+                    if (revData.getDescription().equals(cropName)) {
+                        revenue = Double.parseDouble(revData.getAmount().replace("$", "").replace(",", ""));
+                        break;
+                    }
+                }
+                
+                // Calculate profit margin
+                if (revenue > 0 && profit != 0) {
+                    double profitMargin = (profit / revenue) * 100;
+                    series.getData().add(new XYChart.Data<>(cropName, profitMargin));
+                }
+            }
+            
+            barChart.getData().clear();
+            barChart.getData().add(series);
+            
+            chartContainer.getChildren().clear();
+            chartContainer.getChildren().add(barChart);
+            
+        } catch (Exception e) {
+            System.err.println("Error showing profit distribution chart: " + e.getMessage());
+            e.printStackTrace();
+            showAlert("Error", "Failed to load profit distribution data: " + e.getMessage(), Alert.AlertType.ERROR);
+        }
+    }
+
+    private String formatMonthForDisplay(String month) {
+        try {
+            // Convert "2024-03" to "Mar 2024"
+            String[] parts = month.split("-");
+            if (parts.length == 2) {
+                int year = Integer.parseInt(parts[0]);
+                int monthNum = Integer.parseInt(parts[1]);
+                String[] monthNames = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", 
+                                      "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
+                return monthNames[monthNum - 1] + " '" + String.valueOf(year).substring(2);
+            }
+        } catch (Exception e) {
+            // If formatting fails, return original
+        }
+        return month;
+    }
+
+    @FXML
+    private void handleRefreshTransactions() {
+        loadTransactions();
+    }
+
+    private void loadTransactions() {
+        try {
+            reportData.clear();
+            
+            // Real data from database
+            List<ReportData> transactions = dao.getAllTransactions();
+            if (transactions != null && !transactions.isEmpty()) {
+                reportData.addAll(transactions);
+                System.out.println("Loaded " + transactions.size() + " transactions from database");
+            } else {
+                System.out.println("No transactions found in database.");
+                // Fallback to sample data if no database data
+                reportData.add(new ReportData("2024-04-15", "Revenue", "Tomatoes - Local Market", "$250.00"));
+                reportData.add(new ReportData("2024-04-14", "Expense", "Labor - Harvesting", "$120.00"));
+            }
+            
+        } catch (Exception e) {
+            System.err.println("Error loading transactions: " + e.getMessage());
+            e.printStackTrace();
+            showAlert("Error", "Failed to load transactions: " + e.getMessage(), Alert.AlertType.ERROR);
+        }
+    }
+
+    private void showAlert(String title, String message, Alert.AlertType type) {
+        Alert alert = new Alert(type);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 }

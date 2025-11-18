@@ -701,3 +701,307 @@
     -fx-padding: 5 10 5 10;
     -fx-font-size: 12px;
 }
+/* Add these to your existing CSS */
+
+/* Chart Styles */
+.chart-title {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2c3e50;
+    -fx-alignment: center;
+}
+
+.chart {
+    -fx-background-color: white;
+    -fx-background-radius: 10px;
+    -fx-border-radius: 10px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 0);
+}
+
+.chart-plot-background {
+    -fx-background-color: transparent;
+}
+
+.chart-vertical-grid-lines {
+    -fx-stroke: #ecf0f1;
+}
+
+.chart-horizontal-grid-lines {
+    -fx-stroke: #ecf0f1;
+}
+
+.chart-title {
+    -fx-text-fill: #2c3e50;
+    -fx-font-weight: bold;
+}
+
+.axis-label {
+    -fx-text-fill: #7f8c8d;
+}
+
+.axis {
+    -fx-tick-label-fill: #7f8c8d;
+    -fx-tick-length: 5px;
+}
+
+/* Bar Chart Styles */
+.default-color0.chart-bar {
+    -fx-bar-fill: #2ecc71; /* Revenue color */
+}
+
+.default-color1.chart-bar {
+    -fx-bar-fill: #e74c3c; /* Expenses color */
+}
+
+.default-color2.chart-bar {
+    -fx-bar-fill: #3498db; /* Profit color */
+}
+
+/* Pie Chart Styles */
+.chart-pie-label {
+    -fx-fill: #2c3e50;
+    -fx-font-weight: bold;
+}
+
+.data0.chart-pie { -fx-pie-color: #2ecc71; }
+.data1.chart-pie { -fx-pie-color: #3498db; }
+.data2.chart-pie { -fx-pie-color: #9b59b6; }
+.data3.chart-pie { -fx-pie-color: #e74c3c; }
+.data4.chart-pie { -fx-pie-color: #f39c12; }
+.data5.chart-pie { -fx-pie-color: #1abc9c; }
+.data6.chart-pie { -fx-pie-color: #d35400; }
+
+/* Line Chart Styles */
+.default-color0.chart-series-line {
+    -fx-stroke: #2ecc71;
+    -fx-stroke-width: 2px;
+}
+
+.default-color1.chart-series-line {
+    -fx-stroke: #e74c3c;
+    -fx-stroke-width: 2px;
+}
+
+.chart-line-symbol {
+    -fx-background-color: #2c3e50, white;
+    -fx-background-insets: 0, 2;
+    -fx-background-radius: 5px;
+    -fx-padding: 5px;
+}
+
+/* Button Styles for Charts */
+.btn-charts {
+    -fx-background-color: #f39c12;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-padding: 10px;
+    -fx-background-radius: 5px;
+}
+
+.btn-charts:hover {
+    -fx-background-color: #d35400;
+}
+
+.btn-hide {
+    -fx-background-color: #95a5a6;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-padding: 10px 20px;
+    -fx-background-radius: 5px;
+}
+
+.btn-hide:hover {
+    -fx-background-color: #7f8c8d;
+}/* Reports Dashboard Styles */
+.reports-container {
+    -fx-background-color: #f5f7fa;
+    -fx-padding: 15px;
+}
+
+/* Header */
+.header-label {
+    -fx-text-fill: #2c3e50;
+    -fx-font-weight: bold;
+    -fx-padding: 0px 0px 10px 0px;
+}
+
+/* Report Buttons */
+.report-buttons-container {
+    -fx-padding: 15px 0px;
+}
+
+.report-btn {
+    -fx-background-color: #3498db;
+    -fx-text-fill: white;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-padding: 10px 15px;
+    -fx-background-radius: 6px;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(three-pass-box, rgba(52,152,219,0.3), 5, 0, 0, 2);
+}
+
+.report-btn:hover {
+    -fx-background-color: #2980b9;
+}
+
+.report-btn:selected {
+    -fx-background-color: #2c3e50;
+}
+
+/* Chart Display Area */
+.chart-display-area {
+    -fx-padding: 15px 0px;
+    -fx-background-color: white;
+    -fx-background-radius: 10px;
+    -fx-border-radius: 10px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 0);
+}
+
+.chart-main-title {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2c3e50;
+    -fx-alignment: center;
+    -fx-padding: 15px;
+}
+
+.chart-container {
+    -fx-padding: 20px;
+    -fx-alignment: center;
+}
+
+/* Chart Styling */
+.chart {
+    -fx-background-color: transparent;
+    -fx-padding: 15px;
+}
+
+.chart-plot-background {
+    -fx-background-color: transparent;
+}
+
+.chart-vertical-grid-lines {
+    -fx-stroke: #ecf0f1;
+}
+
+.chart-horizontal-grid-lines {
+    -fx-stroke: #ecf0f1;
+}
+
+.chart-title {
+    -fx-text-fill: #2c3e50;
+    -fx-font-weight: bold;
+}
+
+.axis-label {
+    -fx-text-fill: #7f8c8d;
+    -fx-font-size: 12px;
+}
+
+.axis {
+    -fx-tick-label-fill: #7f8c8d;
+    -fx-tick-length: 5px;
+    -fx-font-size: 11px;
+}
+
+/* Bar Chart Styling */
+.default-color0.chart-bar {
+    -fx-bar-fill: #3498db;
+}
+
+.default-color1.chart-bar {
+    -fx-bar-fill: #2ecc71;
+}
+
+.default-color2.chart-bar {
+    -fx-bar-fill: #e74c3c;
+}
+
+.default-color0.chart-bar:hover {
+    -fx-bar-fill: #2980b9;
+}
+
+/* Pie Chart Styling */
+.data0.chart-pie { -fx-pie-color: #3498db; }
+.data1.chart-pie { -fx-pie-color: #2ecc71; }
+.data2.chart-pie { -fx-pie-color: #e74c3c; }
+.data3.chart-pie { -fx-pie-color: #f39c12; }
+.data4.chart-pie { -fx-pie-color: #9b59b6; }
+.data5.chart-pie { -fx-pie-color: #1abc9c; }
+
+.chart-pie-label {
+    -fx-fill: #2c3e50;
+    -fx-font-weight: bold;
+    -fx-font-size: 11px;
+}
+
+/* Line Chart Styling */
+.default-color0.chart-series-line {
+    -fx-stroke: #e74c3c;
+    -fx-stroke-width: 3px;
+}
+
+.default-color0.chart-line-symbol {
+    -fx-background-color: #e74c3c, white;
+    -fx-background-insets: 0, 2;
+    -fx-background-radius: 5px;
+    -fx-padding: 5px;
+}
+
+/* Table Section */
+.table-container {
+    -fx-padding: 15px 0px 0px 0px;
+}
+
+.section-title {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2c3e50;
+}
+
+.btn-refresh-small {
+    -fx-background-color: #95a5a6;
+    -fx-text-fill: white;
+    -fx-font-size: 11px;
+    -fx-padding: 4px 8px;
+    -fx-background-radius: 4px;
+    -fx-cursor: hand;
+}
+
+.btn-refresh-small:hover {
+    -fx-background-color: #7f8c8d;
+}
+
+.report-table {
+    -fx-background-color: white;
+    -fx-border-color: #bdc3c7;
+    -fx-border-radius: 6px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.08), 5, 0, 0, 2);
+}
+
+.report-table .column-header {
+    -fx-background-color: #34495e;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-size: 12px;
+}
+
+.report-table .table-row-cell:even {
+    -fx-background-color: #f8f9fa;
+}
+
+.report-table .table-row-cell:odd {
+    -fx-background-color: white;
+}
+
+.report-table .table-row-cell:selected {
+    -fx-background-color: #3498db;
+    -fx-text-fill: white;
+}
+
+.report-table .table-cell {
+    -fx-border-color: transparent;
+    -fx-padding: 8px;
+    -fx-font-size: 12px;
+}

@@ -52,7 +52,8 @@
         <Button text="Completed Orders" onAction="#completedOrders" styleClass="button-secondary"/>
         <Button text="All Orders" onAction="#allOrders" styleClass="button-warning"/>
         <Button text="Notify Factory" onAction="#allOrders" styleClass="button-warning"/>
-        <Button text="Delete Order" onAction="#deleteOrder" styleClass="button-danger"/>
+      <!-- <Button text="Delete Order" onAction="#deleteOrder" styleClass="button-danger"/>
+      --> 
         <Button text="Order Details" onAction="#showOrderDetails" styleClass="button-danger"/>
         <Button text="Refresh" onAction="#refreshData" styleClass="button-secondary"/>
     </HBox>

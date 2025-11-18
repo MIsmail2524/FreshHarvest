@@ -5,82 +5,54 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
 
-<VBox xmlns="http://javafx.com/javafx/11.0.1" 
+<VBox xmlns="http://javafx.com/javafx/11.0.1"
       xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="com.freshharvest.controller.UpdateCropController" 
-      spacing="20" 
+      fx:controller="com.freshharvest.controller.UpdateCropController"
+      spacing="20"
       alignment="TOP_CENTER"
       stylesheets="@../css/application.css">
-  
+
     <padding><Insets top="25" right="30" bottom="25" left="30"/></padding>
 
     <Label text="Update Crop" styleClass="page-title">
-        <font>
-            <Font name="System Bold" size="24.0" />
-        </font>
+        <font><Font name="System Bold" size="24" /></font>
     </Label>
-    
-    <!-- Form Section -->
-    <VBox styleClass="card" spacing="15" alignment="CENTER_LEFT" prefWidth="600" prefHeight="550">
+
+    <VBox styleClass="card" spacing="15" alignment="CENTER_LEFT" prefWidth="1000" prefHeight="700">
         <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
-        
-        <!-- Crop ID (Hidden but displayed for reference) -->
-        <VBox spacing="5">
-            <Label text="Crop ID" styleClass="label-primary"/>
-            <TextField fx:id="txtCropId" styleClass="text-field full-width" editable="false"/>
-        </VBox>
-        
-        <!-- Crop Name -->
+
+        <!-- Name -->
         <VBox spacing="5">
             <Label text="Crop Name *" styleClass="label-primary"/>
-            <TextField fx:id="txtCropName" promptText="Enter crop name" styleClass="text-field full-width"/>
+            <TextField fx:id="txtCropName" styleClass="text-field full-width"/>
         </VBox>
-        
-        <!-- Crop Type -->
+
+        <!-- Type -->
         <VBox spacing="5">
             <Label text="Crop Type *" styleClass="label-primary"/>
-            <ComboBox fx:id="comboCropType" promptText="Select crop type" styleClass="combo-box full-width"/>
+            <TextField fx:id="txtCropType" styleClass="text-field full-width"/>
         </VBox>
-        
-        <!-- Status -->
+
+        <!-- Season -->
         <VBox spacing="5">
-            <Label text="Status *" styleClass="label-primary"/>
-            <ComboBox fx:id="comboStatus" promptText="Select status" styleClass="combo-box full-width"/>
+            <Label text="Season" styleClass="label-primary"/>
+            <ComboBox fx:id="comboSeason" promptText="Select season" styleClass="combo-box full-width"/>
         </VBox>
-        
-        <!-- Planting Date -->
-        <VBox spacing="5">
-            <Label text="Planting Date" styleClass="label-primary"/>
-            <DatePicker fx:id="datePlanting" styleClass="date-picker full-width"/>
-        </VBox>
-        
-        <!-- Harvest Date -->
-        <VBox spacing="5">
-            <Label text="Harvest Date" styleClass="label-primary"/>
-            <DatePicker fx:id="dateHarvest" styleClass="date-picker full-width"/>
-        </VBox>
-        
+
         <!-- Quantity -->
         <VBox spacing="5">
-            <Label text="Quantity (kg) *" styleClass="label-primary"/>
-            <TextField fx:id="txtQuantity" promptText="Enter quantity" styleClass="text-field full-width"/>
+            <Label text="Quantity" styleClass="label-primary"/>
+            <TextField fx:id="txtQuantity" styleClass="text-field full-width"/>
         </VBox>
-        
-        <!-- Field Name -->
+
+        <!-- Field -->
         <VBox spacing="5">
-            <Label text="Field Name" styleClass="label-primary"/>
-            <TextField fx:id="txtFieldName" promptText="Enter field name" styleClass="text-field full-width"/>
+            <Label text="Field" styleClass="label-primary"/>
+            <TextField fx:id="txtField" styleClass="text-field full-width"/>
         </VBox>
-        
-        <!-- Notes -->
-        <VBox spacing="5">
-            <Label text="Notes" styleClass="label-primary"/>
-            <TextArea fx:id="txtNotes" promptText="Enter any notes" styleClass="text-area full-width" wrapText="true"/>
-        </VBox>
-        
-        <!-- Action Buttons -->
-        <HBox spacing="15" alignment="CENTER" styleClass="full-width">
-            <Button text="Update Crop" onAction="#onUpdateCrop" styleClass="button" defaultButton="true"/>
+
+        <HBox spacing="15" alignment="CENTER">
+            <Button text="Save Changes" onAction="#onUpdateCrop" styleClass="button" defaultButton="true"/>
             <Button text="Cancel" onAction="#onCancel" styleClass="button-secondary" cancelButton="true"/>
         </HBox>
     </VBox>

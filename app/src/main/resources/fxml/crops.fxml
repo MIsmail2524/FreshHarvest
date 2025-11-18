@@ -29,6 +29,7 @@
         <Button text="➕ Add New Crop" onAction="#addCrop" styleClass="button"/>
         <Button text="👁️ View Crop" onAction="#viewCrop" styleClass="button-secondary"/>
         <Button text="✏️ Update Crop" onAction="#updateCrop" styleClass="button-warning"/>
+       
         <Button text="🗑️ Delete Crop" onAction="#deleteCrop" styleClass="button-danger"/>
         <Button text="🔄 Refresh" onAction="#refreshData" styleClass="button-secondary"/>
     </HBox>

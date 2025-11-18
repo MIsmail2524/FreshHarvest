@@ -119,9 +119,7 @@ public void openUpdateCrop() {
     Object cropsController = null;
     // You might need to adjust this based on your MainController structure
     // For now, let's assume we can access the CropsController instance
-    if (cropsController != null) {
-        ((CropsController) cropsController).updateCrop();
-    }
+   
 }
 
 private void loadPopup(String fxml) {

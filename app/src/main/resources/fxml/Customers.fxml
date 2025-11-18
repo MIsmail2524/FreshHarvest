@@ -47,7 +47,8 @@
         <Label fx:id="lblSearchCount" text="Found 0 customers" style="-fx-text-fill: #666;"/>
         <Region HBox.hgrow="ALWAYS"/>
         <Button text="View Customer" onAction="#handleViewCustomer" style="-fx-background-color: #3498db; -fx-text-fill: white;"/>
-        <Button text="Send Message" onAction="#handleSendMessage" style="-fx-background-color: #9b59b6; -fx-text-fill: white;"/>
+      <!--  <Button text="Send Message" onAction="#handleSendMessage" style="-fx-background-color: #9b59b6; -fx-text-fill: white;"/>
+      -->
         <Button text="Customer Report" onAction="#handleCustomerReport" style="-fx-background-color: #e67e22; -fx-text-fill: white;"/>
         <Button text="Refresh" onAction="#handleRefresh" style="-fx-background-color: #95a5a6; -fx-text-fill: white;"/>
     </HBox>

@@ -4,60 +4,58 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
-<?import javafx.collections.FXCollections?>
+<?import javafx.scene.chart.*?>
 
-<VBox xmlns="http://javafx.com/javafx/11.0.1" 
+<VBox xmlns="http://javafx.com/javafx/11.0.1"
       xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="com.freshharvest.controller.ReportsController"
-      spacing="20"
+      spacing="15"
       alignment="TOP_CENTER"
-      stylesheets="@../css/application.css">
+      styleClass="reports-container">
 
-    <padding><Insets top="25" right="30" bottom="25" left="30"/></padding>
+    <padding>
+        <Insets top="15" right="20" bottom="15" left="20"/>
+    </padding>
 
-    <Label text="Farm Analytics , Reports">
+    <!-- HEADER -->
+    <Label text="Farm Analytics and Reports Dashboard" styleClass="header-label">
         <font>
-            <Font name="System Bold" size="32" />
+            <Font name="System Bold" size="24"/>
         </font>
     </Label>
-<HBox spacing="15" alignment="CENTER">
-        <Button text="Financial Summary" onAction="#handleFinancialSummary" 
-                style="-fx-background-color: #2ecc71; -fx-text-fill: white; -fx-font-size: 14; -fx-padding: 10;"/>
-        <Button text="Crop Performance" onAction="#handleCropPerformance" 
-                style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-font-size: 14; -fx-padding: 10;"/>
-        <Button text="Seasonal Analysis" onAction="#handleSeasonalAnalysis" 
-                style="-fx-background-color: #9b59b6; -fx-text-fill: white; -fx-font-size: 14; -fx-padding: 10;"/>
-        <Button text="Expense Report" onAction="#handleExpenseReport" 
-                style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-font-size: 14; -fx-padding: 10;"/>
+
+    <!-- Report Type Buttons -->
+    <HBox spacing="10" alignment="CENTER" styleClass="report-buttons-container">
+        <Button text="📊 Crop Performance" onAction="#handleCropPerformance" styleClass="report-btn"/>
+        <Button text="💰 Revenue Analysis" onAction="#handleRevenueAnalysis" styleClass="report-btn"/>
+        <Button text="📈 Expense Breakdown" onAction="#handleExpenseBreakdown" styleClass="report-btn"/>
+        <Button text="📅 Monthly Trends" onAction="#handleMonthlyTrends" styleClass="report-btn"/>
+        <Button text="🥧 Profit Distribution" onAction="#handleProfitDistribution" styleClass="report-btn"/>
     </HBox>
-    
-    
 
+    <!-- Chart Display Area -->
+    <VBox fx:id="chartDisplayArea" spacing="15" styleClass="chart-display-area">
+        <Label fx:id="currentChartTitle" text="Select a report type to view charts" styleClass="chart-main-title"/>
+        
+        <!-- Chart will be displayed here dynamically -->
+        <StackPane fx:id="chartContainer" prefHeight="500" styleClass="chart-container"/>
+    </VBox>
 
-
-
-
-
- <!-- Simple Data Display -->
-    <VBox spacing="10" alignment="TOP_CENTER">
-        <Label text="Recent Transactions" style="-fx-font-size: 18; -fx-font-weight: bold;"/>
-        <TableView fx:id="reportTable" prefHeight="300">
+    <!-- Recent Transactions -->
+    <VBox spacing="10" styleClass="table-container">
+        <HBox alignment="CENTER_LEFT" spacing="10">
+            <Label text="Recent Transactions" styleClass="section-title"/>
+            <Button text="Refresh" onAction="#handleRefreshTransactions" styleClass="btn-refresh-small"/>
+        </HBox>
+        
+        <TableView fx:id="reportTable" prefHeight="200">
             <columns>
                 <TableColumn fx:id="colReportDate" text="Date" prefWidth="100"/>
-                <TableColumn fx:id="colReportCategory" text="Category" prefWidth="120"/>
-                <TableColumn fx:id="colReportDescription" text="Description" prefWidth="200"/>
+                <TableColumn fx:id="colReportCategory" text="Category" prefWidth="100"/>
+                <TableColumn fx:id="colReportDescription" text="Description" prefWidth="300"/>
                 <TableColumn fx:id="colReportAmount" text="Amount" prefWidth="100"/>
             </columns>
         </TableView>
     </VBox>
 
-        <!-- Action Buttons -->
-    <HBox spacing="15" alignment="CENTER">
-        <Button text="Generate Full Report" onAction="#handleGenerateReport" 
-                style="-fx-background-color: #2ecc71; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 10 20;"/>
-        <Button text="Export Data" onAction="#handleExportPDF" 
-                style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-padding: 10 20;"/>
-        <Button text="Print Summary" onAction="#handlePrint" 
-                style="-fx-background-color: #e67e22; -fx-text-fill: white; -fx-padding: 10 20;"/>
-    </HBox>
 </VBox>
