@@ -2,7 +2,6 @@ package com.freshharvest.controller;
 
 import com.freshharvest.model.Batch;
 import com.freshharvest.util.DBHandle;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -23,6 +22,10 @@ public class FactoryDashboardController {
     private Label lblInProgressBatches;
     @FXML
     private Label lblPackagedBatches;
+    
+    // NEW LABEL
+    @FXML
+    private Label lblPendingShipments;
 
     // FXML fields for table
     @FXML
@@ -53,7 +56,7 @@ public class FactoryDashboardController {
     }
 
     private void loadDashboardStats() {
-        // --- Database Logic ---
+        // 1. Get Batch Counts
         Map<String, Integer> counts = dbHandler.getBatchStatusCounts();
 
         int pending = counts.getOrDefault("Pending", 0);
@@ -63,11 +66,13 @@ public class FactoryDashboardController {
         lblPendingBatches.setText(String.valueOf(pending));
         lblInProgressBatches.setText(String.valueOf(inProgress));
         lblPackagedBatches.setText(String.valueOf(packaged));
+
+        // 2. Get Shipment Counts (NEW)
+        int pendingShipments = dbHandler.getPendingShipmentCount();
+        lblPendingShipments.setText(String.valueOf(pendingShipments));
     }
 
     private void loadPendingActions() {
-        // --- Database Logic ---
-        // Get all batches and filter for those needing action (e.g., 'Pending')
         ObservableList<Batch> pendingBatches = dbHandler.getAllBatches()
                 .stream()
                 .filter(b -> b.getStatus().equals("Pending"))

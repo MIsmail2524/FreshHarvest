@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
+    fx:controller="com.freshharvest.controller.ShipmentController"
+    styleClass="content-pane" spacing="20">
+    
+    <padding>
+        <Insets top="20" right="30" bottom="20" left="30" />
+    </padding>
+
+    <Label text="Shipment Management" styleClass="page-title" />
+    <Label text="View scheduled shipments and confirm dispatch." styleClass="page-subtitle" />
+    
+    <Separator />
+
+    <Label text="Pending Shipments (Scheduled by Farmer)" styleClass="content-title" />
+    <TableView fx:id="shipmentTable" prefHeight="300.0">
+        <columns>
+            <TableColumn fx:id="colShipId" prefWidth="100.0" text="Shipment ID" />
+            <TableColumn fx:id="colCustomer" prefWidth="200.0" text="Customer" />
+            <TableColumn fx:id="colCarrier" prefWidth="150.0" text="Carrier" />
+            <TableColumn fx:id="colStatus" prefWidth="100.0" text="Status" />
+        </columns>
+    </TableView>
+
+    <Separator />
+
+    <Label text="Process Shipment" styleClass="content-title" />
+    <GridPane hgap="10" vgap="15" maxWidth="700">
+        <children>
+            <Label text="Selected Shipment:" GridPane.rowIndex="0" GridPane.columnIndex="0" />
+            <Label fx:id="lblSelectedShipment" text="None" styleClass="text-bold" GridPane.rowIndex="0" GridPane.columnIndex="1" />
+
+            <Label text="Generate Tracking #:" GridPane.rowIndex="1" GridPane.columnIndex="0" />
+            <TextField fx:id="txtTracking" promptText="e.g. TRK-998877" GridPane.rowIndex="1" GridPane.columnIndex="1" />
+
+            <Button text="Confirm Dispatch" onAction="#onConfirmShipment" GridPane.rowIndex="1" GridPane.columnIndex="2" />
+        </children>
+    </GridPane>
+</VBox>

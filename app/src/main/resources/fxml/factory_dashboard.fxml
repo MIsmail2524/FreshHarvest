@@ -19,12 +19,13 @@
     </padding>
 
     <Label text="Factory Dashboard" styleClass="page-title" />
-    <Label text="Overview of factory operations and batch statuses." styleClass="page-subtitle" />
+    <Label text="Overview of factory operations, batches, and shipments." styleClass="page-subtitle" />
     
     <Separator />
 
     <GridPane hgap="20" vgap="20">
         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="200.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="200.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="200.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="200.0" />
@@ -46,6 +47,11 @@
             <VBox styleClass="card" GridPane.columnIndex="2">
                 <Label text="Packaged &amp; Ready" styleClass="card-title" />
                 <Label fx:id="lblPackagedBatches" text="0" styleClass="card-value" />
+            </VBox>
+
+            <VBox styleClass="card" GridPane.columnIndex="3">
+                <Label text="Pending Shipments" styleClass="card-title" />
+                <Label fx:id="lblPendingShipments" text="0" styleClass="card-value" />
             </VBox>
         </children>
     </GridPane>

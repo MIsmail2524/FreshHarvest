@@ -191,4 +191,14 @@ public class MainController {
             activeButton.getStyleClass().add("active");
         }
     }
+
+    @FXML private Button btnShipmentManagement;
+
+// Add to initialize list...
+
+@FXML
+private void onShipmentManagement() {
+    updateActiveButton(btnShipmentManagement);
+    SceneManager.loadScene(contentPane, "shipment_management.fxml");
+}
 }

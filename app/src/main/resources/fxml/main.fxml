@@ -26,6 +26,7 @@
       <Button fx:id="btnBatchManagement" text="Batch Management" onAction="#onBatchManagement"/>
       
       <Button fx:id="btnFactoryInventory" text="Factory Inventory" onAction="#onFactoryInventory"/>
+      <Button fx:id="btnShipmentManagement" text="Shipment Management" onAction="#onShipmentManagement"/>
 
       <Button fx:id="btnFactoryReport" text="Factory Reports" onAction="#onFactoryReport"/>
       
