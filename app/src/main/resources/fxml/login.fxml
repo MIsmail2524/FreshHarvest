@@ -11,160 +11,158 @@
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.freshharvest.controller.LoginController"
             stylesheets="@../css/application.css"
-            prefWidth="1500" prefHeight="650">
+            prefWidth="1200" prefHeight="700">
 
     <!-- Left Side - Brand/Image Section -->
     <left>
-        <VBox styleClass="brand-section" alignment="CENTER" spacing="30" prefWidth="500">
+        <VBox styleClass="brand-section" alignment="CENTER" spacing="20" prefWidth="450" 
+              style="-fx-background-color: linear-gradient(to bottom right, #27ae60, #2ecc71); -fx-padding: 30;">
             <!-- Logo and Brand -->
-            <VBox alignment="CENTER" spacing="15">
-                <ImageView fitWidth="120" fitHeight="120" preserveRatio="true">
-                    <Image url="@../images/freshharvest-logo.png"/>
+            <VBox alignment="CENTER" spacing="10">
+                <ImageView fitWidth="80" fitHeight="80" preserveRatio="true">
+                    <Image url="@../image/logo.png"/>
                 </ImageView>
-                <VBox alignment="CENTER" spacing="8">
-                    <Label text="Farm to Table Excellence" styleClass="brand-subtitle"/>
-                </VBox>
+                <Label text="FreshHarvest" style="-fx-font-size: 26px; -fx-font-weight: bold; -fx-text-fill: white;"/>
+                <Label text="Farm to Table Excellence" style="-fx-text-fill: rgba(255,255,255,0.9); -fx-font-size: 13px;"/>
             </VBox>
 
             <!-- Feature Highlights -->
-            <VBox styleClass="features-box" alignment="CENTER_LEFT" spacing="20">
-                <VBox spacing="12">
-                    <HBox spacing="15" alignment="CENTER_LEFT">
-                        <ImageView fitWidth="24" fitHeight="24">
+            <VBox alignment="CENTER_LEFT" spacing="15" 
+                  style="-fx-background-color: rgba(255,255,255,0.1); -fx-background-radius: 12; -fx-padding: 20; -fx-border-color: rgba(255,255,255,0.2); -fx-border-radius: 12; -fx-border-width: 1;">
+                <VBox spacing="10">
+                    <HBox spacing="12" alignment="CENTER_LEFT">
+                        <ImageView fitWidth="20" fitHeight="20" preserveRatio="true">
                             <Image url="@../images/icon-fresh.png"/>
                         </ImageView>
                         <VBox spacing="2">
-                            <Label text="Fresh Produce" styleClass="feature-title"/>
-                            <Label text="Direct from local farms" styleClass="feature-desc"/>
+                            <Label text="Fresh Produce" style="-fx-text-fill: white; -fx-font-size: 14px; -fx-font-weight: 600;"/>
+                            <Label text="Direct from local farms" style="-fx-text-fill: rgba(255,255,255,0.8); -fx-font-size: 11px;"/>
                         </VBox>
                     </HBox>
 
-                    <HBox spacing="15" alignment="CENTER_LEFT">
-                        <ImageView fitWidth="500" fitHeight="500">
-                            <Image url="@../image/logo.png"/>
-                        </ImageView>
-                        <VBox spacing="2">
-                            <Label text="Fast Delivery" styleClass="feature-title"/>
-                            <Label text="Same day delivery available" styleClass="feature-desc"/>
-                        </VBox>
-                    </HBox>
-
-                    <HBox spacing="15" alignment="CENTER_LEFT">
-                        <ImageView fitWidth="24" fitHeight="24">
+                    <HBox spacing="12" alignment="CENTER_LEFT">
+                        <ImageView fitWidth="20" fitHeight="20" preserveRatio="true">
                             <Image url="@../images/icon-quality.png"/>
                         </ImageView>
                         <VBox spacing="2">
-                            <Label text="Premium Quality" styleClass="feature-title"/>
-                            <Label text="100% organic and natural" styleClass="feature-desc"/>
+                            <Label text="Premium Quality" style="-fx-text-fill: white; -fx-font-size: 14px; -fx-font-weight: 600;"/>
+                            <Label text="100% organic and natural" style="-fx-text-fill: rgba(255,255,255,0.8); -fx-font-size: 11px;"/>
                         </VBox>
                     </HBox>
                 </VBox>
             </VBox>
 
             <!-- Testimonial -->
-            <VBox styleClass="testimonial-box" alignment="CENTER" spacing="10">
+            <VBox alignment="CENTER" spacing="8" 
+                  style="-fx-background-color: rgba(255,255,255,0.1); -fx-background-radius: 12; -fx-padding: 15; -fx-border-color: rgba(255,255,255,0.2); -fx-border-radius: 12; -fx-border-width: 1;">
                 <TextFlow textAlignment="CENTER">
-                    <Text text="&quot;" styleClass="quote-mark"/>
-                    <Text text="FreshHarvest delivers the freshest produce right to my doorstep. Amazing service!" styleClass="testimonial-text"/>
-                    <Text text="&quot;" styleClass="quote-mark"/>
+                    <Text text="&quot;" style="-fx-fill: rgba(255,255,255,0.7); -fx-font-size: 14px;"/>
+                    <Text text="FreshHarvest delivers the freshest produce right to my doorstep!" style="-fx-fill: white; -fx-font-size: 12px; -fx-font-style: italic;"/>
+                    <Text text="&quot;" style="-fx-fill: rgba(255,255,255,0.7); -fx-font-size: 14px;"/>
                 </TextFlow>
-                <Label text="- Sarah Johnson, Regular Customer" styleClass="testimonial-author"/>
+                <Label text="- Sarah Johnson" style="-fx-text-fill: rgba(255,255,255,0.8); -fx-font-size: 11px;"/>
             </VBox>
         </VBox>
     </left>
 
     <!-- Right Side - Login Form -->
     <center>
-        <VBox styleClass="login-form-section" alignment="CENTER" spacing="30" prefWidth="500">
-            <!-- Welcome Header -->
-            <VBox alignment="CENTER" spacing="8">
-                <Label text="Welcome Back!" styleClass="welcome-title"/>
-                <Label text="Sign in to your account" styleClass="welcome-subtitle"/>
-            </VBox>
-
-            <!-- Login Form -->
-            <VBox styleClass="form-container" spacing="25" prefWidth="350">
-                <!-- Username Field -->
-                <VBox styleClass="form-field" spacing="8">
-                    <Label text="Username" styleClass="field-label"/>
-                    <HBox styleClass="input-container" spacing="10">
-                        <ImageView fitWidth="20" fitHeight="20" styleClass="input-icon">
-                            <Image url="@../images/icon-user.png"/>
-                        </ImageView>
-                        <TextField fx:id="txtUsername" 
-                                  styleClass="modern-text-field"
-                                  promptText="Enter your username"
-                                  onKeyPressed="#onKeyPressed"/>
-                    </HBox>
+        <ScrollPane fitToWidth="true" fitToHeight="true" style="-fx-background-color: white; -fx-background: white;" hbarPolicy="NEVER">
+            <VBox alignment="CENTER" spacing="20" style="-fx-background-color: white; -fx-padding: 40 30;">
+                <!-- Welcome Header -->
+                <VBox alignment="CENTER" spacing="6">
+                    <Label text="Welcome Back!" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+                    <Label text="Sign in to your account" style="-fx-font-size: 13px; -fx-text-fill: #7f8c8d;"/>
                 </VBox>
 
-                <!-- Password Field -->
-                <VBox styleClass="form-field" spacing="8">
-                    <Label text="Password" styleClass="field-label"/>
-                    <HBox styleClass="input-container" spacing="10">
-                        <ImageView fitWidth="20" fitHeight="20" styleClass="input-icon">
-                            <Image url="@../images/icon-lock.png"/>
-                        </ImageView>
-                        <PasswordField fx:id="txtPassword" 
+                <!-- Login Form -->
+                <VBox spacing="18" prefWidth="330" maxWidth="330">
+                    <!-- Username Field -->
+                    <VBox spacing="6">
+                        <Label text="Username" style="-fx-font-size: 13px; -fx-font-weight: 600; -fx-text-fill: #2c3e50;"/>
+                        <HBox spacing="8" style="-fx-background-color: #f8f9fa; -fx-background-radius: 8; -fx-border-color: #e9ecef; -fx-border-radius: 8; -fx-border-width: 1; -fx-padding: 10 12;">
+                            <ImageView fitWidth="18" fitHeight="18" preserveRatio="true">
+                                <Image url="@../images/icon-user.png"/>
+                            </ImageView>
+                            <TextField fx:id="txtUsername" 
                                       styleClass="modern-text-field"
-                                      promptText="Enter your password"
-                                      onKeyPressed="#onKeyPressed"/>
+                                      promptText="Enter your username"
+                                      onKeyPressed="#onKeyPressed"
+                                      HBox.hgrow="ALWAYS"/>
+                        </HBox>
+                    </VBox>
+
+                    <!-- Password Field -->
+                    <VBox spacing="6">
+                        <Label text="Password" style="-fx-font-size: 13px; -fx-font-weight: 600; -fx-text-fill: #2c3e50;"/>
+                        <HBox spacing="8" style="-fx-background-color: #f8f9fa; -fx-background-radius: 8; -fx-border-color: #e9ecef; -fx-border-radius: 8; -fx-border-width: 1; -fx-padding: 10 12;">
+                            <ImageView fitWidth="18" fitHeight="18" preserveRatio="true">
+                                <Image url="@../images/icon-lock.png"/>
+                            </ImageView>
+                            <PasswordField fx:id="txtPassword" 
+                                          styleClass="modern-text-field"
+                                          promptText="Enter your password"
+                                          onKeyPressed="#onKeyPressed"
+                                          HBox.hgrow="ALWAYS"/>
+                        </HBox>
+                    </VBox>
+
+                    <!-- Error Message -->
+                    <VBox fx:id="errorContainer" visible="false" managed="false" 
+                          style="-fx-background-color: #ffeaea; -fx-background-radius: 6; -fx-border-color: #e74c3c; -fx-border-radius: 6; -fx-border-width: 1; -fx-padding: 10 12;">
+                        <HBox spacing="8" alignment="CENTER_LEFT">
+                            <ImageView fitWidth="14" fitHeight="14">
+                                <Image url="@../images/icon-error.png"/>
+                            </ImageView>
+                            <Label fx:id="lblError" wrapText="true" style="-fx-text-fill: #c0392b; -fx-font-size: 12px;"/>
+                        </HBox>
+                    </VBox>
+
+                    <!-- Login Button -->
+                    <VBox spacing="12">
+                        <Button fx:id="btnLogin" 
+                               text="Sign In" 
+                               styleClass="login-button"
+                               onAction="#onLogin" 
+                               defaultButton="true"
+                               maxWidth="Infinity"/>
+
+                        <ProgressIndicator fx:id="progressIndicator" 
+                                          visible="false"
+                                          prefWidth="30" prefHeight="30"/>
+                    </VBox>
+
+                    <!-- Divider -->
+                    <HBox alignment="CENTER" spacing="8">
+                        <Region HBox.hgrow="ALWAYS" style="-fx-background-color: #ecf0f1; -fx-pref-height: 1;"/>
+                        <Label text="or" style="-fx-text-fill: #95a5a6; -fx-font-size: 11px;"/>
+                        <Region HBox.hgrow="ALWAYS" style="-fx-background-color: #ecf0f1; -fx-pref-height: 1;"/>
                     </HBox>
+
+                    <!-- Alternative Options -->
+                    <VBox spacing="10" alignment="CENTER">
+                        <Label text="Don't have an account?" style="-fx-text-fill: #7f8c8d; -fx-font-size: 13px;"/>
+                        <HBox spacing="12" alignment="CENTER">
+                            <Button fx:id="btnSignup" 
+                                   text="Create Account" 
+                                   styleClass="secondary-button"
+                                   onAction="#onSignup"/>
+                                   
+                            <Button fx:id="btnExit" 
+                                   text="Exit" 
+                                   styleClass="text-button"
+                                   onAction="#onExit"/>
+                        </HBox>
+                    </VBox>
                 </VBox>
 
-                <!-- Error Message -->
-                <VBox fx:id="errorContainer" styleClass="error-container" visible="false" managed="false">
-                    <HBox spacing="8" alignment="CENTER_LEFT">
-                        <ImageView fitWidth="16" fitHeight="16">
-                            <Image url="@../images/icon-error.png"/>
-                        </ImageView>
-                        <Label fx:id="lblError" styleClass="error-text" wrapText="true"/>
-                    </HBox>
-                </VBox>
-
-                <!-- Login Button -->
-                <VBox spacing="15">
-                    <Button fx:id="btnLogin" 
-                           text="Sign In" 
-                           styleClass="login-button"
-                           onAction="#onLogin" 
-                           defaultButton="true"/>
-
-                    <ProgressIndicator fx:id="progressIndicator" 
-                                      styleClass="login-progress"
-                                      visible="false"/>
-                </VBox>
-
-                <!-- Divider -->
-                <HBox alignment="CENTER" spacing="10">
-                    <Region styleClass="divider-line" HBox.hgrow="ALWAYS"/>
-                    <Label text="or" styleClass="divider-text"/>
-                    <Region styleClass="divider-line" HBox.hgrow="ALWAYS"/>
-                </HBox>
-
-                <!-- Alternative Options -->
-                <VBox spacing="12" alignment="CENTER">
-                    <Label text="Don't have an account?" styleClass="alternative-text"/>
-                    <HBox spacing="15" alignment="CENTER">
-                        <Button fx:id="btnSignup" 
-                               text="Create Account" 
-                               styleClass="secondary-button"
-                               onAction="#onSignup"/>
-                               
-                        <Button fx:id="btnExit" 
-                               text="Exit" 
-                               styleClass="text-button"
-                               onAction="#onExit"/>
-                    </HBox>
+                <!-- Footer -->
+                <VBox alignment="CENTER" spacing="4">
+                    <Label text="© 2025 FreshHarvest" style="-fx-text-fill: #95a5a6; -fx-font-size: 11px;"/>
+                    <Label text="Farm Management System v2.0" style="-fx-text-fill: #bdc3c7; -fx-font-size: 10px;"/>
                 </VBox>
             </VBox>
-
-            <!-- Footer -->
-            <VBox alignment="CENTER" spacing="5">
-                <Label text="© 2025 FreshHarvest" styleClass="footer-text"/>
-                <Label text="Farm Management System v2.0" styleClass="footer-subtext"/>
-            </VBox>
-        </VBox>
+        </ScrollPane>
     </center>
 
 </BorderPane>
