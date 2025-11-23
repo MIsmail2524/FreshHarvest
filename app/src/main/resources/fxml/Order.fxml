@@ -6,9 +6,11 @@
 <?import javafx.scene.text.Font?>
 
 <VBox xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="com.freshharvest.controller.OrderController" 
+      fx:controller="com.freshharvest.controller.OrderController"
+       
       spacing="20" 
       alignment="TOP_CENTER"
+      prefWidth="1400" prefHeight="900"
       stylesheets="@../css/application.css">
   
     <padding><Insets top="25" right="30" bottom="25" left="30"/></padding>
@@ -19,39 +21,32 @@
         </font>
     </Label>
     
-    <!-- Order Statistics Cards -->
-    <HBox spacing="20" alignment="CENTER">
-        <!-- Total Orders -->
-        <VBox styleClass="card metric-card revenue-card" spacing="10" alignment="CENTER" prefWidth="200" prefHeight="120">
-            <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
-            <Label text="📦" styleClass="metric-icon"/>
-            <Label fx:id="lblTotalOrders" text="0" styleClass="metric-value"/>
-            <Label text="Total Orders" styleClass="metric-title"/>
-        </VBox>
-
-        <!-- Pending Orders -->
-        <VBox styleClass="card metric-card warning-card" spacing="10" alignment="CENTER" prefWidth="200" prefHeight="120">
-            <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
-            <Label text="⏳" styleClass="metric-icon"/>
-            <Label fx:id="lblPendingOrders" text="0" styleClass="metric-value"/>
-            <Label text="Pending Orders" styleClass="metric-title"/>
-        </VBox>
-
-        <!-- Completed Orders -->
-        <VBox styleClass="card metric-card success-card" spacing="10" alignment="CENTER" prefWidth="200" prefHeight="120">
-            <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
-            <Label text="✅" styleClass="metric-icon"/>
-            <Label fx:id="lblCompletedOrders" text="0" styleClass="metric-value"/>
-            <Label text="Completed Orders" styleClass="metric-title"/>
-        </VBox>
-    </HBox>
+<HBox spacing="20" alignment="CENTER">
+    <!-- Total Orders -->
+    <VBox alignment="CENTER" spacing="5" style="-fx-border-color: #cccccc; -fx-border-radius: 5; -fx-padding: 10;">
+        <Label text="Total Orders" style="-fx-text-fill: #666; -fx-font-size: 14;"/>
+        <Label fx:id="lblTotalOrders" style="-fx-font-size: 24; -fx-font-weight: bold;"/>
+    </VBox>
+    
+    <!-- Pending Orders -->
+    <VBox alignment="CENTER" spacing="5" style="-fx-border-color: #cccccc; -fx-border-radius: 5; -fx-padding: 10;">
+        <Label text="Pending Orders" style="-fx-text-fill: #666; -fx-font-size: 14;"/>
+        <Label fx:id="lblPendingOrders" style="-fx-font-size: 24; -fx-font-weight: bold; -fx-text-fill: orange;"/>
+    </VBox>
+    
+    <!-- Completed Orders -->
+    <VBox alignment="CENTER" spacing="5" style="-fx-border-color: #cccccc; -fx-border-radius: 5; -fx-padding: 10;">
+        <Label text="Completed Orders" style="-fx-text-fill: #666; -fx-font-size: 14;"/>
+        <Label fx:id="lblCompletedOrders" style="-fx-font-size: 24; -fx-font-weight: bold; -fx-text-fill: green;"/>
+    </VBox>
+</HBox>
 
     <!-- Action Buttons -->
     <HBox spacing="15" alignment="CENTER">
         <Button text="Pending Orders" onAction="#pendingOrders" styleClass="button"/>
         <Button text="Completed Orders" onAction="#completedOrders" styleClass="button-secondary"/>
         <Button text="All Orders" onAction="#allOrders" styleClass="button-warning"/>
-        <Button text="Notify Factory" onAction="#allOrders" styleClass="button-warning"/>
+        <Button text="Notify Factory" onAction="#notifyFactory" styleClass="button-warning"/>
       <!-- <Button text="Delete Order" onAction="#deleteOrder" styleClass="button-danger"/>
       --> 
         <Button text="Order Details" onAction="#showOrderDetails" styleClass="button-danger"/>
@@ -68,7 +63,6 @@
         
         <TableView fx:id="ordersTable" styleClass="table-view" prefHeight="400">
             <columns>
-                <TableColumn fx:id="colOrderId" text="Order ID" prefWidth="120"/>
                 <TableColumn fx:id="colCustomer" text="Customer" prefWidth="150"/>
                 <TableColumn fx:id="colOrderDate" text="Order Date" prefWidth="150"/>
                 <TableColumn fx:id="colTotalAmount" text="Total Amount" prefWidth="120"/>

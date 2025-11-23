@@ -1,35 +1,41 @@
 package com.freshharvest.app;
 
-import com.freshharvest.app.Customer;
 import com.freshharvest.dao.CustomerDAO;
 import java.util.List;
 
 public class CustomerService {
+    private static CustomerService instance;
     private CustomerDAO customerDAO;
     
     public CustomerService() {
         this.customerDAO = new CustomerDAO();
     }
     
+    public static synchronized CustomerService getInstance() {
+        if (instance == null) {
+            instance = new CustomerService();
+        }
+        return instance;
+    }
+    
     /**
      * Get all customers for the current farmer
      */
-public List<Customer> getCustomersByFarmer() {
-    return customerDAO.findByFarmerId(getCurrentFarmerId());
-}
+    public List<Customer> getCustomersByFarmer() {
+        return customerDAO.findByFarmerId(getCurrentFarmerId());
+    }
 
-public Customer getCustomerById(int customerId) {
-    return customerDAO.findById(customerId, getCurrentFarmerId());
-}
+    public Customer getCustomerById(int customerId) {
+        return customerDAO.findById(customerId, getCurrentFarmerId());
+    }
 
-public List<Customer> searchCustomers(String searchTerm) {
-    return customerDAO.searchByTerm(searchTerm, getCurrentFarmerId());
-}
+    public List<Customer> searchCustomers(String searchTerm) {
+        return customerDAO.searchByTerm(searchTerm, getCurrentFarmerId());
+    }
 
-public boolean updateCustomer(Customer customer) {
-    return customerDAO.update(customer, getCurrentFarmerId());
-}
-
+    public boolean updateCustomer(Customer customer) {
+        return customerDAO.update(customer, getCurrentFarmerId());
+    }
     
     /**
      * Get top customers by total spent

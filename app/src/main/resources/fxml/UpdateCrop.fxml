@@ -10,6 +10,7 @@
       fx:controller="com.freshharvest.controller.UpdateCropController"
       spacing="20"
       alignment="TOP_CENTER"
+      prefWidth="1400" prefHeight="900"
       stylesheets="@../css/application.css">
 
     <padding><Insets top="25" right="30" bottom="25" left="30"/></padding>

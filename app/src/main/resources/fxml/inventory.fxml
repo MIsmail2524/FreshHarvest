@@ -8,6 +8,7 @@
 
 <VBox xmlns="http://javafx.com/javafx/11.0.1" 
       xmlns:fx="http://javafx.com/fxml/1"
+      prefWidth="1400" prefHeight="900"
       fx:controller="com.freshharvest.controller.InventoryController"
       spacing="20"
       alignment="TOP_CENTER"
@@ -46,9 +47,6 @@
         <ComboBox fx:id="comboStockFilter" promptText="Filter by Stock" prefWidth="150"/>
         <Label fx:id="lblFilterCount" text="Showing 0 products" style="-fx-text-fill: #666;"/>
         <Region HBox.hgrow="ALWAYS"/>
-        <Button text="Add Product" onAction="#handleAddProduct" style="-fx-background-color: #2ecc71; -fx-text-fill: white;"/>
-        <Button text="Update Stock" onAction="#handleUpdateStock" style="-fx-background-color: #3498db; -fx-text-fill: white;"/>
-        <Button text="Stock Report" onAction="#handleStockReport" style="-fx-background-color: #9b59b6; -fx-text-fill: white;"/>
         <Button text="Refresh" onAction="#handleRefresh" style="-fx-background-color: #95a5a6; -fx-text-fill: white;"/>
     </HBox>
     

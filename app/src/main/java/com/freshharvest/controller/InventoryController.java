@@ -2,6 +2,9 @@ package com.freshharvest.controller;
 
 import com.freshharvest.app.InventoryItem;
 import com.freshharvest.app.InventoryService;
+import com.freshharvest.util.DataChangeListener;
+import com.freshharvest.util.NotificationService;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -14,7 +17,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
-public class InventoryController implements Initializable {
+public class InventoryController implements Initializable, DataChangeListener { 
+    
+    private NotificationService notificationService; 
 
     // Statistics Labels
     @FXML private Label lblTotalProducts;
@@ -46,6 +51,9 @@ public class InventoryController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
+
+            notificationService = NotificationService.getInstance(); 
+            notificationService.addListener(this); 
             inventoryService = new InventoryService();
             inventoryData = FXCollections.observableArrayList();
             filteredInventory = new FilteredList<>(inventoryData);
@@ -59,6 +67,17 @@ public class InventoryController implements Initializable {
         }
     }
 
+
+
+    @Override
+    public void onDataChanged(String dataType) {
+        if ("INVENTORY_CHANGED".equals(dataType) || "BATCH_UPDATED".equals(dataType) || "FACTORY_ORDER_CREATED".equals(dataType)) {
+            javafx.application.Platform.runLater(() -> {
+                loadInventoryData();
+                System.out.println("Inventory automatically refreshed");
+            });
+        }
+    }
     private void setupTableColumns() {
         try {
             colProductId.setCellValueFactory(cellData -> 
@@ -196,6 +215,7 @@ public class InventoryController implements Initializable {
         }
     }
 
+    
     @FXML
     private void handleUpdateStock() {
         try {
@@ -211,15 +231,6 @@ public class InventoryController implements Initializable {
         }
     }
 
-    @FXML
-    private void handleStockReport() {
-        try {
-            // Generate and show stock report
-            showAlert("Stock Report", "Inventory report generated successfully!", Alert.AlertType.INFORMATION);
-        } catch (Exception e) {
-            handleError("Report Error", "Failed to generate report: " + e.getMessage());
-        }
-    }
 
     @FXML
     private void handleRefresh() {
@@ -263,6 +274,8 @@ public class InventoryController implements Initializable {
                 boolean success = inventoryService.updateStock(product.getProductId(), stockValue);
                 if (success) {
                     loadInventoryData(); // Refresh data
+                                        notificationService.notifyInventoryChanged();
+
                     showAlert("Success", "Stock updated successfully!", Alert.AlertType.INFORMATION);
                 } else {
                     showAlert("Error", "Failed to update stock.", Alert.AlertType.ERROR);

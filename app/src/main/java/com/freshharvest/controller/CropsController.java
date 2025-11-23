@@ -2,6 +2,9 @@ package com.freshharvest.controller;
 
 import com.freshharvest.app.Crop;
 import com.freshharvest.app.CropService;
+import com.freshharvest.util.DataChangeListener;
+import com.freshharvest.util.NotificationService;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -13,8 +16,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-public class CropsController {
-
+public class CropsController implements DataChangeListener {
+    private NotificationService notificationService;
     @FXML private Label totalCropsLabel;
     @FXML private TableView<Crop> cropsTable;
     
@@ -33,6 +36,8 @@ public class CropsController {
 
     @FXML
     public void initialize() {
+            notificationService = NotificationService.getInstance();
+        notificationService.addListener(this);
         System.out.println("🚀 CropsController initializing...");
         
         cropService = new CropService();
@@ -42,6 +47,16 @@ public class CropsController {
         loadCropsData();
         
         System.out.println("✅ CropsController initialized successfully");
+    }
+
+     @Override
+    public void onDataChanged(String dataType) {
+        if ("CROP_ADDED".equals(dataType) || "CROP_UPDATED".equals(dataType)) {
+            javafx.application.Platform.runLater(() -> {
+                refreshData(); // Your existing refresh method
+                System.out.println("Crops table automatically refreshed");
+            });
+        }
     }
 
     private void setupTableColumns() {
@@ -148,23 +163,7 @@ public void refreshAfterUpdate() {
 }
 
     
-    @FXML
-    private void viewCrop() {
-        Crop selected = cropsTable.getSelectionModel().getSelectedItem();
-        if (selected != null) {
-            System.out.println("👁️ Viewing crop: " + selected.getName() + " (ID: " + selected.getId() + ")");
-            showAlert("Crop Details", 
-                     "Name: " + selected.getName() + "\n" +
-                     "Type: " + selected.getType() + "\n" +
-                     "Status: " + selected.getStatus() + "\n" +
-                     "Quantity: " + selected.getQuantity(), 
-                     Alert.AlertType.INFORMATION);
-        } else {
-            showAlert("Selection Required", "Please select a crop to view.", Alert.AlertType.WARNING);
-        }
-    }
-    
- 
+   
     
     @FXML
     private void deleteCrop() {

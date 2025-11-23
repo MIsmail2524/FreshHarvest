@@ -2,6 +2,8 @@ package com.freshharvest.controller;
 
 import com.freshharvest.app.Crop;
 import com.freshharvest.app.CropService;
+import com.freshharvest.util.NotificationService;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -22,9 +24,13 @@ public class UpdateCropController {
     private Crop selectedCrop; // Crop being edited
     private CropsController cropsController; // Parent controller
     private CropService cropService;
+        private NotificationService notificationService;
+
 
     @FXML
     public void initialize() {
+                notificationService = NotificationService.getInstance(); 
+
         cropService = new CropService();
         comboSeason.getItems().addAll("Spring", "Summer", "Autumn", "Winter");
     }
@@ -58,6 +64,8 @@ public class UpdateCropController {
             boolean success = cropService.updateCrop(selectedCrop);
 
             if (success) {
+                                notificationService.notifyDataChanged("CROP_UPDATED");
+
                 showAlert("Success", "Crop updated successfully!", Alert.AlertType.INFORMATION);
 
                 if (cropsController != null) {

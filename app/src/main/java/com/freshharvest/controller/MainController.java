@@ -88,13 +88,7 @@ public class MainController implements Initializable {
         setActiveButton(btnReports);
     }
 
-    @FXML
-    private void onSettings(ActionEvent e) { 
-        // TODO: Implement settings view
-        loadView("dashboard"); // Placeholder - load dashboard for now
-        setActiveButton(btnSettings);
-    }
-
+    
     @FXML
     private void onLogout(ActionEvent e) { 
         // TODO: Implement proper logout logic (save state, confirm dialog, etc.)
@@ -110,6 +104,12 @@ public class MainController implements Initializable {
     void openAddCrop() {
     loadPopup("AddCrop.fxml");
 }
+
+
+
+
+
+
 
 public void openUpdateCrop() {
     // This method should get the selected crop from CropsController and pass it to UpdateCropController

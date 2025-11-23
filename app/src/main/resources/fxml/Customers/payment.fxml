@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.chart.*?>
+
+<VBox xmlns="http://javafx.com/javafx/11.0.1"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.freshharvest.controller.CustomerControllers.MakePaymentController"
+      spacing="20"
+      style="-fx-background-color: #f8f9fa; -fx-padding: 30;"
+      prefWidth="1400" prefHeight="1200">
+
+    <Label text="Make Payment" 
+           style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+
+    <!-- Order Information Card -->
+    <VBox spacing="15" style="-fx-background-color: white; -fx-padding: 25; -fx-border-radius: 10; -fx-background-radius: 10; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 2);">
+        <Label text="Order Information" style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #34495e;"/>
+        
+        <VBox spacing="10">
+            <Label text="Order ID *" style="-fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+            <TextField fx:id="txtOrderId" promptText="Enter your order ID (e.g., 123)"/>
+            
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <Button text="Verify Order" onAction="#onVerifyOrder" style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8 15;"/>
+                <Label fx:id="lblVerifyStatus" text="" style="-fx-text-fill: #7f8c8d;"/>
+            </HBox>
+        </VBox>
+
+        <!-- Order Details (Visible after verification) -->
+        <VBox fx:id="orderDetailsBox" spacing="10" visible="false" managed="false">
+            <Separator/>
+            
+            <Label text="Order Details" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+            
+            <GridPane hgap="15" vgap="10">
+                <columnConstraints>
+                    <ColumnConstraints prefWidth="150"/>
+                    <ColumnConstraints prefWidth="200"/>
+                </columnConstraints>
+                
+                <Label text="Order ID:" GridPane.rowIndex="0" GridPane.columnIndex="0" style="-fx-font-weight: bold;"/>
+                <Label fx:id="lblOrderId" text="" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+                
+               
+                <Label text="Order Date:" GridPane.rowIndex="2" GridPane.columnIndex="0" style="-fx-font-weight: bold;"/>
+                <Label fx:id="lblOrderDate" text="" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+                
+                <Label text="Total Amount:" GridPane.rowIndex="3" GridPane.columnIndex="0" style="-fx-font-weight: bold;"/>
+                <Label fx:id="lblTotalAmount" text="" GridPane.rowIndex="3" GridPane.columnIndex="1" style="-fx-text-fill: #e74c3c; -fx-font-weight: bold;"/>
+                
+                <Label text="Amount Due:" GridPane.rowIndex="4" GridPane.columnIndex="0" style="-fx-font-weight: bold;"/>
+                <Label fx:id="lblAmountDue" text="" GridPane.rowIndex="4" GridPane.columnIndex="1" style="-fx-text-fill: #e74c3c; -fx-font-weight: bold;"/>
+                
+                <Label text="Current Status:" GridPane.rowIndex="5" GridPane.columnIndex="0" style="-fx-font-weight: bold;"/>
+                <Label fx:id="lblOrderStatus" text="" GridPane.rowIndex="5" GridPane.columnIndex="1"/>
+            </GridPane>
+        </VBox>
+    </VBox>
+
+    <!-- Payment Method Card -->
+    <VBox fx:id="paymentMethodBox" spacing="15" style="-fx-background-color: white; -fx-padding: 25; -fx-border-radius: 10; -fx-background-radius: 10; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 2);" visible="false" managed="false">
+        <Label text="Payment Method" style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #34495e;"/>
+        
+       <HBox spacing="15" alignment="CENTER_LEFT">
+    <RadioButton fx:id="rbCreditCard" text="Credit Card" style="-fx-font-weight: bold;"/>
+    <RadioButton fx:id="rbDebitCard" text="Debit Card" style="-fx-font-weight: bold;"/>
+    <RadioButton fx:id="rbBankTransfer" text="Bank Transfer" style="-fx-font-weight: bold;"/>
+    <RadioButton fx:id="rbCash" text="Cash" style="-fx-font-weight: bold;"/>
+    <RadioButton fx:id="rbPartialPayment" text="Partial Payment" style="-fx-font-weight: bold;"/>
+</HBox>
+
+        <!-- Card Details (Visible for card payments) -->
+        <VBox fx:id="cardDetailsBox" spacing="10" visible="false" managed="false">
+            <Separator/>
+            
+            <Label text="Card Details" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+            
+            <VBox spacing="10">
+                <Label text="Card Number *" style="-fx-font-weight: bold;"/>
+                <TextField fx:id="txtCardNumber" promptText="1234 5678 9012 3456"/>
+                
+                <HBox spacing="15">
+                    <VBox spacing="5" HBox.hgrow="ALWAYS">
+                        <Label text="Expiry Date *" style="-fx-font-weight: bold;"/>
+                        <TextField fx:id="txtExpiryDate" promptText="MM/YY"/>
+                    </VBox>
+                    <VBox spacing="5" HBox.hgrow="ALWAYS">
+                        <Label text="CVV *" style="-fx-font-weight: bold;"/>
+                        <TextField fx:id="txtCVV" promptText="123"/>
+                    </VBox>
+                </HBox>
+                
+                <Label text="Cardholder Name *" style="-fx-font-weight: bold;"/>
+                <TextField fx:id="txtCardholderName" promptText="John Doe"/>
+            </VBox>
+        </VBox>
+
+        <!-- Bank Transfer Details -->
+        <VBox fx:id="bankDetailsBox" spacing="10" visible="false" managed="false">
+            <Separator/>
+            
+            <Label text="Bank Transfer Details" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+            
+            <VBox spacing="10">
+                <Label text="Please transfer the amount to the following account:" style="-fx-text-fill: #7f8c8d;"/>
+                <Label text="Bank: FreshHarvest Bank" style="-fx-font-weight: bold;"/>
+                <Label text="Account Number: 1234 5678 9012 3456" style="-fx-font-weight: bold;"/>
+                <Label text="Account Name: FreshHarvest Ltd." style="-fx-font-weight: bold;"/>
+                <Label text="Reference: Please use your order number as reference" style="-fx-text-fill: #e74c3c; -fx-font-weight: bold;"/>
+            </VBox>
+        </VBox>
+
+        <!-- Partial Payment Details -->
+        <VBox fx:id="partialPaymentBox" spacing="10" visible="false" managed="false">
+            <Separator/>
+            <Label text="Partial Payment Details" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+            <Label fx:id="lblFullAmount" text="" style="-fx-text-fill: #7f8c8d;"/>
+            <Label text="Payment Amount *" style="-fx-font-weight: bold;"/>
+            <TextField fx:id="txtPaymentAmount" promptText="Enter payment amount"/>
+        </VBox>
+    </VBox>
+
+    <!-- Action Buttons -->
+    <HBox spacing="15" alignment="CENTER_RIGHT">
+        <Button fx:id="btnMakePayment" text="Make Payment" onAction="#onMakePayment" 
+                style="-fx-background-color: #27ae60; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 10 20;"
+                disable="true"/>
+    </HBox>
+
+    <!-- Loading Indicator -->
+    <ProgressIndicator fx:id="progressIndicator" visible="false" managed="false"/>
+
+</VBox>

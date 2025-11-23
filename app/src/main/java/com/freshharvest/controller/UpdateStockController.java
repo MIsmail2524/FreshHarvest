@@ -2,6 +2,8 @@ package com.freshharvest.controller;
 
 import com.freshharvest.app.InventoryItem;
 import com.freshharvest.app.InventoryService;
+import com.freshharvest.util.NotificationService;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -15,6 +17,8 @@ import javafx.stage.StageStyle;
 import java.io.IOException;
 
 public class UpdateStockController {
+        private NotificationService notificationService; 
+
 
     @FXML private Label lblProductName;
     @FXML private Label lblCurrentStock;
@@ -29,6 +33,8 @@ public class UpdateStockController {
 
     @FXML
     public void initialize() {
+            inventoryService = new InventoryService();
+        notificationService = NotificationService.getInstance();
         inventoryService = new InventoryService();
     }
 
@@ -73,6 +79,8 @@ public class UpdateStockController {
                 inventoryItem.getProductId(), newStock);
             
             if (success) {
+                                notificationService.notifyInventoryChanged();
+
                 stockUpdated = true;
                 showAlert("Success", 
                          "Stock updated successfully!\n\n" +

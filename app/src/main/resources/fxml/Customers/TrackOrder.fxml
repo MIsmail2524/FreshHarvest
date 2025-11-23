@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns="http://javafx.com/javafx/11.0.1"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.freshharvest.controller.CustomerControllers.TrackOrderController"
+      prefWidth="1400" prefHeight="900"
+      spacing="10">
+    
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
+
+    <Label text="trackkkkk Orders"
+           style="-fx-font-size: 24px; -fx-font-weight: bold;" />
+
+    <!-- Simple content to test -->
+    <VBox spacing="15">
+        <Label text="Order Management" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+        <Label text="Your order history will appear here." style="-fx-text-fill: #666;"/>
+        <Label text="Total Orders: 12" style="-fx-font-size: 14px;"/>
+        <Label text="Recent Order: 2024-01-15" style="-fx-font-size: 14px;"/>
+    </VBox>
+
+    <HBox spacing="10" alignment="CENTER_LEFT">
+        <Button text="Refresh" onAction="#onRefresh"/>
+        <Button text="Back to Dashboard" onAction="#onBack"/>
+    </HBox>
+
+</VBox>

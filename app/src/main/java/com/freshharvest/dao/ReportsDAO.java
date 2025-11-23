@@ -221,4 +221,31 @@ public class ReportsDAO {
         }
         return list;
     }
+
+
+   public List<ReportData> getSeasonalAnalysis() {
+    List<ReportData> seasonalData = new ArrayList<>();
+    
+    String query = "SELECT season, SUM(revenue) as total_revenue, SUM(expenses) as total_expenses, SUM(revenue) - SUM(expenses) as net_profit FROM (SELECT CASE WHEN MONTH(o.order_date) IN (12, 1, 2) THEN 'Winter' WHEN MONTH(o.order_date) IN (3, 4, 5) THEN 'Spring' WHEN MONTH(o.order_date) IN (6, 7, 8) THEN 'Summer' WHEN MONTH(o.order_date) IN (9, 10, 11) THEN 'Fall' END as season, p.amount as revenue, 0 as expenses FROM payments p JOIN orders o ON p.order_id = o.order_id WHERE o.order_date IS NOT NULL AND p.payment_status = 'completed' UNION ALL SELECT CASE WHEN MONTH(e.expense_date) IN (12, 1, 2) THEN 'Winter' WHEN MONTH(e.expense_date) IN (3, 4, 5) THEN 'Spring' WHEN MONTH(e.expense_date) IN (6, 7, 8) THEN 'Summer' WHEN MONTH(e.expense_date) IN (9, 10, 11) THEN 'Fall' END as season, 0 as revenue, e.amount as expenses FROM expenses e WHERE e.expense_date IS NOT NULL) seasonal_data WHERE season IS NOT NULL GROUP BY season ORDER BY CASE season WHEN 'Winter' THEN 1 WHEN 'Spring' THEN 2 WHEN 'Summer' THEN 3 WHEN 'Fall' THEN 4 END";
+    
+    
+    try (Connection conn = DBHandle.getInstance().getConnection();
+         PreparedStatement stmt = conn.prepareStatement(query);
+         ResultSet rs = stmt.executeQuery()) {
+        
+        while (rs.next()) {
+            String season = rs.getString("season");
+            double netProfit = rs.getDouble("net_profit");
+            seasonalData.add(new ReportData("", "Seasonal", season, 
+                String.format("$%.2f", netProfit)));
+        }
+        
+    } catch (SQLException e) {
+        System.err.println("Error fetching seasonal analysis: " + e.getMessage());
+        e.printStackTrace();
+    }
+    
+    return seasonalData;
+}
+
 }

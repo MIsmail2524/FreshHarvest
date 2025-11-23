@@ -11,6 +11,7 @@
       fx:controller="com.freshharvest.controller.ReportsController"
       spacing="15"
       alignment="TOP_CENTER"
+      prefWidth="1400" prefHeight="900"
       styleClass="reports-container">
 
     <padding>
@@ -29,7 +30,7 @@
         <Button text="📊 Crop Performance" onAction="#handleCropPerformance" styleClass="report-btn"/>
         <Button text="💰 Revenue Analysis" onAction="#handleRevenueAnalysis" styleClass="report-btn"/>
         <Button text="📈 Expense Breakdown" onAction="#handleExpenseBreakdown" styleClass="report-btn"/>
-        <Button text="📅 Monthly Trends" onAction="#handleMonthlyTrends" styleClass="report-btn"/>
+        <Button text="🌤️ Seasonal Analysis" onAction="#handleSeasonalAnalysis" styleClass="report-btn"/>
         <Button text="🥧 Profit Distribution" onAction="#handleProfitDistribution" styleClass="report-btn"/>
     </HBox>
 

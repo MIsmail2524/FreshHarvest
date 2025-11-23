@@ -63,10 +63,6 @@ public class ReportsController implements Initializable {
         showExpenseBreakdownChart();
     }
 
-    @FXML
-    private void handleMonthlyTrends() {
-        showMonthlyTrendsChart();
-    }
 
     @FXML
     private void handleProfitDistribution() {
@@ -358,4 +354,64 @@ public class ReportsController implements Initializable {
         alert.setContentText(message);
         alert.showAndWait();
     }
+
+
+
+    @FXML
+private void handleSeasonalAnalysis() {
+    showSeasonalAnalysisChart();
+}
+
+private void showSeasonalAnalysisChart() {
+    try {
+        currentChartTitle.setText("🌤️ Seasonal Profit & Loss Analysis");
+        
+        BarChart<String, Number> barChart = new BarChart<>(new CategoryAxis(), new NumberAxis());
+        barChart.setTitle("Seasonal Performance Overview");
+        barChart.setLegendVisible(true);
+        barChart.setPrefSize(800, 450);
+        
+        CategoryAxis xAxis = (CategoryAxis) barChart.getXAxis();
+        xAxis.setLabel("Season");
+        
+        NumberAxis yAxis = (NumberAxis) barChart.getYAxis();
+        yAxis.setLabel("Amount ($)");
+        
+        // Profit Series
+        XYChart.Series<String, Number> profitSeries = new XYChart.Series<>();
+        profitSeries.setName("Profit");
+        
+        // Loss Series (negative values)
+        XYChart.Series<String, Number> lossSeries = new XYChart.Series<>();
+        lossSeries.setName("Loss");
+        
+        // Real data from database
+        List<ReportData> seasonalData = dao.getSeasonalAnalysis();
+        
+        for (ReportData data : seasonalData) {
+            String season = data.getDescription();
+            double profitLoss = Double.parseDouble(data.getAmount().replace("$", "").replace(",", ""));
+            
+            if (profitLoss >= 0) {
+                profitSeries.getData().add(new XYChart.Data<>(season, profitLoss));
+                lossSeries.getData().add(new XYChart.Data<>(season, 0));
+            } else {
+                profitSeries.getData().add(new XYChart.Data<>(season, 0));
+                lossSeries.getData().add(new XYChart.Data<>(season, Math.abs(profitLoss)));
+            }
+        }
+        
+        barChart.getData().clear();
+        barChart.getData().addAll(profitSeries, lossSeries);
+        
+        chartContainer.getChildren().clear();
+        chartContainer.getChildren().add(barChart);
+        
+    } catch (Exception e) {
+        System.err.println("Error showing seasonal analysis chart: " + e.getMessage());
+        e.printStackTrace();
+        showAlert("Error", "Failed to load seasonal analysis data: " + e.getMessage(), Alert.AlertType.ERROR);
+    }
+}
+
 }

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<?import javafx.collections.FXCollections?>
+
+<VBox xmlns="http://javafx.com/javafx/11.0.1" 
+      xmlns:fx="http://javafx.com/fxml/1"
+      prefWidth="1400" prefHeight="900"
+      fx:controller="com.freshharvest.controller.InventoryController"
+      spacing="20"
+      alignment="TOP_CENTER"
+      stylesheets="@../css/application.css">
+
+    <padding><Insets top="25" right="30" bottom="25" left="30"/></padding>
+
+    <Label text="Inventory Management">
+        <font>
+            <Font name="System Bold" size="32" />
+        </font>
+    </Label>
+    
+    <HBox spacing="20" alignment="CENTER">
+        <VBox alignment="CENTER" spacing="5" style="-fx-border-color: #cccccc; -fx-border-radius: 5; -fx-padding: 10;">
+            <Label text="Total Products" style="-fx-text-fill: #666; -fx-font-size: 14;"/>
+            <Label fx:id="lblTotalProducts" style="-fx-font-size: 24; -fx-font-weight: bold;"/>
+        </VBox>
+        <VBox alignment="CENTER" spacing="5" style="-fx-border-color: #cccccc; -fx-border-radius: 5; -fx-padding: 10;">
+            <Label text="Low Stock" style="-fx-text-fill: #666; -fx-font-size: 14;"/>
+            <Label fx:id="lblLowStock" style="-fx-font-size: 24; -fx-font-weight: bold; -fx-text-fill: orange;"/>
+        </VBox>
+        <VBox alignment="CENTER" spacing="5" style="-fx-border-color: #cccccc; -fx-border-radius: 5; -fx-padding: 10;">
+            <Label text="Out of Stock" style="-fx-text-fill: #666; -fx-font-size: 14;"/>
+            <Label fx:id="lblOutOfStock" style="-fx-font-size: 24; -fx-font-weight: bold; -fx-text-fill: red;"/>
+        </VBox>
+        <VBox alignment="CENTER" spacing="5" style="-fx-border-color: #cccccc; -fx-border-radius: 5; -fx-padding: 10;">
+            <Label text="Total Value" style="-fx-text-fill: #666; -fx-font-size: 14;"/>
+            <Label fx:id="lblTotalValue" style="-fx-font-size: 24; -fx-font-weight: bold; -fx-text-fill: green;"/>
+        </VBox>
+    </HBox>
+    
+    <!-- Filter and Search Section -->
+    <HBox spacing="10" alignment="CENTER_LEFT">
+        <Label text="Filter:" style="-fx-font-weight: bold;"/>
+        <ComboBox fx:id="comboStockFilter" promptText="Filter by Stock" prefWidth="150"/>
+        <Label fx:id="lblFilterCount" text="Showing 0 products" style="-fx-text-fill: #666;"/>
+        <Region HBox.hgrow="ALWAYS"/>
+        <Button text="Update Stock" onAction="#handleUpdateStock" style="-fx-background-color: #3498db; -fx-text-fill: white;"/>
+        <Button text="Refresh" onAction="#handleRefresh" style="-fx-background-color: #95a5a6; -fx-text-fill: white;"/>
+    </HBox>
+    
+    <!-- Table Section -->
+    <TableView fx:id="inventoryTable" VBox.vgrow="ALWAYS">
+        <columns>
+            <TableColumn fx:id="colProductId" text="ID" prefWidth="50"/>
+            <TableColumn fx:id="colProductName" text="Product Name" prefWidth="150"/>
+            <TableColumn fx:id="colCategory" text="Category" prefWidth="100"/>
+            <TableColumn fx:id="colCurrentStock" text="Current Stock" prefWidth="100"/>
+            <TableColumn fx:id="colMinStock" text="Min Stock" prefWidth="80"/>
+            <TableColumn fx:id="colUnit" text="Unit" prefWidth="60"/>
+            <TableColumn fx:id="colPrice" text="Price" prefWidth="80"/>
+            <TableColumn fx:id="colStatus" text="Status" prefWidth="100"/>
+            <TableColumn fx:id="colLastUpdated" text="Last Updated" prefWidth="150"/>
+        </columns>
+        <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+        </columnResizePolicy>
+    </TableView>
+
+</VBox>

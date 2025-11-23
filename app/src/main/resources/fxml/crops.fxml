@@ -6,6 +6,7 @@
 <?import javafx.scene.text.Font?>
 
 <VBox xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
+prefWidth="1400" prefHeight="900"
       fx:controller="com.freshharvest.controller.CropsController" spacing="20" alignment="CENTER">
 
 
@@ -14,20 +15,16 @@
             <Font name="System Bold" size="32.0" />
         </font>
     </Label>
-    
- <HBox spacing="20" alignment="CENTER">
-        <!-- Total Crops Box - FIXED: Added fx:id -->
-        <VBox styleClass="card" spacing="15" alignment="CENTER" prefWidth="300" prefHeight="120">
-            <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
-            <Label text="Total Crops" styleClass="label-primary"/>
-            <Label fx:id="totalCropsLabel" text="0 Total" styleClass="metric-value"/>
-        </VBox>                
-   </HBox>
-          
+<HBox spacing="20" alignment="CENTER">
+    <!-- Total Crops Box -->
+    <VBox alignment="CENTER" spacing="5" style="-fx-border-color: #cccccc; -fx-border-radius: 5; -fx-padding: 10;">
+        <Label text="Total Crops" style="-fx-text-fill: #666; -fx-font-size: 14;"/>
+        <Label fx:id="totalCropsLabel" text="0 Total" style="-fx-font-size: 24; -fx-font-weight: bold;"/>
+    </VBox>
+</HBox>
    <!-- Action Buttons -->
     <HBox spacing="15" alignment="CENTER">
         <Button text="➕ Add New Crop" onAction="#addCrop" styleClass="button"/>
-        <Button text="👁️ View Crop" onAction="#viewCrop" styleClass="button-secondary"/>
         <Button text="✏️ Update Crop" onAction="#updateCrop" styleClass="button-warning"/>
        
         <Button text="🗑️ Delete Crop" onAction="#deleteCrop" styleClass="button-danger"/>

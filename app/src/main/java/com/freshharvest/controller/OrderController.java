@@ -2,6 +2,13 @@ package com.freshharvest.controller;
 
 import com.freshharvest.app.Order;
 import com.freshharvest.app.OrderService;
+import com.freshharvest.app.Factory_Manager.Shipment;
+import com.freshharvest.dao.DAOFactory;
+import com.freshharvest.dao.FactoryDAO;
+import com.freshharvest.util.DataChangeListener;
+import com.freshharvest.util.NotificationService;
+import com.google.protobuf.Timestamp;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -20,8 +27,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
-public class OrderController implements Initializable {
-
+public class OrderController implements Initializable, DataChangeListener { 
+    
+    private NotificationService notificationService; 
     @FXML
     private Label orderTitle;
     
@@ -32,7 +40,7 @@ public class OrderController implements Initializable {
     
     // Table and Columns
     @FXML private TableView<Order> ordersTable;
-    @FXML private TableColumn<Order, String> colOrderId;
+    //@FXML private TableColumn<Order, String> colOrderId;
     @FXML private TableColumn<Order, String> colCustomer;
     @FXML private TableColumn<Order, String> colOrderDate;
     @FXML private TableColumn<Order, String> colTotalAmount;
@@ -49,6 +57,8 @@ public class OrderController implements Initializable {
         System.out.println("🚀 OrderController initializing...");
         
         try {
+               notificationService = NotificationService.getInstance(); 
+            notificationService.addListener(this); 
             orderService = new OrderService();
             ordersData = FXCollections.observableArrayList();
             setupTableColumns();
@@ -62,6 +72,21 @@ public class OrderController implements Initializable {
         }
     }
 // Call this when user clicks a row or menu item
+
+ @Override
+    public void onDataChanged(String dataType) {
+        switch (dataType) {
+            case "ORDER_STATUS_CHANGED":
+            case "PAYMENT_PROCESSED":
+            case "SHIPMENT_CREATED":
+                javafx.application.Platform.runLater(() -> {
+                    loadOrdersData();
+                    System.out.println("Orders automatically refreshed");
+                });
+                break;
+        }
+    }
+
 
 @FXML
 private void showOrderDetails(ActionEvent event) {
@@ -90,7 +115,6 @@ private void showOrderDetails(ActionEvent event) {
             System.out.println("🔄 Setting up table columns...");
             
             // Set up cell value factories
-            colOrderId.setCellValueFactory(new PropertyValueFactory<>("orderNumber"));
             colCustomer.setCellValueFactory(new PropertyValueFactory<>("customerName"));
             
             colOrderDate.setCellValueFactory(cellData -> {
@@ -203,23 +227,7 @@ private void showOrderDetails(ActionEvent event) {
         }
     }
 
-    @FXML
-    private void notifyFactory() {
-        try {
-            Order selected = ordersTable.getSelectionModel().getSelectedItem();
-            if (selected != null) {
-                System.out.println("🏭 Notifying factory for order: " + selected.getOrderNumber());
-                showAlert("Factory Notification", 
-                         "Factory has been notified about order: " + selected.getOrderNumber(), 
-                         Alert.AlertType.INFORMATION);
-            } else {
-                showAlert("Warning", "Please select an order to notify factory.", Alert.AlertType.WARNING);
-            }
-        } catch (Exception e) {
-            System.err.println("❌ Error notifying factory: " + e.getMessage());
-            showAlert("Error", "Failed to notify factory: " + e.getMessage(), Alert.AlertType.ERROR);
-        }
-    }
+   
  
     @FXML
     private void deleteOrder() {
@@ -239,6 +247,8 @@ private void showOrderDetails(ActionEvent event) {
                         if (success) {
                             showAlert("Success", "Order deleted successfully!", Alert.AlertType.INFORMATION);
                             loadOrdersData();
+                                                notificationService.notifyOrderStatusChanged();
+
                         } else {
                             showAlert("Error", "Failed to delete order.", Alert.AlertType.ERROR);
                         }
@@ -357,4 +367,55 @@ private void showOrderDetails(ActionEvent event) {
             alert.showAndWait();
         }
     }
+
+    @FXML
+private void notifyFactory() {
+    try {
+        Order selected = ordersTable.getSelectionModel().getSelectedItem();
+        if (selected != null) {
+            System.out.println("🏭 Notifying factory for order: " + selected.getOrderNumber());
+            
+            // Create shipment for this order
+            boolean success = createShipmentForOrder(selected);
+            
+            if (success) {
+                showAlert("Factory Notification", 
+                         "Factory has been notified about order: " + selected.getOrderNumber() + 
+                         "\nShipment record created successfully!", 
+                         
+                         Alert.AlertType.INFORMATION);
+                                             notificationService.notifyOrderStatusChanged();
+
+            } else {
+                showAlert("Error", "Failed to create shipment record for factory.", Alert.AlertType.ERROR);
+            }
+        } else {
+            showAlert("Warning", "Please select an order to notify factory.", Alert.AlertType.WARNING);
+        }
+    } catch (Exception e) {
+        System.err.println("❌ Error notifying factory: " + e.getMessage());
+        showAlert("Error", "Failed to notify factory: " + e.getMessage(), Alert.AlertType.ERROR);
+    }
+}
+
+private boolean createShipmentForOrder(Order order) {
+    try {
+        // Use existing FactoryDAO to create shipment
+        FactoryDAO factoryDAO = DAOFactory.getFactoryDAO();
+        
+        // Create a new shipment with order information
+// Then create shipment with:
+Shipment shipment =new Shipment(0,order.getCustomerName(),"noone","pending","null",null, order.getOrderId());
+
+    // Set the order ID in the shipment
+        shipment.setOrderId(order.getOrderId());
+        
+        return factoryDAO.createShipment(shipment);
+        
+    } catch (Exception e) {
+        System.err.println("❌ Error creating shipment for order: " + e.getMessage());
+        e.printStackTrace();
+        return false;
+    }
+}
 }

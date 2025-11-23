@@ -3,8 +3,19 @@ package com.freshharvest.util;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
+
+import com.freshharvest.app.Factory_Manager.Batch;
+import com.freshharvest.app.Factory_Manager.InventoryLot;
+import com.freshharvest.app.Factory_Manager.Shipment;
+
 import io.github.cdimascio.dotenv.Dotenv;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 public class DBHandle {
 
@@ -83,4 +94,7 @@ public class DBHandle {
             e.printStackTrace();
         }
     }
+
+    
+
 }

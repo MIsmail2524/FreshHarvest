@@ -10,6 +10,7 @@
       fx:controller="com.freshharvest.controller.CustomersController"
       spacing="20"
       alignment="TOP_CENTER"
+      prefWidth="1400" prefHeight="900"
       stylesheets="@../css/application.css">
 
     <padding><Insets top="25" right="30" bottom="25" left="30"/></padding>
@@ -40,15 +41,11 @@
         </VBox>
     </HBox>
 
-    <!-- Search and Actions Section -->
+    <!-- Actions Section -->
     <HBox spacing="10" alignment="CENTER_LEFT">
-        <Label text="Search:" style="-fx-font-weight: bold;"/>
-        <TextField fx:id="txtSearch" promptText="Search customers..." prefWidth="300"/>
-        <Label fx:id="lblSearchCount" text="Found 0 customers" style="-fx-text-fill: #666;"/>
+        <Label fx:id="lblSearchCount" text="Total: 0 customers" style="-fx-text-fill: #666; -fx-font-weight: bold;"/>
         <Region HBox.hgrow="ALWAYS"/>
         <Button text="View Customer" onAction="#handleViewCustomer" style="-fx-background-color: #3498db; -fx-text-fill: white;"/>
-      <!--  <Button text="Send Message" onAction="#handleSendMessage" style="-fx-background-color: #9b59b6; -fx-text-fill: white;"/>
-      -->
         <Button text="Customer Report" onAction="#handleCustomerReport" style="-fx-background-color: #e67e22; -fx-text-fill: white;"/>
         <Button text="Refresh" onAction="#handleRefresh" style="-fx-background-color: #95a5a6; -fx-text-fill: white;"/>
     </HBox>

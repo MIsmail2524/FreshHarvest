@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane 
+    xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
+    fx:controller="com.freshharvest.controller.Factory_Manager.MainController"
+    prefWidth="1400" prefHeight="900"
+   stylesheets="@../../css/application.css">
+  
+  <left>
+    <VBox fx:id="sidebar" styleClass="sidebar,spacing-small" prefWidth="240.0">
+      <Label text="FreshHarvest" styleClass="brand"/>
+
+      <Button fx:id="btnFactoryDashboard" text="Factory Dashboard" onAction="#onFactoryDashboard"/>
+      <Button fx:id="btnBatchManagement" text="Batch Management" onAction="#onBatchManagement"/>
+      
+      <Button fx:id="btnFactoryInventory" text="Factory Inventory" onAction="#onFactoryInventory"/>
+      <Button fx:id="btnShipmentManagement" text="Shipment Management" onAction="#onShipmentManagement"/>
+
+      <Button fx:id="btnFactoryReport" text="Factory Reports" onAction="#onFactoryReport"/>
+      
+      <Region VBox.vgrow="ALWAYS"/>
+      <Separator/>
+      <Button fx:id="btnLogout" text="Logout" onAction="#onLogout" styleClass="button-secondary"/>
+    </VBox>
+  </left>
+
+  <center>
+    <AnchorPane fx:id="contentPane" styleClass="content-pane"/>
+  </center>
+</BorderPane>

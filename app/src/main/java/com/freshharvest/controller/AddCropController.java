@@ -2,6 +2,8 @@ package com.freshharvest.controller;
 
 import com.freshharvest.app.Crop;
 import com.freshharvest.app.CropService;
+import com.freshharvest.util.NotificationService;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -25,12 +27,19 @@ public class AddCropController {
     private Stage dialogStage;
     private CropService cropService;
     private CropsController cropsController; // Reference to refresh the main table
+        private NotificationService notificationService; 
+
 
     @FXML
     public void initialize() {
         cropService = new CropService();
+                        notificationService = NotificationService.getInstance();
+
         comboSeason.getItems().addAll("Spring", "Summer", "Autumn", "Winter");
         System.out.println("🛠️ AddCropController initialized");
+                    //    notificationService.addListener(this);
+
+
     }
 
     public void setDialogStage(Stage dialogStage) {
@@ -79,7 +88,8 @@ public class AddCropController {
             if (success) {
                 System.out.println("✅ Crop saved successfully: " + newCrop.getName());
                 showAlert("Success", "Crop '" + cropName + "' added successfully!", Alert.AlertType.INFORMATION);
-                
+                                notificationService.notifyDataChanged("CROP_ADDED");
+
                 // Refresh the main crops table
                 if (cropsController != null) {
                     cropsController.refreshAfterAdd();

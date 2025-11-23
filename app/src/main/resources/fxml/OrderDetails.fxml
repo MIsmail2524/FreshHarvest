@@ -7,7 +7,8 @@
 
 <VBox xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="com.freshharvest.controller.OrderDetailsController"
-      spacing="15" alignment="TOP_LEFT" prefWidth="400">
+      prefWidth="1400" prefHeight="900"
+      spacing="15" alignment="TOP_LEFT">
 
     <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
 

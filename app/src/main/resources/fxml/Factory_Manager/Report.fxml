@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.text.*?>
+
+<VBox xmlns="http://javafx.com/javafx/11.0.1"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.freshharvest.controller.Factory_Manager.FactoryReportsController"
+      spacing="15"
+      prefWidth="1400" prefHeight="900"
+      style="-fx-padding: 20;">
+    
+    <Label text="🏭 Factory Reports , Analytics"
+           style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;" />
+
+    <!-- Report Type Buttons -->
+    <HBox spacing="10" alignment="CENTER">
+        <Button text="📊 Production Overview" onAction="#showProductionOverview" 
+                style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 10 15;"/>
+        <Button text="📈 Batch Performance" onAction="#showBatchPerformance" 
+                style="-fx-background-color: #9b59b6; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 10 15;"/>
+        <Button text="🥦 Quality Analysis" onAction="#showQualityAnalysis" 
+                style="-fx-background-color: #27ae60; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 10 15;"/>
+        <Button text="📦 Inventory Report" onAction="#showInventoryReport" 
+                style="-fx-background-color: #f39c12; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 10 15;"/>
+        <Button text="💰 Cost Analysis" onAction="#showCostAnalysis" 
+                style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 10 15;"/>
+        <Button text="🔄 Refresh Data" onAction="#refreshAllData" 
+                style="-fx-background-color: #2ecc71; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 10 15;"/>
+    </HBox>
+
+    <!-- Date Range Selector -->
+    <HBox spacing="15" alignment="CENTER_LEFT" style="-fx-padding: 10; -fx-background-color: #ecf0f1; -fx-background-radius: 5;">
+        <Label text="Date Range:" style="-fx-font-weight: bold;"/>
+        <ComboBox fx:id="cbTimeRange" promptText="Select Time Range" style="-fx-pref-width: 150;"/>
+        <Label text="From:" style="-fx-font-weight: bold;"/>
+        <DatePicker fx:id="dpStartDate" style="-fx-pref-width: 120;"/>
+        <Label text="To:" style="-fx-font-weight: bold;"/>
+        <DatePicker fx:id="dpEndDate" style="-fx-pref-width: 120;"/>
+        <Button text="Apply Filter" onAction="#applyDateFilter" 
+                style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-font-weight: bold;"/>
+    </HBox>
+
+    <!-- Quick Stats -->
+    <HBox spacing="20" alignment="CENTER">
+        <VBox alignment="CENTER" style="-fx-padding: 15; -fx-background-color: #3498db; -fx-background-radius: 8; -fx-min-width: 150;">
+            <Label text="Total Batches" style="-fx-text-fill: white; -fx-font-size: 12px;"/>
+            <Label fx:id="lblTotalBatches" text="0" style="-fx-text-fill: white; -fx-font-size: 24px; -fx-font-weight: bold;"/>
+        </VBox>
+        <VBox alignment="CENTER" style="-fx-padding: 15; -fx-background-color: #27ae60; -fx-background-radius: 8; -fx-min-width: 150;">
+            <Label text="Completed" style="-fx-text-fill: white; -fx-font-size: 12px;"/>
+            <Label fx:id="lblCompletedBatches" text="0" style="-fx-text-fill: white; -fx-font-size: 24px; -fx-font-weight: bold;"/>
+        </VBox>
+        <VBox alignment="CENTER" style="-fx-padding: 15; -fx-background-color: #f39c12; -fx-background-radius: 8; -fx-min-width: 150;">
+            <Label text="Success Rate" style="-fx-text-fill: white; -fx-font-size: 12px;"/>
+            <Label fx:id="lblSuccessRate" text="0%" style="-fx-text-fill: white; -fx-font-size: 24px; -fx-font-weight: bold;"/>
+        </VBox>
+        <VBox alignment="CENTER" style="-fx-padding: 15; -fx-background-color: #e74c3c; -fx-background-radius: 8; -fx-min-width: 150;">
+            <Label text="Avg Cost/Batch" style="-fx-text-fill: white; -fx-font-size: 12px;"/>
+            <Label fx:id="lblAvgCost" text="Rs. 0" style="-fx-text-fill: white; -fx-font-size: 24px; -fx-font-weight: bold;"/>
+        </VBox>
+        <VBox alignment="CENTER" style="-fx-padding: 15; -fx-background-color: #9b59b6; -fx-background-radius: 8; -fx-min-width: 150;">
+            <Label text="Inventory Value" style="-fx-text-fill: white; -fx-font-size: 12px;"/>
+            <Label fx:id="lblInventoryValue" text="Rs. 0" style="-fx-text-fill: white; -fx-font-size: 24px; -fx-font-weight: bold;"/>
+        </VBox>
+    </HBox>
+
+    <!-- Chart Display Area -->
+    <VBox fx:id="chartContainer" style="-fx-padding: 20; -fx-background-color: white; -fx-border-color: #bdc3c7; -fx-border-width: 1; -fx-border-radius: 5; -fx-min-height: 500; -fx-alignment: TOP_CENTER;">
+        <Label text="Select a report type to view factory analytics" 
+               style="-fx-font-size: 18px; -fx-text-fill: #7f8c8d; -fx-font-style: italic;"/>
+    </VBox>
+
+   
+</VBox>

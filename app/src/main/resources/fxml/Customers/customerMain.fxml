@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane xmlns="http://javafx.com/javafx/11.0.1"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.freshharvest.controller.CustomerControllers.CustomerMainController"
+            prefWidth="1400" prefHeight="900"
+            stylesheets="@../../css/application.css">
+            
+
+    <!-- Sidebar -->
+    <left>
+        <VBox fx:id="sidebar" styleClass="sidebar" spacing="10" prefWidth="220.0">
+            <Label text="FreshHarvest" styleClass="brand"/>
+            <Separator/>
+
+            <!-- Navigation Menu -->
+            <Button fx:id="btnDashboard" text="Dashboard" onAction="#onDashboard"/>
+            <Button fx:id="btnProducts" text="My Orders" onAction="#onProducts"/>
+            <Button fx:id="btnAddOrder" text="Add Order" onAction="#onAddOrder"/>
+            <Button fx:id="btnMakePayment" text="Make Payment" onAction="#onMakePayment"/>
+            <Button fx:id="btnReports" text="Reports" onAction="#onReports"/>
+
+            <Region VBox.vgrow="ALWAYS"/>
+            <Separator/>
+            <Button fx:id="btnLogout" text="Logout" onAction="#onLogout" styleClass="button-secondary"/>
+        </VBox>
+    </left>
+
+    <!-- Main content area -->
+    <center>
+        <AnchorPane fx:id="contentPane" styleClass="content-pane"/>
+    </center>
+</BorderPane>

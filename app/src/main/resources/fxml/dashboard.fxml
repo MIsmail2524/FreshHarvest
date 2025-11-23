@@ -6,80 +6,60 @@
 <?import javafx.scene.text.Font?>
 
 <VBox xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="com.freshharvest.controller.DashboardController" spacing="20" alignment="CENTER">
+prefWidth="1400" prefHeight="900"
+      fx:controller="com.freshharvest.controller.DashboardController" spacing="20" alignment="TOP_CENTER">
 
+    <padding><Insets top="25" right="30" bottom="25" left="30"/></padding>
 
-    <Label text="Dashboard" styleClass="page-title">
-        <font>
-            <Font name="System Bold" size="32.0" />
-        </font>
-    </Label>
+    <Label text="Dashboard" style="-fx-font-size: 32px; -fx-font-weight: bold;"/>
     
-   <HBox spacing="20" alignment="CENTER_LEFT">
-        <!-- Large Orders Box -->
-        <VBox styleClass="card" spacing="15" alignment="CENTER" prefWidth="300" prefHeight="200">
-            <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
-            <Label text=" Orders" styleClass="label-primary"/>
-            <Label text="142 Total" styleClass="metric-value"/>
-            <Label text="+12 this week" styleClass="metric-change positive"/>
-            <ProgressBar progress="0.7" prefWidth="200"/>
-            <Label text="70% completion rate" styleClass="label-muted"/>
-        </VBox>
-                <VBox styleClass="card" spacing="15" alignment="CENTER" prefWidth="300" prefHeight="200">
-            <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
-            <Label text="Crops" styleClass="label-primary"/>
-            <Label text="142 Total" styleClass="metric-value"/>
-            <Label text="+12 this week" styleClass="metric-change positive"/>
-           
-        </VBox>
-                <VBox styleClass="card" spacing="15" alignment="CENTER" prefWidth="300" prefHeight="200">
-            <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
-            <Label text="Batches" styleClass="label-primary"/>
-            <Label text="142 Total" styleClass="metric-value"/>
-            <Label text="+12 this week" styleClass="metric-change positive"/>
-          
-        </VBox>
-          </HBox>
+    <!-- Chart Selection Buttons -->
+    <HBox spacing="10" alignment="CENTER">
+        <Button text="Crop Performance" onAction="#showCropPerformanceChart" style="-fx-background-color: #27ae60; -fx-text-fill: white;"/>
+        <Button text="Order Status" onAction="#showOrderStatusChart" style="-fx-background-color: #e67e22; -fx-text-fill: white;"/>
+        <Button text="Expense Breakdown" onAction="#showExpenseBreakdownChart" style="-fx-background-color: #e74c3c; -fx-text-fill: white;"/>
+        <Button text="Refresh" onAction="#refreshDashboard" style="-fx-background-color: #95a5a6; -fx-text-fill: white;"/>
+    </HBox>
 
-   <HBox spacing="20" alignment="CENTER_LEFT">
-        <!-- Large Orders Box -->
-        <VBox styleClass="card" spacing="15" alignment="CENTER" prefWidth="300" prefHeight="200">
-            <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
-            <Label text=" Total Harvested" styleClass="label-primary"/>
-            <Label text="142 Total" styleClass="metric-value"/>
-            <Label text="+12 this week" styleClass="metric-change positive"/>
-            <ProgressBar progress="0.7" prefWidth="200"/>
-            <Label text="70% completion rate" styleClass="label-muted"/>
-        </VBox>
-                <VBox styleClass="card" spacing="15" alignment="CENTER" prefWidth="300" prefHeight="200">
-            <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
-            <Label text="Total Expense" styleClass="label-primary"/>
-            <Label text="142 Total" styleClass="metric-value"/>
-            <Label text="+12 this week" styleClass="metric-change positive"/>
-           
-        </VBox>
-                <VBox styleClass="card" spacing="15" alignment="CENTER" prefWidth="300" prefHeight="200">
-            <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
-            <Label text="Proft/Loss" styleClass="label-primary"/>
-            <Label text="142 Total" styleClass="metric-value"/>
-            <Label text="+12 this week" styleClass="metric-change positive"/>
-          
-        </VBox>
-          </HBox>
+    <!-- Chart Container -->
+    <VBox fx:id="chartContainer" prefHeight="400" prefWidth="800" 
+          style="-fx-border-color: #cccccc; -fx-border-radius: 5; -fx-padding: 10;"/>
 
-      <HBox spacing="20" alignment="CENTER_LEFT">
-        <!-- Large Orders Box -->
-        <VBox styleClass="card" spacing="15" alignment="CENTER" prefWidth="300" prefHeight="200">
-            <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
-            <Label text="Weather" styleClass="label-primary"/>
-            <Label text="142 Total" styleClass="metric-value"/>
-           
-            <Label text="70% completion rate" styleClass="label-muted"/>
+    <!-- Statistics Cards -->
+    <HBox spacing="20" alignment="CENTER">
+        <VBox style="-fx-border-color: #cccccc; -fx-border-radius: 5; -fx-padding: 15;" prefWidth="250" prefHeight="120">
+            <Label text="Orders" style="-fx-text-fill: #666; -fx-font-size: 14;"/>
+            <Label fx:id="lblOrders" style="-fx-font-size: 24; -fx-font-weight: bold;"/>
         </VBox>
-          </HBox>
-        
-  
-    
-  
-    <Button text="Exit" onAction="#closeApplication" />
+        <VBox style="-fx-border-color: #cccccc; -fx-border-radius: 5; -fx-padding: 15;" prefWidth="250" prefHeight="120">
+            <Label text="Crops" style="-fx-text-fill: #666; -fx-font-size: 14;"/>
+            <Label fx:id="lblCrops" style="-fx-font-size: 24; -fx-font-weight: bold;"/>
+        </VBox>
+        <VBox style="-fx-border-color: #cccccc; -fx-border-radius: 5; -fx-padding: 15;" prefWidth="250" prefHeight="120">
+            <Label text="Batches" style="-fx-text-fill: #666; -fx-font-size: 14;"/>
+            <Label fx:id="lblBatches" style="-fx-font-size: 24; -fx-font-weight: bold;"/>
+        </VBox>
+    </HBox>
+
+    <HBox spacing="20" alignment="CENTER">
+        <VBox style="-fx-border-color: #cccccc; -fx-border-radius: 5; -fx-padding: 15;" prefWidth="250" prefHeight="120">
+            <Label text="Total Harvested" style="-fx-text-fill: #666; -fx-font-size: 14;"/>
+            <Label fx:id="lblTotalHarvested" style="-fx-font-size: 24; -fx-font-weight: bold;"/>
+        </VBox>
+        <VBox style="-fx-border-color: #cccccc; -fx-border-radius: 5; -fx-padding: 15;" prefWidth="250" prefHeight="120">
+            <Label text="Total Expense" style="-fx-text-fill: #666; -fx-font-size: 14;"/>
+            <Label fx:id="lblTotalExpense" style="-fx-font-size: 24; -fx-font-weight: bold;"/>
+        </VBox>
+        <VBox style="-fx-border-color: #cccccc; -fx-border-radius: 5; -fx-padding: 15;" prefWidth="250" prefHeight="120">
+            <Label text="Profit/Loss" style="-fx-text-fill: #666; -fx-font-size: 14;"/>
+            <Label fx:id="lblProfitLoss" style="-fx-font-size: 24; -fx-font-weight: bold;"/>
+        </VBox>
+    </HBox>
+
+    <HBox spacing="20" alignment="CENTER">
+        <VBox style="-fx-border-color: #cccccc; -fx-border-radius: 5; -fx-padding: 15;" prefWidth="250" prefHeight="120">
+            <Label text="Weather" style="-fx-text-fill: #666; -fx-font-size: 14;"/>
+            <Label fx:id="lblWeather" style="-fx-font-size: 24; -fx-font-weight: bold;"/>
+        </VBox>
+    </HBox>
 </VBox>

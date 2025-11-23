@@ -2,6 +2,8 @@ package com.freshharvest.controller;
 
 import com.freshharvest.app.Crop;
 import com.freshharvest.app.CropService;
+import com.freshharvest.util.NotificationService;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -26,6 +28,7 @@ public class AddProductController {
     @FXML private ComboBox<String> comboProcessingType;
     @FXML private TextArea txtSpecialInstructions;
     @FXML private TextField txtDeliveryDate;
+    private NotificationService notificationService;
 
     private Stage dialogStage;
     private CropService cropService;
@@ -34,7 +37,7 @@ public class AddProductController {
     @FXML
     public void initialize() {
         cropService = new CropService();
-        
+                notificationService = NotificationService.getInstance(); 
         // Populate product type combo box
         comboProductType.getItems().addAll(
             "Organic Vegetables", "Fresh Fruits", "Herbs & Spices", 
@@ -104,6 +107,8 @@ public class AddProductController {
                          "Factory will process and add to inventory automatically.",
                          Alert.AlertType.INFORMATION);
                 dialogStage.close();
+                                notificationService.notifyDataChanged("FACTORY_ORDER_CREATED");
+
             } else {
                 showAlert("Error", "Failed to send crop to factory. Please try again.", Alert.AlertType.ERROR);
             }
