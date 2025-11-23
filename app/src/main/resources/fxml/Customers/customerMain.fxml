@@ -3,35 +3,88 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
 
 <BorderPane xmlns="http://javafx.com/javafx/11.0.1"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.freshharvest.controller.CustomerControllers.CustomerMainController"
             prefWidth="1400" prefHeight="900"
-            stylesheets="@../../css/application.css">
+            stylesheets="@../../css/application.css"
+            style="-fx-background-color: #fafafa;">
             
-
     <!-- Sidebar -->
     <left>
-        <VBox fx:id="sidebar" styleClass="sidebar" spacing="10" prefWidth="220.0">
-            <Label text="FreshHarvest" styleClass="brand"/>
-            <Separator/>
+        <VBox fx:id="sidebar" styleClass="sidebar" spacing="0" prefWidth="240" 
+              style="-fx-background-color: #ffffff; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 12, 0, 3, 0);">
+            
+            <!-- Brand Header -->
+            <VBox alignment="CENTER" spacing="8" style="-fx-padding: 20 20 15 20;">
+                <ImageView fitWidth="50" fitHeight="50" preserveRatio="true">
+                    <Image url="@../../image/logo.png"/>
+                </ImageView>
+                <Label text="FreshHarvest" 
+                       style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #2e7d32;"/>
+                <Label text="Customer Portal" 
+                       style="-fx-font-size: 11px; -fx-text-fill: #7f8c8d;"/>
+            </VBox>
+            
+            <Separator style="-fx-background-color: #e8e8e8; -fx-padding: 0 20;"/>
 
             <!-- Navigation Menu -->
-            <Button fx:id="btnDashboard" text="Dashboard" onAction="#onDashboard"/>
-            <Button fx:id="btnProducts" text="My Orders" onAction="#onProducts"/>
-            <Button fx:id="btnAddOrder" text="Add Order" onAction="#onAddOrder"/>
-            <Button fx:id="btnMakePayment" text="Make Payment" onAction="#onMakePayment"/>
-            <Button fx:id="btnReports" text="Reports" onAction="#onReports"/>
+            <VBox spacing="4" style="-fx-padding: 12 8;">
+                <Label text="MAIN MENU" 
+                       style="-fx-font-size: 10px; -fx-font-weight: 600; -fx-text-fill: #95a5a6; -fx-padding: 8 16 4 16;"/>
+                
+                <Button fx:id="btnDashboard" 
+                        text="📊  Dashboard" 
+                        onAction="#onDashboard"
+                        styleClass="sidebar-button"
+                        style="-fx-alignment: CENTER_LEFT; -fx-padding: 12 16; -fx-background-radius: 8; -fx-cursor: hand;"/>
+                
+                <Button fx:id="btnProducts" 
+                        text="📦  My Orders" 
+                        onAction="#onProducts"
+                        styleClass="sidebar-button"
+                        style="-fx-alignment: CENTER_LEFT; -fx-padding: 12 16; -fx-background-radius: 8; -fx-cursor: hand;"/>
+                
+                <Button fx:id="btnAddOrder" 
+                        text="➕  Place Order" 
+                        onAction="#onAddOrder"
+                        styleClass="sidebar-button"
+                        style="-fx-alignment: CENTER_LEFT; -fx-padding: 12 16; -fx-background-radius: 8; -fx-cursor: hand;"/>
+                
+                <Button fx:id="btnMakePayment" 
+                        text="💳  Payments" 
+                        onAction="#onMakePayment"
+                        styleClass="sidebar-button"
+                        style="-fx-alignment: CENTER_LEFT; -fx-padding: 12 16; -fx-background-radius: 8; -fx-cursor: hand;"/>
+                
+                <Button fx:id="btnReports" 
+                        text="📈  Reports" 
+                        onAction="#onReports"
+                        styleClass="sidebar-button"
+                        style="-fx-alignment: CENTER_LEFT; -fx-padding: 12 16; -fx-background-radius: 8; -fx-cursor: hand;"/>
+            </VBox>
 
+            <!-- Spacer -->
             <Region VBox.vgrow="ALWAYS"/>
-            <Separator/>
-            <Button fx:id="btnLogout" text="Logout" onAction="#onLogout" styleClass="button-secondary"/>
+            
+            <!-- Bottom Section -->
+            <VBox spacing="8" style="-fx-padding: 12 8 16 8;">
+                <Separator style="-fx-background-color: #e8e8e8;"/>
+                <Button fx:id="btnLogout" 
+                        text="🚪  Logout" 
+                        onAction="#onLogout" 
+                        styleClass="sidebar-button"
+                        style="-fx-alignment: CENTER_LEFT; -fx-padding: 12 16; -fx-background-radius: 8; -fx-cursor: hand; -fx-text-fill: #e74c3c;"/>
+            </VBox>
         </VBox>
     </left>
 
     <!-- Main content area -->
     <center>
-        <AnchorPane fx:id="contentPane" styleClass="content-pane"/>
+        <AnchorPane fx:id="contentPane" 
+                    style="-fx-background-color: #fafafa; -fx-padding: 0;"/>
     </center>
 </BorderPane>

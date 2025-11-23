@@ -77,8 +77,7 @@ public class CustomerMainController implements Initializable {
 
     @FXML 
     private void onLogout(ActionEvent e) {
-        // Clear session and go back to login
-        FreshHarvestApp.getPrimaryStage().close();
+        // Redirect to login without closing primary stage
         SceneManager.getInstance().switchToScene("login");
     }
 

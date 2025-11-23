@@ -7,26 +7,26 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.control.ScrollPane?>
 
-<VBox xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
+<ScrollPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
     fx:controller="com.freshharvest.controller.Factory_Manager.FactoryDashboardController"
-    prefWidth="1400" prefHeight="900"
-    styleClass="dashboard-container"
-    stylesheets="@../../css/application.css" spacing="20">
+    fitToWidth="true" hbarPolicy="NEVER" style="-fx-background-color: transparent;">
+<VBox prefWidth="1400" prefHeight="900" styleClass="dashboard-container" stylesheets="@../../css/application.css" spacing="24">
     
     <padding>
         <Insets top="20" right="20" bottom="20" left="20"/>
     </padding>
 
     <!-- Header Section -->
-    <VBox spacing="10" styleClass="header-section">
-        <HBox alignment="CENTER_LEFT" spacing="15">
-            <Label text=" Factory Dashboard" styleClass="header-label"/>
-            <HBox HBox.hgrow="ALWAYS" alignment="CENTER_RIGHT" spacing="10">
-                <Button text=" Refresh" onAction="#onRefresh" styleClass="btn-refresh"/>
-            </HBox>
+    <VBox spacing="8" styleClass="header-section">
+        <HBox alignment="CENTER_LEFT" spacing="18">
+            <Label text="🏭 Factory Dashboard" styleClass="header-label"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Button text="🔄 Refresh" onAction="#onRefresh" styleClass="btn-refresh"/>
         </HBox>
-        <Label text="Real-time overview of production and operations" styleClass="subtitle-label"/>
+        <Label text="Real-time overview of production &amp; operations" styleClass="subtitle-label"/>
     </VBox>
 
     <!-- Statistics Cards Grid -->
@@ -41,10 +41,10 @@
         </columnConstraints>
         
         <!-- Pending Batches Card -->
-        <VBox styleClass="stat-card, stat-card-orange" GridPane.columnIndex="0">
+        <VBox styleClass="stat-card, stat-card-orange" GridPane.columnIndex="0" accessibleText="Pending batches awaiting processing">
             <HBox alignment="CENTER_LEFT" spacing="12">
                 <VBox styleClass="stat-icon-container">
-                    <Label text="" styleClass="stat-icon"/>
+                    <Label text="⏳" styleClass="stat-icon"/>
                 </VBox>
                 <VBox spacing="2">
                     <Label text="Pending" styleClass="stat-title"/>
@@ -55,10 +55,10 @@
         </VBox>
 
         <!-- In Progress Card -->
-        <VBox styleClass="stat-card, stat-card-blue" GridPane.columnIndex="1">
+        <VBox styleClass="stat-card, stat-card-blue" GridPane.columnIndex="1" accessibleText="Batches currently in processing stage">
             <HBox alignment="CENTER_LEFT" spacing="12">
                 <VBox styleClass="stat-icon-container">
-                    <Label text="" styleClass="stat-icon"/>
+                    <Label text="⚙️" styleClass="stat-icon"/>
                 </VBox>
                 <VBox spacing="2">
                     <Label text="In Progress" styleClass="stat-title"/>
@@ -69,10 +69,10 @@
         </VBox>
 
         <!-- Completed Card -->
-        <VBox styleClass="stat-card, stat-card-green" GridPane.columnIndex="2">
+        <VBox styleClass="stat-card, stat-card-green" GridPane.columnIndex="2" accessibleText="Completed batches today">
             <HBox alignment="CENTER_LEFT" spacing="12">
                 <VBox styleClass="stat-icon-container">
-                    <Label text="" styleClass="stat-icon"/>
+                    <Label text="✅" styleClass="stat-icon"/>
                 </VBox>
                 <VBox spacing="2">
                     <Label text="Completed" styleClass="stat-title"/>
@@ -83,10 +83,10 @@
         </VBox>
 
         <!-- Pending Shipments Card -->
-        <VBox styleClass="stat-card, stat-card-purple" GridPane.columnIndex="3">
+        <VBox styleClass="stat-card, stat-card-purple" GridPane.columnIndex="3" accessibleText="Shipments awaiting dispatch">
             <HBox alignment="CENTER_LEFT" spacing="12">
                 <VBox styleClass="stat-icon-container">
-                    <Label text="" styleClass="stat-icon"/>
+                    <Label text="📦" styleClass="stat-icon"/>
                 </VBox>
                 <VBox spacing="2">
                     <Label text="Pending" styleClass="stat-title"/>
@@ -97,10 +97,10 @@
         </VBox>
 
         <!-- Total Inventory Card -->
-        <VBox styleClass="stat-card, stat-card-teal" GridPane.columnIndex="4">
+        <VBox styleClass="stat-card, stat-card-teal" GridPane.columnIndex="4" accessibleText="Total inventory units available">
             <HBox alignment="CENTER_LEFT" spacing="12">
                 <VBox styleClass="stat-icon-container">
-                    <Label text="" styleClass="stat-icon"/>
+                    <Label text="📊" styleClass="stat-icon"/>
                 </VBox>
                 <VBox spacing="2">
                     <Label text="Inventory" styleClass="stat-title"/>
@@ -111,10 +111,10 @@
         </VBox>
 
         <!-- Today's Shipments Card -->
-        <VBox styleClass="stat-card, stat-card-pink" GridPane.columnIndex="5">
+        <VBox styleClass="stat-card, stat-card-pink" GridPane.columnIndex="5" accessibleText="Shipments dispatched today">
             <HBox alignment="CENTER_LEFT" spacing="12">
                 <VBox styleClass="stat-icon-container">
-                    <Label text="" styleClass="stat-icon"/>
+                    <Label text="🚚" styleClass="stat-icon"/>
                 </VBox>
                 <VBox spacing="2">
                     <Label text="Shipped" styleClass="stat-title"/>
@@ -126,15 +126,14 @@
     </GridPane>
 
     <!-- Chart Section -->
-    <VBox spacing="15" styleClass="chart-section" VBox.vgrow="ALWAYS">
-        <HBox alignment="CENTER_LEFT" spacing="10" styleClass="section-header">
-            <Label text=" Data Visualization" styleClass="section-title"/>
-            <HBox fx:id="chartButtonsContainer" spacing="8" alignment="CENTER_LEFT" styleClass="chart-buttons-container"/>
+    <VBox spacing="18" styleClass="chart-section" VBox.vgrow="ALWAYS">
+        <HBox alignment="CENTER_LEFT" spacing="14" styleClass="section-header">
+            <Label text="📈 Data Visualization" styleClass="section-title"/>
+            <HBox fx:id="chartButtonsContainer" spacing="10" alignment="CENTER_LEFT" styleClass="chart-buttons-container"/>
         </HBox>
-        
-        <!-- Dynamic Chart/Table Container -->
-        <VBox fx:id="chartContainer" styleClass="chart-display-area" VBox.vgrow="ALWAYS">
-            <!-- Charts and tables will be dynamically loaded here -->
+        <VBox fx:id="chartContainer" styleClass="chart-display-area" VBox.vgrow="ALWAYS" style="-fx-background-color: white; -fx-background-radius: 12; -fx-padding: 24; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 12, 0, 0, 3);">
+            <!-- Dynamic charts/tables injected by controller -->
         </VBox>
     </VBox>
 </VBox>
+</ScrollPane>

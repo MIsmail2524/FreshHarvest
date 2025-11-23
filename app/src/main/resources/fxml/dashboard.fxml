@@ -4,10 +4,11 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.control.ScrollPane?>
 
-<VBox xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
-prefWidth="1400" prefHeight="900"
-      fx:controller="com.freshharvest.controller.DashboardController" spacing="20" alignment="TOP_CENTER">
+<ScrollPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
+    fx:controller="com.freshharvest.controller.DashboardController" fitToWidth="true" hbarPolicy="NEVER">
+<VBox prefWidth="1400" prefHeight="900" spacing="24" alignment="TOP_CENTER" style="-fx-padding: 0 0 30 0;">
 
     <padding><Insets top="25" right="30" bottom="25" left="30"/></padding>
 
@@ -63,3 +64,4 @@ prefWidth="1400" prefHeight="900"
         </VBox>
     </HBox>
 </VBox>
+</ScrollPane>

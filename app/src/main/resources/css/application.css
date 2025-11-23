@@ -2536,15 +2536,19 @@
 }
 
 .total-orders-card {
-    -fx-border-left: 4px solid #667eea;
+    /* JavaFX does not support -fx-border-left; emulate left border */
+    -fx-border-color: #667eea transparent transparent transparent;
+    -fx-border-width: 4px 0 0 0; /* Using top as accent for visual consistency */
 }
 
 .pending-orders-card {
-    -fx-border-left: 4px solid #f5576c;
+    -fx-border-color: #f5576c transparent transparent transparent;
+    -fx-border-width: 4px 0 0 0;
 }
 
 .completed-orders-card {
-    -fx-border-left: 4px solid #4facfe;
+    -fx-border-color: #4facfe transparent transparent transparent;
+    -fx-border-width: 4px 0 0 0;
 }
 
 .stat-value-bold {

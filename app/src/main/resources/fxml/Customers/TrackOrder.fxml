@@ -4,10 +4,13 @@
 <?import javafx.scene.control.*?>
 <?import javafx.geometry.Insets?>
 
-<VBox xmlns="http://javafx.com/javafx/11.0.1"
-      xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="com.freshharvest.controller.CustomerControllers.TrackOrderController"
-      prefWidth="1400" prefHeight="900"
+<ScrollPane xmlns="http://javafx.com/javafx/11.0.1"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.freshharvest.controller.CustomerControllers.TrackOrderController"
+            fitToWidth="true"
+            hbarPolicy="NEVER">
+    
+<VBox prefWidth="1400" prefHeight="900"
       spacing="10">
     
     <padding>
@@ -31,3 +34,4 @@
     </HBox>
 
 </VBox>
+</ScrollPane>

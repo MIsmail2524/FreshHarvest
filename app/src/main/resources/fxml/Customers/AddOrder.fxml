@@ -4,10 +4,13 @@
 <?import javafx.scene.control.*?>
 <?import javafx.geometry.Insets?>
 
-<BorderPane xmlns="http://javafx.com/javafx/11.0.1"
+<ScrollPane xmlns="http://javafx.com/javafx/11.0.1"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.freshharvest.controller.CustomerControllers.AddOrderController"
-            stylesheets="@../../css/application.css"
+            fitToWidth="true"
+            hbarPolicy="NEVER">
+    
+<BorderPane stylesheets="@../../css/application.css"
            prefWidth="1400" prefHeight="900">
 
     <top>
@@ -106,3 +109,4 @@
     </center>
 
 </BorderPane>
+</ScrollPane>

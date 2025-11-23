@@ -5,14 +5,13 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.chart.*?>
+<?import javafx.scene.control.ScrollPane?>
 
-<VBox xmlns="http://javafx.com/javafx/11.0.1"
-      xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="com.freshharvest.controller.ReportsController"
-      spacing="15"
-      alignment="TOP_CENTER"
-      prefWidth="1400" prefHeight="900"
-      styleClass="reports-container">
+<ScrollPane xmlns="http://javafx.com/javafx/11.0.1"
+    xmlns:fx="http://javafx.com/fxml/1"
+    fx:controller="com.freshharvest.controller.ReportsController"
+    fitToWidth="true" hbarPolicy="NEVER">
+<VBox spacing="18" alignment="TOP_CENTER" prefWidth="1400" prefHeight="900" styleClass="reports-container">
 
     <padding>
         <Insets top="15" right="20" bottom="15" left="20"/>
@@ -60,3 +59,4 @@
     </VBox>
 
 </VBox>
+</ScrollPane>

@@ -6,10 +6,13 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.text.*?>
 
-<VBox xmlns="http://javafx.com/javafx/11.0.1"
-      xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="com.freshharvest.controller.CustomerControllers.CustomerReportsController"
-      spacing="15"
+<ScrollPane xmlns="http://javafx.com/javafx/11.0.1"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.freshharvest.controller.CustomerControllers.CustomerReportsController"
+            fitToWidth="true"
+            hbarPolicy="NEVER">
+    
+<VBox spacing="15"
       prefWidth="1400" prefHeight="900"
       style="-fx-padding: 20;">
     
@@ -64,3 +67,4 @@
     </HBox>
 
 </VBox>
+</ScrollPane>

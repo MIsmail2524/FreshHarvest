@@ -5,84 +5,129 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.chart.*?>
 
-<VBox xmlns="http://javafx.com/javafx/11.0.1" 
-      xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="com.freshharvest.controller.CustomerControllers.CustomerDashboardController"
-      spacing="20"
-      prefWidth="1400" prefHeight="900"
-      style="-fx-background-color: #f8f9fa; -fx-padding: 20;">
+<ScrollPane xmlns="http://javafx.com/javafx/11.0.1" 
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.freshharvest.controller.CustomerControllers.CustomerDashboardController"
+            fitToWidth="true" 
+            hbarPolicy="NEVER"
+            style="-fx-background-color: transparent; -fx-background: transparent;">
 
-    <padding>
-        <Insets top="20" right="20" bottom="20" left="20"/>
-    </padding>
+    <VBox spacing="24" style="-fx-background-color: #fafafa; -fx-padding: 30;">
 
-    <!-- Header -->
-    <HBox spacing="20" alignment="CENTER_LEFT">
-        <VBox spacing="5">
-            <Label text="Customer Dashboard" style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
-            <Label fx:id="lblWelcome" text="Welcome back!" style="-fx-font-size: 14px; -fx-text-fill: #7f8c8d;"/>
+        <!-- Header -->
+        <VBox spacing="8">
+            <Label text="Customer Dashboard" 
+                   style="-fx-font-size: 26px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+            <Label fx:id="lblWelcome" 
+                   text="Welcome back!" 
+                   style="-fx-font-size: 13px; -fx-text-fill: #7f8c8d;"/>
         </VBox>
-        <Region HBox.hgrow="ALWAYS"/>
-      
-    </HBox>
 
-    <!-- Quick Stats -->
-    <HBox spacing="20">
-        <VBox spacing="5" alignment="CENTER" style="-fx-padding: 20; -fx-background-color: white; -fx-background-radius: 10;">
-            <Label text="Total Orders" style="-fx-font-size: 14px; -fx-text-fill: #7f8c8d;"/>
-            <Label fx:id="lblTotalOrders" text="0" style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
-        </VBox>
-        
-        <VBox spacing="5" alignment="CENTER" style="-fx-padding: 20; -fx-background-color: white; -fx-background-radius: 10;">
-            <Label text="Total Spent" style="-fx-font-size: 14px; -fx-text-fill: #7f8c8d;"/>
-            <Label fx:id="lblTotalSpent" text="Rs. 0" style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
-        </VBox>
-        
-        <VBox spacing="5" alignment="CENTER" style="-fx-padding: 20; -fx-background-color: white; -fx-background-radius: 10;">
-            <Label text="Pending Orders" style="-fx-font-size: 14px; -fx-text-fill: #7f8c8d;"/>
-            <Label fx:id="lblPendingOrders" text="0" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #f39c12;"/>
-        </VBox>
-        
-        <VBox spacing="5" alignment="CENTER" style="-fx-padding: 20; -fx-background-color: white; -fx-background-radius: 10;">
-            <Label text="Favorite Category" style="-fx-font-size: 14px; -fx-text-fill: #7f8c8d;"/>
-            <Label fx:id="lblFavoriteCategory" text="-" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
-        </VBox>
-    </HBox>
+        <!-- Quick Stats Cards -->
+        <GridPane hgap="16" vgap="16">
+            <columnConstraints>
+                <ColumnConstraints percentWidth="25" hgrow="ALWAYS"/>
+                <ColumnConstraints percentWidth="25" hgrow="ALWAYS"/>
+                <ColumnConstraints percentWidth="25" hgrow="ALWAYS"/>
+                <ColumnConstraints percentWidth="25" hgrow="ALWAYS"/>
+            </columnConstraints>
+            
+            <!-- Total Orders Card -->
+            <VBox spacing="8" alignment="TOP_LEFT" GridPane.columnIndex="0"
+                  style="-fx-padding: 20; -fx-background-color: white; -fx-background-radius: 12; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.06), 10, 0, 0, 2);">
+                <Label text="📦" style="-fx-font-size: 24px;"/>
+                <Label text="Total Orders" 
+                       style="-fx-font-size: 12px; -fx-text-fill: #7f8c8d; -fx-font-weight: 500;"/>
+                <Label fx:id="lblTotalOrders" text="0" 
+                       style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+            </VBox>
+            
+            <!-- Total Spent Card -->
+            <VBox spacing="8" alignment="TOP_LEFT" GridPane.columnIndex="1"
+                  style="-fx-padding: 20; -fx-background-color: white; -fx-background-radius: 12; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.06), 10, 0, 0, 2);">
+                <Label text="💰" style="-fx-font-size: 24px;"/>
+                <Label text="Total Spent" 
+                       style="-fx-font-size: 12px; -fx-text-fill: #7f8c8d; -fx-font-weight: 500;"/>
+                <Label fx:id="lblTotalSpent" text="Rs. 0" 
+                       style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #27ae60;"/>
+            </VBox>
+            
+            <!-- Pending Orders Card -->
+            <VBox spacing="8" alignment="TOP_LEFT" GridPane.columnIndex="2"
+                  style="-fx-padding: 20; -fx-background-color: white; -fx-background-radius: 12; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.06), 10, 0, 0, 2);">
+                <Label text="⏳" style="-fx-font-size: 24px;"/>
+                <Label text="Pending Orders" 
+                       style="-fx-font-size: 12px; -fx-text-fill: #7f8c8d; -fx-font-weight: 500;"/>
+                <Label fx:id="lblPendingOrders" text="0" 
+                       style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #f39c12;"/>
+            </VBox>
+            
+            <!-- Favorite Category Card -->
+            <VBox spacing="8" alignment="TOP_LEFT" GridPane.columnIndex="3"
+                  style="-fx-padding: 20; -fx-background-color: white; -fx-background-radius: 12; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.06), 10, 0, 0, 2);">
+                <Label text="⭐" style="-fx-font-size: 24px;"/>
+                <Label text="Favorite Category" 
+                       style="-fx-font-size: 12px; -fx-text-fill: #7f8c8d; -fx-font-weight: 500;"/>
+                <Label fx:id="lblFavoriteCategory" text="-" 
+                       style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+            </VBox>
+        </GridPane>
 
-    <!-- Chart Control Buttons -->
-    <HBox spacing="10" alignment="CENTER">
-        <Button text="Category Analysis" onAction="#showCategoryAnalysis" 
-                style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8 15;"/>
-        <Button text="Order Status" onAction="#showOrderStatus" 
-                style="-fx-background-color: #9b59b6; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8 15;"/>
-        <Button text="Cash vs Credit" onAction="#showPaymentAnalysis" 
-                style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8 15;"/>
-        <Button text="Refresh Data" onAction="#refreshAllData" 
-                style="-fx-background-color: #2ecc71; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8 15;"/>
-    </HBox>
+        <!-- Analytics Section -->
+        <VBox spacing="16" 
+              style="-fx-background-color: white; -fx-background-radius: 12; -fx-padding: 24; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.06), 10, 0, 0, 2);">
+            
+            <Label text="Analytics Overview" 
+                   style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+            
+            <!-- Chart Control Buttons -->
+            <HBox spacing="12" alignment="CENTER_LEFT">
+                <Button text="📊 Category Analysis" 
+                        onAction="#showCategoryAnalysis" 
+                        style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-font-weight: 600; -fx-padding: 10 16; -fx-background-radius: 8; -fx-cursor: hand;"/>
+                <Button text="📈 Order Status" 
+                        onAction="#showOrderStatus" 
+                        style="-fx-background-color: #9b59b6; -fx-text-fill: white; -fx-font-weight: 600; -fx-padding: 10 16; -fx-background-radius: 8; -fx-cursor: hand;"/>
+                <Button text="💳 Cash vs Credit" 
+                        onAction="#showPaymentAnalysis" 
+                        style="-fx-background-color: #e67e22; -fx-text-fill: white; -fx-font-weight: 600; -fx-padding: 10 16; -fx-background-radius: 8; -fx-cursor: hand;"/>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Button text="🔄 Refresh" 
+                        onAction="#refreshAllData" 
+                        style="-fx-background-color: #27ae60; -fx-text-fill: white; -fx-font-weight: 600; -fx-padding: 10 16; -fx-background-radius: 8; -fx-cursor: hand;"/>
+            </HBox>
 
-    <!-- Chart Display Area -->
-    <VBox fx:id="chartContainer" style="-fx-padding: 20; -fx-background-color: white; -fx-min-height: 400; -fx-alignment: center;">
-        <Label text="Select a chart type to view your analytics" style="-fx-font-size: 16px; -fx-text-fill: #bdc3c7;"/>
+            <!-- Chart Display Area -->
+            <VBox fx:id="chartContainer" 
+                  alignment="CENTER"
+                  style="-fx-padding: 40; -fx-background-color: #f8f9fa; -fx-background-radius: 8; -fx-min-height: 380;">
+                <Label text="📊 Select a chart type to view your analytics" 
+                       style="-fx-font-size: 14px; -fx-text-fill: #95a5a6;"/>
+            </VBox>
+        </VBox>
+
+        <!-- Recent Orders Section -->
+        <VBox spacing="16" 
+              style="-fx-background-color: white; -fx-background-radius: 12; -fx-padding: 24; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.06), 10, 0, 0, 2);">
+            
+            <HBox alignment="CENTER_LEFT" spacing="12">
+                <Label text="Recent Orders" 
+                       style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+                <Region HBox.hgrow="ALWAYS"/>
+            </HBox>
+            
+            <TableView fx:id="tblRecentOrders" 
+                       prefHeight="180"
+                       style="-fx-background-color: transparent;">
+                <columns>
+                    <TableColumn text="Order ID" prefWidth="100" style="-fx-alignment: CENTER_LEFT;"/>
+                    <TableColumn text="Date" prefWidth="120" style="-fx-alignment: CENTER_LEFT;"/>
+                    <TableColumn text="Amount" prefWidth="120" style="-fx-alignment: CENTER_RIGHT;"/>
+                    <TableColumn text="Status" prefWidth="130" style="-fx-alignment: CENTER;"/>
+                    <TableColumn text="Delivery Date" prefWidth="130" style="-fx-alignment: CENTER_LEFT;"/>
+                </columns>
+            </TableView>
+        </VBox>
+
     </VBox>
-
-    <!-- Recent Orders Section -->
-    <VBox spacing="10">
-        <HBox alignment="CENTER_LEFT">
-            <Label text="Recent Orders" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
-            <Region HBox.hgrow="ALWAYS"/>
-         
-        </HBox>
-        
-        <TableView fx:id="tblRecentOrders" prefHeight="150">
-            <columns>
-                <TableColumn text="Order ID" prefWidth="80"/>
-                <TableColumn text="Date" prefWidth="100"/>
-                <TableColumn text="Amount" prefWidth="100"/>
-                <TableColumn text="Status" prefWidth="120"/>
-                <TableColumn text="Delivery Date" prefWidth="120"/>
-            </columns>
-        </TableView>
-    </VBox>
-
-</VBox>
+</ScrollPane>

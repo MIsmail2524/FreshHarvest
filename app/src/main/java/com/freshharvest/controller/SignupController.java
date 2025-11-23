@@ -16,8 +16,7 @@ import java.util.ResourceBundle;
 
 public class SignupController extends BaseController implements Initializable {
 
-    @FXML private TextField txtFirstName;
-    @FXML private TextField txtLastName;
+    @FXML private TextField txtFirstName; // Used as full name field after UI simplification
     @FXML private TextField txtUsername;
     @FXML private TextField txtEmail;
     @FXML private PasswordField txtPassword;
@@ -78,8 +77,7 @@ public class SignupController extends BaseController implements Initializable {
     }
 
     private void performSignup() {
-        String firstName = txtFirstName.getText().trim();
-        String lastName = txtLastName.getText().trim();
+        String firstName = txtFirstName.getText().trim(); // Treat as full name
         String username = txtUsername.getText().trim();
         String email = txtEmail.getText().trim();
         String password = txtPassword.getText();
@@ -89,7 +87,7 @@ public class SignupController extends BaseController implements Initializable {
 
         hideError();
 
-        if (!validateInput(firstName, lastName, username, email, password, confirmPassword, role, termsAccepted)) {
+        if (!validateInput(firstName, username, email, password, confirmPassword, role, termsAccepted)) {
             return;
         }
 
@@ -136,31 +134,19 @@ public class SignupController extends BaseController implements Initializable {
         }
     }
 
-    private boolean validateInput(String firstName, String lastName, String username, 
+    private boolean validateInput(String fullName, String username, 
                                  String email, String password, String confirmPassword, 
                                  String role, boolean termsAccepted) {
         
-        // First Name validation
-        if (firstName.isEmpty()) {
-            showError("Please enter your first name");
+        // Full Name validation
+        if (fullName.isEmpty()) {
+            showError("Please enter your full name");
             txtFirstName.requestFocus();
             return false;
         }
-        if (firstName.length() < 2) {
-            showError("First name must be at least 2 characters long");
+        if (fullName.length() < 2) {
+            showError("Full name must be at least 2 characters long");
             txtFirstName.requestFocus();
-            return false;
-        }
-
-        // Last Name validation
-        if (lastName.isEmpty()) {
-            showError("Please enter your last name");
-            txtLastName.requestFocus();
-            return false;
-        }
-        if (lastName.length() < 2) {
-            showError("Last name must be at least 2 characters long");
-            txtLastName.requestFocus();
             return false;
         }
 
@@ -255,7 +241,6 @@ public class SignupController extends BaseController implements Initializable {
         btnBackToLogin.setDisable(loading);
         btnExit.setDisable(loading);
         txtFirstName.setDisable(loading);
-        txtLastName.setDisable(loading);
         txtUsername.setDisable(loading);
         txtEmail.setDisable(loading);
         txtPassword.setDisable(loading);
@@ -272,9 +257,6 @@ public class SignupController extends BaseController implements Initializable {
             if (errorContainer.isVisible()) hideError();
         });
 
-        txtLastName.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (errorContainer.isVisible()) hideError();
-        });
 
         txtUsername.textProperty().addListener((observable, oldValue, newValue) -> {
             if (errorContainer.isVisible()) hideError();

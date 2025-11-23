@@ -91,13 +91,8 @@ public class MainController implements Initializable {
     
     @FXML
     private void onLogout(ActionEvent e) { 
-        // TODO: Implement proper logout logic (save state, confirm dialog, etc.)
-        System.out.println("Logout clicked - implement proper logout logic");
-        
-        // For now, just close the application
-        if (com.freshharvest.app.FreshHarvestApp.getPrimaryStage() != null) {
-            com.freshharvest.app.FreshHarvestApp.getPrimaryStage().close();
-        }
+        // Redirect farmer (main) context to login
+        SceneManager.getInstance().switchToScene("login");
     }
 
     @FXML 
