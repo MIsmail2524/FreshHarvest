@@ -1,4 +1,4 @@
-package com.freshharvest.model;
+package com.freshharvest.app;
 
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;

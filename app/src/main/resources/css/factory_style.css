@@ -1,0 +1,110 @@
+/* factory_style.css - Modern Factory Theme */
+
+.root {
+    -fx-background-color: #f4f6f8;
+    -fx-font-family: 'Segoe UI', sans-serif;
+}
+
+/* --- HEADERS --- */
+.page-header {
+    -fx-padding: 0 0 20 0;
+}
+.page-title {
+    -fx-font-size: 28px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2e7d32;
+}
+.page-subtitle {
+    -fx-font-size: 14px;
+    -fx-text-fill: #637381;
+}
+
+/* --- CARDS (Like s1.jpg) --- */
+.stat-card {
+    -fx-background-color: white;
+    -fx-background-radius: 12;
+    -fx-effect: dropshadow(gaussian, rgba(145, 158, 171, 0.2), 10, 0, 0, 4);
+    -fx-padding: 20;
+}
+.stat-icon-container {
+    -fx-background-radius: 50%;
+    -fx-alignment: center;
+    -fx-min-width: 48px;
+    -fx-min-height: 48px;
+}
+.stat-title {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #637381;
+}
+.stat-value {
+    -fx-font-size: 24px;
+    -fx-font-weight: 800;
+    -fx-text-fill: #212b36;
+}
+
+/* --- Card Variants --- */
+.card-blue .stat-icon-container { -fx-background-color: #e3f2fd; }
+.card-blue .stat-icon { -fx-text-fill: #1565c0; }
+
+.card-green .stat-icon-container { -fx-background-color: #e8f5e9; }
+.card-green .stat-icon { -fx-text-fill: #2e7d32; }
+
+.card-orange .stat-icon-container { -fx-background-color: #fff3e0; }
+.card-orange .stat-icon { -fx-text-fill: #ef6c00; }
+
+.card-purple .stat-icon-container { -fx-background-color: #f3e5f5; }
+.card-purple .stat-icon { -fx-text-fill: #7b1fa2; }
+
+/* --- TABLES (Like s2.jpg) --- */
+.modern-table {
+    -fx-background-color: white;
+    -fx-background-radius: 8;
+    -fx-effect: dropshadow(gaussian, rgba(145, 158, 171, 0.2), 5, 0, 0, 2);
+    -fx-padding: 10;
+}
+.modern-table .column-header-background {
+    -fx-background-color: transparent;
+}
+.modern-table .column-header {
+    -fx-background-color: transparent;
+    -fx-border-width: 0 0 1 0;
+    -fx-border-color: #dfe3e8;
+    -fx-padding: 10 5;
+}
+.modern-table .table-cell {
+    -fx-padding: 10 5;
+    -fx-alignment: center-left;
+    -fx-text-fill: #212b36;
+}
+
+/* --- STATUS PILLS --- */
+.status-pill {
+    -fx-background-radius: 12;
+    -fx-padding: 4 10;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-alignment: center;
+}
+.status-success { -fx-background-color: #e8f5e9; -fx-text-fill: #2e7d32; }
+.status-warning { -fx-background-color: #fff8e1; -fx-text-fill: #ff8f00; }
+.status-danger  { -fx-background-color: #ffebee; -fx-text-fill: #c62828; }
+.status-info    { -fx-background-color: #e3f2fd; -fx-text-fill: #1565c0; }
+
+/* --- BUTTONS & INPUTS --- */
+.search-box {
+    -fx-background-color: white;
+    -fx-border-color: #dfe3e8;
+    -fx-border-radius: 4;
+    -fx-background-radius: 4;
+    -fx-padding: 8;
+}
+.primary-button {
+    -fx-background-color: #2e7d32;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 4;
+    -fx-cursor: hand;
+    -fx-padding: 8 16;
+}
+.primary-button:hover { -fx-background-color: #1b5e20; }

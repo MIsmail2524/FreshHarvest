@@ -1,8 +1,9 @@
 package com.freshharvest.util;
 
-import com.freshharvest.model.Batch;
-import com.freshharvest.model.InventoryLot;
-import com.freshharvest.model.Shipment;
+import com.freshharvest.app.Batch;
+import com.freshharvest.app.InventoryLot;
+import com.freshharvest.app.Shipment;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
