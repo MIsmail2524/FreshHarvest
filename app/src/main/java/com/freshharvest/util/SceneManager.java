@@ -32,6 +32,8 @@ public class SceneManager {
         SCENE_PATHS.put("reports", "/fxml/reports.fxml");
         SCENE_PATHS.put("make_payment", "/fxml/Customers/payment.fxml");
         
+
+        
         // Customer scenes
         SCENE_PATHS.put("customermain", "/fxml/Customers/customerMain.fxml");
         SCENE_PATHS.put("customer_dashboard", "/fxml/Customers/CustomerDashboard.fxml");
@@ -51,6 +53,8 @@ public class SceneManager {
         SCENE_PATHS.put("factory_inventory", "/fxml/Factory_Manager/inventory.fxml");
         SCENE_PATHS.put("factory_report", "/fxml/Factory_Manager/Report.fxml");
         SCENE_PATHS.put("shipment_management", "/fxml/Factory_Manager/shipment_management.fxml");
+        SCENE_PATHS.put("pack", "/fxml/Factory_Manager/package_and_label.fxml");
+
     }
     
     private SceneManager() {

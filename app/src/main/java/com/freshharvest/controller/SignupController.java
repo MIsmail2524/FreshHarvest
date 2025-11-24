@@ -113,7 +113,7 @@ public class SignupController extends BaseController implements Initializable {
             newUser.setFullName(firstName);
             newUser.setUsername(username);
             newUser.setEmail(email);
-            newUser.setPassword(password); // Service should hash this
+            newUser.setPassword(password); 
             newUser.setRole(User.Role.valueOf(role));
 
             Optional<User> success = userService.register(newUser);

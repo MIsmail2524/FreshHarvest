@@ -17,6 +17,9 @@
       <Button fx:id="btnFactoryDashboard" text="Factory Dashboard" onAction="#onFactoryDashboard"/>
       <Button fx:id="btnBatchManagement" text="Batch Management" onAction="#onBatchManagement"/>
       
+      <!-- ADD THIS NEW BUTTON -->
+      <Button fx:id="btnpack" text="Package , Label" onAction="#onPackageAndLabel"/>
+      
       <Button fx:id="btnFactoryInventory" text="Factory Inventory" onAction="#onFactoryInventory"/>
       <Button fx:id="btnShipmentManagement" text="Shipment Management" onAction="#onShipmentManagement"/>
 
@@ -24,7 +27,6 @@
       
       <Region VBox.vgrow="ALWAYS"/>
       <Separator/>
-      <Button fx:id="btnLogout" text="Logout" onAction="#onLogout" styleClass="button-secondary"/>
     </VBox>
   </left>
 

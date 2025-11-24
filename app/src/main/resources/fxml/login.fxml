@@ -19,7 +19,7 @@
               style="-fx-background-color: linear-gradient(to bottom right, #27ae60, #2ecc71); -fx-padding: 30;">
             <!-- Logo and Brand -->
             <VBox alignment="CENTER" spacing="10">
-                <ImageView fitWidth="80" fitHeight="80" preserveRatio="true">
+                <ImageView fitWidth="400" fitHeight="400" preserveRatio="true">
                     <Image url="@../image/logo.png"/>
                 </ImageView>
                 <Label text="FreshHarvest" style="-fx-font-size: 26px; -fx-font-weight: bold; -fx-text-fill: white;"/>
@@ -60,7 +60,7 @@
                     <Text text="FreshHarvest delivers the freshest produce right to my doorstep!" style="-fx-fill: white; -fx-font-size: 12px; -fx-font-style: italic;"/>
                     <Text text="&quot;" style="-fx-fill: rgba(255,255,255,0.7); -fx-font-size: 14px;"/>
                 </TextFlow>
-                <Label text="- Sarah Johnson" style="-fx-text-fill: rgba(255,255,255,0.8); -fx-font-size: 11px;"/>
+                <Label text="- Team FreshHarvest" style="-fx-text-fill: rgba(255,255,255,0.8); -fx-font-size: 11px;"/>
             </VBox>
         </VBox>
     </left>

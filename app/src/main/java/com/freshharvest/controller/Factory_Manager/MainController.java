@@ -21,6 +21,9 @@ public class MainController {
     private Button btnFactoryDashboard;
     @FXML
     private Button btnBatchManagement;
+     @FXML
+    private Button btnpack;
+
     
     // --- Factory-specific buttons ---
     @FXML
@@ -154,12 +157,11 @@ public class MainController {
         loadView("shipment_management");
     }
 
-    // --- Bottom Button Handlers ---
-
-
-    @FXML
-    private void onLogout() {
-        // Logout logic - switch back to login screen
-        SceneManager.getInstance().switchToScene("login");
+@FXML
+    private void onPackageAndLabel() {
+        updateActiveButton(btnpack);
+        loadView("pack");
     }
+
+   
 }
