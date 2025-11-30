@@ -60,7 +60,7 @@ public class InventoryController implements Initializable, DataChangeListener {
 
             setupTableColumns();
             setupStockFilter();
-            loadInventoryData(); // Load real data from database
+            loadInventoryData(); 
             
         } catch (Exception e) {
             handleError("Initialization Error", "Failed to initialize inventory: " + e.getMessage());

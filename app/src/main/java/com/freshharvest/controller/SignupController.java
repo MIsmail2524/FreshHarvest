@@ -16,7 +16,7 @@ import java.util.ResourceBundle;
 
 public class SignupController extends BaseController implements Initializable {
 
-    @FXML private TextField txtFirstName; // Used as full name field after UI simplification
+    @FXML private TextField txtFirstName; 
     @FXML private TextField txtUsername;
     @FXML private TextField txtEmail;
     @FXML private PasswordField txtPassword;

@@ -3,9 +3,7 @@ package com.freshharvest.util;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Simple Observer pattern implementation for real-time notifications
- */
+
 public class NotificationService {
     private static NotificationService instance;
     private List<DataChangeListener> listeners = new ArrayList<>();
@@ -38,7 +36,6 @@ public class NotificationService {
         }
     }
     
-    // Specific notification methods for common events
     public void notifyBatchUpdated() {
         notifyDataChanged("BATCH_UPDATED");
     }

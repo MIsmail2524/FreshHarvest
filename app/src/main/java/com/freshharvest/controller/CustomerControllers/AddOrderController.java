@@ -337,7 +337,7 @@ public class AddOrderController implements Initializable, DataChangeListener {
             
             // Create order in database
             int orderId = customerDAO.createOrder(
-                currentCustomerId,
+                3,
                 cartItems,
                 totalAmount,
                 paymentMethodCombo.getValue()

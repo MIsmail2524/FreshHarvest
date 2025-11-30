@@ -168,17 +168,16 @@ public class ProductDAO {
                 while (rs.next()) {
                     Product product = new Product();
                     
-                    // Map columns based on the query structure
                     try {
-                        product.setId(rs.getInt(1)); // First column is always ID
-                        product.setName(rs.getString(2)); // Second column is name
-                        product.setDescription(rs.getString(3)); // Third column is description
-                        product.setCategory(rs.getString(4)); // Fourth column is category
-                        product.setPrice(rs.getDouble(5)); // Fifth column is price
-                        product.setStockQuantity(rs.getInt(6)); // Sixth column is stock
+                        product.setId(rs.getInt(1)); 
+                        product.setName(rs.getString(2)); 
+                        product.setDescription(rs.getString(3)); 
+                        product.setCategory(rs.getString(4)); 
+                        product.setPrice(rs.getDouble(5)); 
+                        product.setStockQuantity(rs.getInt(6)); 
                         
                         if (rs.getMetaData().getColumnCount() > 6) {
-                            product.setUnit(rs.getString(7)); // Seventh column is unit
+                            product.setUnit(rs.getString(7)); 
                         } else {
                             product.setUnit("piece");
                         }

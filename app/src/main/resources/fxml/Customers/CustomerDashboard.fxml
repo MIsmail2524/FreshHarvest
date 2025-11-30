@@ -35,7 +35,7 @@
             <!-- Total Orders Card -->
             <VBox spacing="8" alignment="TOP_LEFT" GridPane.columnIndex="0"
                   style="-fx-padding: 20; -fx-background-color: white; -fx-background-radius: 12; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.06), 10, 0, 0, 2);">
-                <Label text="📦" style="-fx-font-size: 24px;"/>
+                <Label text="" style="-fx-font-size: 24px;"/>
                 <Label text="Total Orders" 
                        style="-fx-font-size: 12px; -fx-text-fill: #7f8c8d; -fx-font-weight: 500;"/>
                 <Label fx:id="lblTotalOrders" text="0" 
@@ -45,7 +45,7 @@
             <!-- Total Spent Card -->
             <VBox spacing="8" alignment="TOP_LEFT" GridPane.columnIndex="1"
                   style="-fx-padding: 20; -fx-background-color: white; -fx-background-radius: 12; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.06), 10, 0, 0, 2);">
-                <Label text="💰" style="-fx-font-size: 24px;"/>
+                <Label text="" style="-fx-font-size: 24px;"/>
                 <Label text="Total Spent" 
                        style="-fx-font-size: 12px; -fx-text-fill: #7f8c8d; -fx-font-weight: 500;"/>
                 <Label fx:id="lblTotalSpent" text="Rs. 0" 
@@ -55,7 +55,7 @@
             <!-- Pending Orders Card -->
             <VBox spacing="8" alignment="TOP_LEFT" GridPane.columnIndex="2"
                   style="-fx-padding: 20; -fx-background-color: white; -fx-background-radius: 12; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.06), 10, 0, 0, 2);">
-                <Label text="⏳" style="-fx-font-size: 24px;"/>
+                <Label text="" style="-fx-font-size: 24px;"/>
                 <Label text="Pending Orders" 
                        style="-fx-font-size: 12px; -fx-text-fill: #7f8c8d; -fx-font-weight: 500;"/>
                 <Label fx:id="lblPendingOrders" text="0" 
@@ -65,7 +65,7 @@
             <!-- Favorite Category Card -->
             <VBox spacing="8" alignment="TOP_LEFT" GridPane.columnIndex="3"
                   style="-fx-padding: 20; -fx-background-color: white; -fx-background-radius: 12; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.06), 10, 0, 0, 2);">
-                <Label text="⭐" style="-fx-font-size: 24px;"/>
+                <Label text="" style="-fx-font-size: 24px;"/>
                 <Label text="Favorite Category" 
                        style="-fx-font-size: 12px; -fx-text-fill: #7f8c8d; -fx-font-weight: 500;"/>
                 <Label fx:id="lblFavoriteCategory" text="-" 
@@ -82,17 +82,17 @@
             
             <!-- Chart Control Buttons -->
             <HBox spacing="12" alignment="CENTER_LEFT">
-                <Button text="📊 Category Analysis" 
+                <Button text=" Category Analysis" 
                         onAction="#showCategoryAnalysis" 
                         style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-font-weight: 600; -fx-padding: 10 16; -fx-background-radius: 8; -fx-cursor: hand;"/>
-                <Button text="📈 Order Status" 
+                <Button text=" Order Status" 
                         onAction="#showOrderStatus" 
                         style="-fx-background-color: #9b59b6; -fx-text-fill: white; -fx-font-weight: 600; -fx-padding: 10 16; -fx-background-radius: 8; -fx-cursor: hand;"/>
-                <Button text="💳 Cash vs Credit" 
+                <Button text=" Cash vs Credit" 
                         onAction="#showPaymentAnalysis" 
                         style="-fx-background-color: #e67e22; -fx-text-fill: white; -fx-font-weight: 600; -fx-padding: 10 16; -fx-background-radius: 8; -fx-cursor: hand;"/>
                 <Region HBox.hgrow="ALWAYS"/>
-                <Button text="🔄 Refresh" 
+                <Button text=" Refresh" 
                         onAction="#refreshAllData" 
                         style="-fx-background-color: #27ae60; -fx-text-fill: white; -fx-font-weight: 600; -fx-padding: 10 16; -fx-background-radius: 8; -fx-cursor: hand;"/>
             </HBox>
@@ -101,7 +101,7 @@
             <VBox fx:id="chartContainer" 
                   alignment="CENTER"
                   style="-fx-padding: 40; -fx-background-color: #f8f9fa; -fx-background-radius: 8; -fx-min-height: 380;">
-                <Label text="📊 Select a chart type to view your analytics" 
+                <Label text=" Select a chart type to view your analytics" 
                        style="-fx-font-size: 14px; -fx-text-fill: #95a5a6;"/>
             </VBox>
         </VBox>

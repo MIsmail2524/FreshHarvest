@@ -14,26 +14,30 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
 
 import java.sql.Timestamp;
+import java.util.List;
+import java.util.Map;
 
 public class BatchManagementController implements DataChangeListener {
     
     private NotificationService notificationService;
-
+    private FactoryDAO factoryDAO;
 
     @FXML private TableView<Batch> batchTable;
     @FXML private TableColumn<Batch, Integer> colBatchId;
+    @FXML private TableColumn<Batch, Integer> colCropId;
+    @FXML private TableColumn<Batch, String> colCropName;
     @FXML private TableColumn<Batch, String> colProcessName;
     @FXML private TableColumn<Batch, String> colStatus;
-   // @FXML private TableColumn<Batch, Timestamp> colStartTime;
-   // @FXML private TableColumn<Batch, Timestamp> colEndTime;
-    //@FXML private TableColumn<Batch, String> colOperator;
     @FXML private TableColumn<Batch, String> colGrade;
+    @FXML private TableColumn<Batch, String> colOperator;
+    @FXML private TableColumn<Batch, Timestamp> colStartTime;
     @FXML private TableColumn<Batch, Timestamp> colProcessedDate;
     
     @FXML private TextField txtSearch;
     @FXML private ComboBox<String> cmbFilter;
     @FXML private ComboBox<String> cmbGrade;
     @FXML private ComboBox<String> cmbStatus;
+    @FXML private ComboBox<String> cmbCrop;
     @FXML private TextArea txtNotes;
     @FXML private Label lblSelectedBatch;
     @FXML private Label lblBatchDetails;
@@ -42,22 +46,22 @@ public class BatchManagementController implements DataChangeListener {
     @FXML private Button btnCreateBatch;
     
     private ObservableList<Batch> masterData;
-    private FactoryDAO factoryDAO;
+    private ObservableList<String> availableCrops;
     private Batch selectedBatch;
 
     @FXML
     public void initialize() {
         factoryDAO = DAOFactory.getFactoryDAO();
+        notificationService = NotificationService.getInstance();
+        notificationService.addListener(this);
+        
         setupTableColumns();
         setupComboBoxes();
         setupTableRowFactory();
+        loadCropData();
         loadData();
         setupSelectionListener();
         setupSearchAndFilter();
-                notificationService = NotificationService.getInstance();
-                        notificationService.addListener(this);
-
-
     }
 
     @Override
@@ -66,9 +70,9 @@ public class BatchManagementController implements DataChangeListener {
             case "BATCH_UPDATED":
             case "ORDER_STATUS_CHANGED":
             case "INVENTORY_CHANGED":
-                // Refresh data when relevant changes occur
                 javafx.application.Platform.runLater(() -> {
                     loadData();
+                    loadCropData();
                     showNotification("Data updated automatically");
                 });
                 break;
@@ -79,14 +83,40 @@ public class BatchManagementController implements DataChangeListener {
         System.out.println("Notification: " + message);
     }
 
-
     private void setupTableColumns() {
         colBatchId.setCellValueFactory(new PropertyValueFactory<>("processId"));
+        colCropId.setCellValueFactory(new PropertyValueFactory<>("cropId"));
+        colCropName.setCellValueFactory(new PropertyValueFactory<>("cropName"));
         colProcessName.setCellValueFactory(new PropertyValueFactory<>("processName"));
         colStatus.setCellValueFactory(new PropertyValueFactory<>("processStatus"));
         colGrade.setCellValueFactory(new PropertyValueFactory<>("grade"));
+        colOperator.setCellValueFactory(new PropertyValueFactory<>("operatorName"));
+        colStartTime.setCellValueFactory(new PropertyValueFactory<>("startTime"));
         colProcessedDate.setCellValueFactory(new PropertyValueFactory<>("processedDate"));
         
+        colStartTime.setCellFactory(column -> new TableCell<Batch, Timestamp>() {
+            @Override
+            protected void updateItem(Timestamp item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) {
+                    setText("N/A");
+                } else {
+                    setText(item.toLocalDateTime().toLocalDate().toString());
+                }
+            }
+        });
+        
+        colProcessedDate.setCellFactory(column -> new TableCell<Batch, Timestamp>() {
+            @Override
+            protected void updateItem(Timestamp item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) {
+                    setText("N/A");
+                } else {
+                    setText(item.toLocalDateTime().toLocalDate().toString());
+                }
+            }
+        });
     }
 
     private void setupComboBoxes() {
@@ -95,7 +125,7 @@ public class BatchManagementController implements DataChangeListener {
             "Not Graded", "Premium", "Grade A", "Grade B", "Grade C", "Rejected"
         ));
         
-        // Status combo box - MUST MATCH YOUR DATABASE ENUM: 'Pending','In Progress','Completed','Failed'
+        // Status combo box
         cmbStatus.setItems(FXCollections.observableArrayList(
             "Pending", "In Progress", "Completed", "Failed"
         ));
@@ -107,6 +137,30 @@ public class BatchManagementController implements DataChangeListener {
         cmbFilter.setValue("All Batches");
     }
 
+  private void loadCropData() {
+    try {
+        // Get available crops from database - this should return crops, not batches
+        List<Map<String, Object>> crops = factoryDAO.getAvailableCropsForProcessing();
+        availableCrops = FXCollections.observableArrayList();
+        
+        for (Map<String, Object> crop : crops) {
+            String cropInfo = String.format("%s (ID: %d)", 
+                crop.get("crop_name"), 
+                crop.get("crop_id"));
+            availableCrops.add(cropInfo);
+        }
+        
+        cmbCrop.setItems(availableCrops);
+        
+    } catch (Exception e) {
+        System.err.println("Error loading crop data: " + e.getMessage());
+        // Fallback to sample data
+        availableCrops = FXCollections.observableArrayList(
+            "Tomatoes (ID: 1)", "Potatoes (ID: 2)", "Carrots (ID: 3)"
+        );
+        cmbCrop.setItems(availableCrops);
+    }
+}
     private void setupTableRowFactory() {
         batchTable.setRowFactory(tv -> new TableRow<Batch>() {
             @Override
@@ -162,19 +216,21 @@ public class BatchManagementController implements DataChangeListener {
     }
 
     private void updateFormWithSelectedBatch(Batch batch) {
-        cmbGrade.setValue(batch.getGrade());
-        cmbStatus.setValue(batch.getProcessStatus());
-        txtNotes.setText(batch.getNotes() != null ? batch.getNotes() : "");
-        
-        lblSelectedBatch.setText("Processing: Batch #" + batch.getProcessId() + " - " + batch.getProcessName());
-        lblBatchDetails.setText(String.format(
-            "Operator: %s | Started: %s | Status: %s | Grade: %s",
-            batch.getOperatorName() != null ? batch.getOperatorName() : "Not Assigned",
-            batch.getStartTime() != null ? batch.getStartTime().toLocalDateTime().toLocalDate().toString() : "Not Started",
-            batch.getProcessStatus(),
-            batch.getGrade() != null ? batch.getGrade() : "Not Graded"
-        ));
-    }
+    cmbGrade.setValue(batch.getGrade());
+    cmbStatus.setValue(batch.getProcessStatus());
+    txtNotes.setText(batch.getNotes() != null ? batch.getNotes() : "");
+    
+    lblSelectedBatch.setText("Processing: Batch #" + batch.getProcessId() + " - " + batch.getProcessName());
+    
+    lblBatchDetails.setText(String.format(
+        "Crop: %s | Operator: %s | Started: %s | Status: %s | Grade: %s",
+        batch.getCropName() != null ? batch.getCropName() : "No Crop", 
+        batch.getOperatorName() != null ? batch.getOperatorName() : "Not Assigned",
+        batch.getStartTime() != null ? batch.getStartTime().toLocalDateTime().toLocalDate().toString() : "Not Started",
+        batch.getProcessStatus(),
+        batch.getGrade() != null ? batch.getGrade() : "Not Graded"
+    ));
+}
 
     private void clearForm() {
         cmbGrade.setValue(null);
@@ -186,7 +242,7 @@ public class BatchManagementController implements DataChangeListener {
 
     private void loadData() {
         try {
-            java.util.List<Batch> batches = factoryDAO.getReceivedBatches();
+            List<Batch> batches = factoryDAO.getAllBatches();
             masterData = FXCollections.observableArrayList(batches);
             batchTable.setItems(masterData);
             updateTotalCount();
@@ -215,8 +271,7 @@ public class BatchManagementController implements DataChangeListener {
             boolean matchesSearch = searchText.isEmpty() ||
                 String.valueOf(batch.getProcessId()).contains(searchText) ||
                 batch.getProcessName().toLowerCase().contains(searchText) ||
-                (batch.getOperatorName() != null && batch.getOperatorName().toLowerCase().contains(searchText));
-            
+                (batch.getOperatorName() != null && batch.getOperatorName().toLowerCase().contains(searchText));            
             boolean matchesFilter = "All Batches".equals(filterStatus) ||
                 batch.getProcessStatus().equals(filterStatus);
             
@@ -263,8 +318,7 @@ public class BatchManagementController implements DataChangeListener {
                 
                 loadData();
                 clearSelectionAfterDelay();
-                                notificationService.notifyBatchUpdated();
-
+                notificationService.notifyDataChanged("BATCH_UPDATED");
                 
             } else {
                 showAlert("Error", "Failed to update batch processing in database.");
@@ -289,58 +343,76 @@ public class BatchManagementController implements DataChangeListener {
         grid.setVgap(10);
         grid.setPadding(new javafx.geometry.Insets(20, 150, 10, 10));
 
+        ComboBox<String> cropCombo = new ComboBox<>();
+        cropCombo.setItems(availableCrops);
+        cropCombo.setPromptText("Select Crop");
+        
         TextField processNameField = new TextField();
         processNameField.setPromptText("Process Name");
+        
         TextField operatorField = new TextField();
         operatorField.setPromptText("Operator Name");
+        
         ComboBox<String> statusCombo = new ComboBox<>();
         statusCombo.getItems().addAll("Pending", "In Progress");
         statusCombo.setValue("Pending");
+        
         ComboBox<String> gradeCombo = new ComboBox<>();
         gradeCombo.getItems().addAll("Not Graded", "Premium", "Grade A", "Grade B", "Grade C");
         gradeCombo.setValue("Not Graded");
 
-        grid.add(new Label("Process Name:"), 0, 0);
-        grid.add(processNameField, 1, 0);
-        grid.add(new Label("Operator:"), 0, 1);
-        grid.add(operatorField, 1, 1);
-        grid.add(new Label("Status:"), 0, 2);
-        grid.add(statusCombo, 1, 2);
-        grid.add(new Label("Grade:"), 0, 3);
-        grid.add(gradeCombo, 1, 3);
+        grid.add(new Label("Crop *:"), 0, 0);
+        grid.add(cropCombo, 1, 0);
+        grid.add(new Label("Process Name *:"), 0, 1);
+        grid.add(processNameField, 1, 1);
+        grid.add(new Label("Operator:"), 0, 2);
+        grid.add(operatorField, 1, 2);
+        grid.add(new Label("Status:"), 0, 3);
+        grid.add(statusCombo, 1, 3);
+        grid.add(new Label("Grade:"), 0, 4);
+        grid.add(gradeCombo, 1, 4);
 
         dialog.getDialogPane().setContent(grid);
+
+        // Enable/disable create button based on input
+        javafx.scene.Node createButton = dialog.getDialogPane().lookupButton(createButtonType);
+        createButton.setDisable(true);
+
+        // Add listeners to enable button when required fields are filled
+        cropCombo.valueProperty().addListener((observable, oldValue, newValue) -> 
+            validateCreateForm(cropCombo, processNameField, createButton));
+        processNameField.textProperty().addListener((observable, oldValue, newValue) -> 
+            validateCreateForm(cropCombo, processNameField, createButton));
 
         dialog.setResultConverter(dialogButton -> {
             if (dialogButton == createButtonType) {
                 try {
+                    String selectedCrop = cropCombo.getValue();
                     String processName = processNameField.getText().trim();
                     String operator = operatorField.getText().trim();
                     
-                    if (processName.isEmpty()) {
-                        showAlert("Missing Information", "Please enter a process name.");
+                    if (selectedCrop == null || processName.isEmpty()) {
+                        showAlert("Missing Information", "Please select a crop and enter a process name.");
                         return null;
                     }
                     
-                    Batch newBatch = new Batch(
-                        0, // ID will be auto-generated
-                        processName,
-                        statusCombo.getValue(),
-                        new Timestamp(System.currentTimeMillis()), // start_time
-                        null, // end_time
-                        operator.isEmpty() ? null : operator,
-                        "", // notes
-                        gradeCombo.getValue(),
-                        null, // processed_date
-                        null  // created_at will be auto-generated
-                    );
+                    // Extract crop ID from selection
+                    int cropId = extractCropIdFromSelection(selectedCrop);
+                    
+                    Batch newBatch = new Batch();
+                    newBatch.setCropId(cropId);
+                    newBatch.setProcessName(processName);
+                    newBatch.setProcessStatus(statusCombo.getValue());
+                    newBatch.setStartTime(new Timestamp(System.currentTimeMillis()));
+                    newBatch.setOperatorName(operator.isEmpty() ? null : operator);
+                    newBatch.setNotes("");
+                    newBatch.setGrade(gradeCombo.getValue());
                     
                     boolean success = factoryDAO.createBatch(newBatch);
                     
                     if (success) {
                         showSuccessAlert("Success", "New batch process created successfully!");
-                                                notificationService.notifyBatchUpdated();
-
+                        notificationService.notifyDataChanged("BATCH_UPDATED");
                         return newBatch;
                     } else {
                         showAlert("Error", "Failed to create batch process.");
@@ -359,9 +431,28 @@ public class BatchManagementController implements DataChangeListener {
         });
     }
 
+    private int extractCropIdFromSelection(String cropSelection) {
+        try {
+            // Extract ID from format: "Crop Name (ID: 123)"
+            String idPart = cropSelection.substring(cropSelection.indexOf("ID: ") + 4);
+            idPart = idPart.replace(")", "").trim();
+            return Integer.parseInt(idPart);
+        } catch (Exception e) {
+            showAlert("Error", "Invalid crop selection format.");
+            return -1;
+        }
+    }
+
+    private void validateCreateForm(ComboBox<String> cropCombo, TextField processNameField, javafx.scene.Node createButton) {
+        boolean isValid = cropCombo.getValue() != null && 
+                         !processNameField.getText().trim().isEmpty();
+        createButton.setDisable(!isValid);
+    }
+
     @FXML
     private void onRefresh() {
         loadData();
+        loadCropData();
         clearForm();
         batchTable.getSelectionModel().clearSelection();
         txtSearch.clear();

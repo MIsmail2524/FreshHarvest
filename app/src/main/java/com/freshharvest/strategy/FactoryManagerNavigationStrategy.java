@@ -4,10 +4,7 @@ import javafx.scene.control.Button;
 import java.util.Arrays;
 import java.util.List;
 
-/**
- * Navigation strategy for Factory Manager role
- * Provides access to production, inventory, quality control, and supplier management
- */
+
 public class FactoryManagerNavigationStrategy implements NavigationStrategy {
     
     @Override

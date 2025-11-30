@@ -60,7 +60,6 @@ List<Map<String, Object>> getBatchProcessHistory(int cropId);
 List<Map<String, Object>> getActiveBatchProcesses();
 
 
-// Enhanced Report operations
 List<Map<String, Object>> getBatchProductionReport(String timePeriod);
 List<Map<String, Object>> getShipmentReport(String timePeriod);
 List<Map<String, Object>> getProductionCostReport(String timePeriod);
@@ -69,5 +68,5 @@ List<Map<String, Object>> getBatchStatusSummary();
 List<Map<String, Object>> getProcessEfficiencyReport(String timePeriod);
 List<Map<String, Object>> getFarmSupplyReport(String timePeriod);
 
-
+List<Map<String, Object>> getAvailableCropsForProcessing();
 }

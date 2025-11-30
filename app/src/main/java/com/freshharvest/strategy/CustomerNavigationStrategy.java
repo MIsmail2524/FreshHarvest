@@ -4,10 +4,6 @@ import javafx.scene.control.Button;
 import java.util.Arrays;
 import java.util.List;
 
-/**
- * Navigation strategy for Customer role
- * Provides access to order management, product browsing, and personal settings
- */
 public class CustomerNavigationStrategy implements NavigationStrategy {
     
     @Override

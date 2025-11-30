@@ -92,7 +92,7 @@
         <!-- Information Box -->
         <VBox styleClass="alert-info" spacing="5">
             <padding><Insets top="10" right="10" bottom="10" left="10"/></padding>
-            <Label text="ℹ️ Factory Processing Workflow" styleClass="label-primary"/>
+            <Label text=" Factory Processing Workflow" styleClass="label-primary"/>
             <Label text="1. Crop sent to factory for processing" styleClass="label-muted"/>
             <Label text="2. Factory processes and adds to inventory" styleClass="label-muted"/>
             <Label text="3. Inventory automatically updated for orders" styleClass="label-muted"/>

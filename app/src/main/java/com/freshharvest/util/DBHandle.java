@@ -29,12 +29,10 @@ public class DBHandle {
 
     private DBHandle() {
         
-        // Try to load .env (optional)
         Dotenv dotenv = Dotenv.configure()
-                              .ignoreIfMissing()  // won't crash if no .env found
+                              .ignoreIfMissing()  
                               .load();
 
-        // Prefer real environment vars (if running in production)
         this.url = getenvOrDotenv("DB_URL", dotenv);
         this.user = getenvOrDotenv("DB_USER", dotenv);
         this.password = getenvOrDotenv("DB_PASS", dotenv);
@@ -42,7 +40,6 @@ public class DBHandle {
         connect();
     }
 
-    // Helper to prioritize system environment over .env
     private String getenvOrDotenv(String key, Dotenv dotenv) {
         String envVal = System.getenv(key);
         return envVal != null ? envVal : dotenv.get(key);

@@ -24,11 +24,13 @@ prefWidth="1400" prefHeight="900"
 </HBox>
    <!-- Action Buttons -->
     <HBox spacing="15" alignment="CENTER">
-        <Button text="➕ Add New Crop" onAction="#addCrop" styleClass="button"/>
-        <Button text="✏️ Update Crop" onAction="#updateCrop" styleClass="button-warning"/>
+        <Button text=" Add New Crop" onAction="#addCrop" styleClass="button"/>
+        <Button text=" Update Crop" onAction="#updateCrop" styleClass="button-warning"/>
        
-        <Button text="🗑️ Delete Crop" onAction="#deleteCrop" styleClass="button-danger"/>
-        <Button text="🔄 Refresh" onAction="#refreshData" styleClass="button-secondary"/>
+        <Button text=" Delete Crop" onAction="#deleteCrop" styleClass="button-danger"/>
+        <Button text=" Refresh" onAction="#refreshData" styleClass="button-secondary"/>
+        
+
     </HBox>
   
  <VBox spacing="15" styleClass="full-width">

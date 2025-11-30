@@ -49,7 +49,6 @@ public class PaymentDAO {
 
     public boolean processPayment(int orderId, int customerId, double amount, 
                                  String paymentMethod, String transactionId) {
-        // TEMPORARY FIX: Remove payment_status from INSERT until column exists
         String insertPaymentSql = "INSERT INTO payments (order_id, customer_id, amount, payment_method, " +
                                  "transaction_id, payment_date) VALUES (?, ?, ?, ?, ?, NOW())";
         
@@ -67,7 +66,6 @@ public class PaymentDAO {
             try (PreparedStatement paymentStmt = conn.prepareStatement(insertPaymentSql);
                  PreparedStatement orderStmt = conn.prepareStatement(updateOrderSql)) {
                 
-                // Insert payment record (without payment_status for now)
                 paymentStmt.setInt(1, orderId);
                 paymentStmt.setInt(2, customerId);
                 paymentStmt.setDouble(3, amount);
@@ -99,7 +97,6 @@ public class PaymentDAO {
     }
 
     public double getTotalPaidAmount(int orderId) {
-        // TEMPORARY FIX: Remove payment_status filter until column exists
         String sql = "SELECT COALESCE(SUM(amount), 0) as total_paid FROM payments WHERE order_id = ?";
         
         try (Connection conn = DBHandle.getInstance().getConnection();

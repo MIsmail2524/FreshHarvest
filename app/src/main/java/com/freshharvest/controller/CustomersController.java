@@ -20,8 +20,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class CustomersController implements Initializable, DataChangeListener { // IMPLEMENT LISTENER
-    private NotificationService notificationService; // ADD THIS
+public class CustomersController implements Initializable, DataChangeListener { 
+    private NotificationService notificationService; 
 
     @FXML private Label lblTotalCustomers;
     @FXML private Label lblActiveCustomers;
@@ -54,8 +54,8 @@ public class CustomersController implements Initializable, DataChangeListener { 
             initializeTableColumns();
             loadCustomerData();
             updateStatistics();
-             notificationService = NotificationService.getInstance(); // ADD THIS
-            notificationService.addListener(this); // ADD THIS
+             notificationService = NotificationService.getInstance(); 
+            notificationService.addListener(this); 
             
         } catch (Exception e) {
             System.err.println("Error initializing CustomersController: " + e.getMessage());

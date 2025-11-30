@@ -4,10 +4,7 @@ import javafx.scene.control.Button;
 import java.util.Arrays;
 import java.util.List;
 
-/**
- * Navigation strategy for Administrator role
- * Provides access to all system management features
- */
+
 public class AdminNavigationStrategy implements NavigationStrategy {
     
     @Override

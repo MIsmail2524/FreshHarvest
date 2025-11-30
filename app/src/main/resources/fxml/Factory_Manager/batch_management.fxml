@@ -24,7 +24,7 @@
         <HBox alignment="CENTER_LEFT" spacing="15">
             <VBox>
                 <Label text="Batch Processing Management" styleClass="page-title"/>
-                <Label text="Manage and track batch processing operations." styleClass="page-subtitle"/>
+                <Label text="Manage and track batch processing operations with crop association." styleClass="page-subtitle"/>
             </VBox>
             <Region HBox.hgrow="ALWAYS"/>
             <Button text="➕ Create Batch" onAction="#onCreateBatch" styleClass="primary-button"/>
@@ -33,8 +33,8 @@
         
         <!-- Search and Filter Bar -->
         <HBox spacing="15" alignment="CENTER_LEFT">
-            <TextField fx:id="txtSearch" promptText="🔍 Search by Batch ID, Process, or Operator..." 
-                      styleClass="search-box" prefWidth="350"/>
+            <TextField fx:id="txtSearch" promptText="🔍 Search by Batch ID, Process, Operator, or Crop..." 
+                      styleClass="search-box" prefWidth="400"/>
             <ComboBox fx:id="cmbFilter" promptText="Filter by Status" 
                      styleClass="filter-combo" prefWidth="150"/>
             <Region HBox.hgrow="ALWAYS"/>
@@ -47,13 +47,19 @@
     <VBox styleClass="modern-table" VBox.vgrow="ALWAYS" spacing="10">
         <TableView fx:id="batchTable" VBox.vgrow="ALWAYS">
             <columns>
-                <TableColumn fx:id="colBatchId" text="Batch ID" prefWidth="80"/>
-                <TableColumn fx:id="colProcessName" text="Process Name" prefWidth="200"/>
-                <TableColumn fx:id="colStatus" text="Status" prefWidth="120"/>
-                <TableColumn fx:id="colGrade" text="Grade" prefWidth="100"/>
-                <TableColumn fx:id="colProcessedDate" text="Processed Date" prefWidth="120"/>
+                <TableColumn fx:id="colBatchId" text="Process ID" prefWidth="80"/>
+                <TableColumn fx:id="colCropId" text="Crop ID" prefWidth="70"/>
+                <TableColumn fx:id="colCropName" text="Crop Name" prefWidth="150"/>
+                <TableColumn fx:id="colProcessName" text="Process Name" prefWidth="180"/>
+                <TableColumn fx:id="colStatus" text="Status" prefWidth="100"/>
+                <TableColumn fx:id="colGrade" text="Grade" prefWidth="90"/>
+                <TableColumn fx:id="colOperator" text="Operator" prefWidth="120"/>
+                <TableColumn fx:id="colStartTime" text="Start Time" prefWidth="100"/>
+                <TableColumn fx:id="colProcessedDate" text="Processed Date" prefWidth="110"/>
             </columns>
-            <columnResizePolicy><TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/></columnResizePolicy>
+            <columnResizePolicy>
+                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+            </columnResizePolicy>
         </TableView>
     </VBox>
 
@@ -78,6 +84,12 @@
             </VBox>
             
             <Region HBox.hgrow="ALWAYS"/>
+            
+            <!-- Add Crop Selection ComboBox -->
+            <VBox spacing="5">
+                <Label text="Select Crop" style="-fx-font-weight: bold; -fx-text-fill: #637381;"/>
+                <ComboBox fx:id="cmbCrop" promptText="Select Crop" prefWidth="200"/>
+            </VBox>
             
             <VBox spacing="5">
                 <Label text="Assign Grade" style="-fx-font-weight: bold; -fx-text-fill: #637381;"/>

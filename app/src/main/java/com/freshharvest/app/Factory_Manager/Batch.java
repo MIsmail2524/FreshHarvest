@@ -4,6 +4,8 @@ import java.sql.Timestamp;
 
 public class Batch {
     private int processId;
+    private Integer cropId;
+    private String cropName;
     private String processName;
     private String processStatus;
     private Timestamp startTime;
@@ -14,10 +16,12 @@ public class Batch {
     private Timestamp processedDate;
     private Timestamp createdAt;
     
-    // Constructor
+    // Constructors
+    public Batch() {}
+    
     public Batch(int processId, String processName, String processStatus, 
-                 Timestamp startTime, Timestamp endTime, String operatorName, 
-                 String notes, String grade, Timestamp processedDate, Timestamp createdAt) {
+                Timestamp startTime, Timestamp endTime, String operatorName, 
+                String notes, String grade, Timestamp processedDate, Timestamp createdAt) {
         this.processId = processId;
         this.processName = processName;
         this.processStatus = processStatus;
@@ -31,38 +35,105 @@ public class Batch {
     }
     
     // Getters and Setters
-    public int getProcessId() { return processId; }
-    public void setProcessId(int processId) { this.processId = processId; }
+    public int getProcessId() { 
+        return processId; 
+    }
     
-    public String getProcessName() { return processName; }
-    public void setProcessName(String processName) { this.processName = processName; }
+    public void setProcessId(int processId) { 
+        this.processId = processId; 
+    }
     
-    public String getProcessStatus() { return processStatus; }
-    public void setProcessStatus(String processStatus) { this.processStatus = processStatus; }
+    public Integer getCropId() { 
+        return cropId; 
+    }
     
-    public Timestamp getStartTime() { return startTime; }
-    public void setStartTime(Timestamp startTime) { this.startTime = startTime; }
+    public void setCropId(Integer cropId) { 
+        this.cropId = cropId; 
+    }
     
-    public Timestamp getEndTime() { return endTime; }
-    public void setEndTime(Timestamp endTime) { this.endTime = endTime; }
+    public String getCropName() { 
+        return cropName; 
+    }
     
-    public String getOperatorName() { return operatorName; }
-    public void setOperatorName(String operatorName) { this.operatorName = operatorName; }
+    public void setCropName(String cropName) { 
+        this.cropName = cropName; 
+    }
     
-    public String getNotes() { return notes; }
-    public void setNotes(String notes) { this.notes = notes; }
+    public String getProcessName() { 
+        return processName; 
+    }
     
-    public String getGrade() { return grade; }
-    public void setGrade(String grade) { this.grade = grade; }
+    public void setProcessName(String processName) { 
+        this.processName = processName; 
+    }
     
-    public Timestamp getProcessedDate() { return processedDate; }
-    public void setProcessedDate(Timestamp processedDate) { this.processedDate = processedDate; }
+    public String getProcessStatus() { 
+        return processStatus; 
+    }
     
-    public Timestamp getCreatedAt() { return createdAt; }
-    public void setCreatedAt(Timestamp createdAt) { this.createdAt = createdAt; }
+    public void setProcessStatus(String processStatus) { 
+        this.processStatus = processStatus; 
+    }
     
-    // For backward compatibility with table columns
-    public int getBatchId() { return processId; }
-    public String getStatus() { return processStatus; }
-    public String getProductName() { return processName; }
+    public Timestamp getStartTime() { 
+        return startTime; 
+    }
+    
+    public void setStartTime(Timestamp startTime) { 
+        this.startTime = startTime; 
+    }
+    
+    public Timestamp getEndTime() { 
+        return endTime; 
+    }
+    
+    public void setEndTime(Timestamp endTime) { 
+        this.endTime = endTime; 
+    }
+    
+    public String getOperatorName() { 
+        return operatorName; 
+    }
+    
+    public void setOperatorName(String operatorName) { 
+        this.operatorName = operatorName; 
+    }
+    
+    public String getNotes() { 
+        return notes; 
+    }
+    
+    public void setNotes(String notes) { 
+        this.notes = notes; 
+    }
+    
+    public String getGrade() { 
+        return grade; 
+    }
+    
+    public void setGrade(String grade) { 
+        this.grade = grade; 
+    }
+    
+    public Timestamp getProcessedDate() { 
+        return processedDate; 
+    }
+    
+    public void setProcessedDate(Timestamp processedDate) { 
+        this.processedDate = processedDate; 
+    }
+    
+    public Timestamp getCreatedAt() { 
+        return createdAt; 
+    }
+    
+    public void setCreatedAt(Timestamp createdAt) { 
+        this.createdAt = createdAt; 
+    }
+    
+    @Override
+    public String toString() {
+        return String.format("Batch{id=%d, crop=%s, process=%s, status=%s}", 
+                           processId, cropName, processName, processStatus);
+    }
 }

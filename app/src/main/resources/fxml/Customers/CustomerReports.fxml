@@ -21,17 +21,17 @@
 
     <!-- Report Type Buttons -->
     <HBox spacing="10" alignment="CENTER">
-        <Button text="📊 Spending Overview" onAction="#showSpendingOverview" 
+        <Button text=" Spending Overview" onAction="#showSpendingOverview" 
                 style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 10 15;"/>
-        <Button text="📈 Order Trends" onAction="#showOrderTrends" 
+        <Button text=" Order Trends" onAction="#showOrderTrends" 
                 style="-fx-background-color: #9b59b6; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 10 15;"/>
-        <Button text="🥦 Category Analysis" onAction="#showCategoryAnalysis" 
+        <Button text=" Category Analysis" onAction="#showCategoryAnalysis" 
                 style="-fx-background-color: #27ae60; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 10 15;"/>
-        <Button text="📋 Status Report" onAction="#showStatusReport" 
+        <Button text=" Status Report" onAction="#showStatusReport" 
                 style="-fx-background-color: #f39c12; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 10 15;"/>
-        <Button text="💰 Monthly Summary" onAction="#showMonthlySummary" 
+        <Button text=" Monthly Summary" onAction="#showMonthlySummary" 
                 style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 10 15;"/>
-        <Button text="🔄 Refresh Data" onAction="#refreshAllData" 
+        <Button text=" Refresh Data" onAction="#refreshAllData" 
                 style="-fx-background-color: #2ecc71; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 10 15;"/>
     </HBox>
 
@@ -56,11 +56,11 @@
 
     <!-- Export Buttons -->
     <HBox spacing="10" alignment="CENTER">
-        <Button text="📄 Export as PDF" onAction="#exportAsPDF" 
+        <Button text=" Export as PDF" onAction="#exportAsPDF" 
                 style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8 15;"/>
-        <Button text="📊 Export as Excel" onAction="#exportAsExcel" 
+        <Button text=" Export as Excel" onAction="#exportAsExcel" 
                 style="-fx-background-color: #27ae60; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8 15;"/>
-        <Button text="🖨️ Print Report" onAction="#printReport" 
+        <Button text=" Print Report" onAction="#printReport" 
                 style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8 15;"/>
         <Region HBox.hgrow="ALWAYS"/>
       

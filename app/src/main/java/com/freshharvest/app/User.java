@@ -1,5 +1,7 @@
 package com.freshharvest.app;
 
+import com.freshharvest.strategy.NavigationStrategy;
+
 public class User {
     private String id;
     private String username;
@@ -62,4 +64,9 @@ public class User {
     public boolean hasRoleOrHigher(Role role) {
         return this.role.getHierarchy() >= role.getHierarchy();
     }
+
+    public NavigationStrategy getNavigationStrategy() {
+    throw new UnsupportedOperationException("Subclass must implement this");
+}
+
 }

@@ -26,7 +26,7 @@ public class AddCropController {
 
     private Stage dialogStage;
     private CropService cropService;
-    private CropsController cropsController; // Reference to refresh the main table
+    private CropsController cropsController; 
         private NotificationService notificationService; 
 
 
@@ -37,7 +37,6 @@ public class AddCropController {
 
         comboSeason.getItems().addAll("Spring", "Summer", "Autumn", "Winter");
         System.out.println("🛠️ AddCropController initialized");
-                    //    notificationService.addListener(this);
 
 
     }
@@ -75,18 +74,18 @@ public class AddCropController {
             Crop newCrop = new Crop();
             newCrop.setName(cropName);
             newCrop.setType(cropType);
-            newCrop.setPlantingDate(LocalDate.now()); // Default to today
-            newCrop.setHarvestDate(LocalDate.now().plusDays(90)); // Default 90 days from now
+            newCrop.setPlantingDate(LocalDate.now()); 
+            newCrop.setHarvestDate(LocalDate.now().plusDays(90)); 
             newCrop.setStatus("Planted");
-            newCrop.setQuantity(0.0); // Default quantity
-            newCrop.setField("Field A"); // Default field
-            newCrop.setFarmerId(1); // Default farmer ID
+            newCrop.setQuantity(0.0);
+            newCrop.setField("Field A");
+            newCrop.setFarmerId(1);
 
             // Save to database
             boolean success = cropService.addCrop(newCrop);
             
             if (success) {
-                System.out.println("✅ Crop saved successfully: " + newCrop.getName());
+                System.out.println(" Crop saved successfully: " + newCrop.getName());
                 showAlert("Success", "Crop '" + cropName + "' added successfully!", Alert.AlertType.INFORMATION);
                                 notificationService.notifyDataChanged("CROP_ADDED");
 
@@ -101,7 +100,7 @@ public class AddCropController {
             }
 
         } catch (Exception e) {
-            System.err.println("❌ Error saving crop: " + e.getMessage());
+            System.err.println(" Error saving crop: " + e.getMessage());
             e.printStackTrace();
             showAlert("Error", "Failed to save crop: " + e.getMessage(), Alert.AlertType.ERROR);
         }
@@ -145,7 +144,7 @@ public class AddCropController {
             dialogStage.showAndWait();
 
         } catch (IOException e) {
-            System.err.println("❌ Failed to load Add Crop dialog: " + e.getMessage());
+            System.err.println(" Failed to load Add Crop dialog: " + e.getMessage());
             e.printStackTrace();
             
             Alert alert = new Alert(Alert.AlertType.ERROR);

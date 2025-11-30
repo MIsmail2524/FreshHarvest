@@ -25,7 +25,6 @@ public class MakePaymentController implements Initializable, DataChangeListener 
     @FXML private Label lblVerifyStatus;
     @FXML private VBox orderDetailsBox;
     @FXML private Label lblOrderId;
-  //  @FXML private Label lblOrderNumber;
     @FXML private Label lblOrderDate;
     @FXML private Label lblTotalAmount;
     @FXML private Label lblOrderStatus;
@@ -158,10 +157,9 @@ public class MakePaymentController implements Initializable, DataChangeListener 
             int orderId = Integer.parseInt(orderIdText);
             progressIndicator.setVisible(true);
             
-            // Simulate API call delay
             new Thread(() -> {
                 try {
-                    Thread.sleep(1000); // Simulate network delay
+                    Thread.sleep(1000);
                     
                     javafx.application.Platform.runLater(() -> {
                         boolean isValid = verifyOrder(orderId);
@@ -202,16 +200,14 @@ public class MakePaymentController implements Initializable, DataChangeListener 
 
     private boolean verifyOrder(int orderId) {
         try {
-            // Verify order belongs to current customer and is pending payment
             Object[] orderDetails = paymentDAO.getOrderForPayment(orderId, currentCustomerId);
             
             if (orderDetails != null) {
                 currentOrderId = orderId;
                 orderAmount = (Double) orderDetails[0];
-                amountPaid = (Double) orderDetails[1]; // Current amount paid
+                amountPaid = (Double) orderDetails[1]; 
                 String status = (String) orderDetails[2];
                 LocalDateTime orderDate = (LocalDateTime) orderDetails[3];
-            //    String orderNumber = (String) orderDetails[4];
                 
                 // Update UI with order details
                 lblOrderId.setText(String.valueOf(orderId));

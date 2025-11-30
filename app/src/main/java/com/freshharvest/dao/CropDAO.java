@@ -26,13 +26,13 @@ public class CropDAO {
                 count++;
                 Crop crop = mapResultSetToCrop(rs);
                 crops.add(crop);
-                System.out.println("✅ Found crop: " + crop.getName() + " | Type: " + crop.getType());
+                System.out.println(" Found crop: " + crop.getName() + " | Type: " + crop.getType());
             }
             
-            System.out.println("📊 Total crops retrieved: " + count);
+            System.out.println(" Total crops retrieved: " + count);
             
         } catch (SQLException e) {
-            System.err.println("❌ CropDAO error finding crops: " + e.getMessage());
+            System.err.println(" CropDAO error finding crops: " + e.getMessage());
             e.printStackTrace();
         }
         return crops;
@@ -41,7 +41,7 @@ public class CropDAO {
     public boolean save(Crop crop) {
         String sql = "INSERT INTO crops (crop_name, crop_type, planting_date, harvest_date, status, quantity, field_name, farmer_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         
-        System.out.println("💾 CropDAO: Saving new crop: " + crop.getName());
+        System.out.println(" CropDAO: Saving new crop: " + crop.getName());
         
         try (Connection conn = DBHandle.getInstance().getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
@@ -61,14 +61,14 @@ public class CropDAO {
                 try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
                     if (generatedKeys.next()) {
                         crop.setId(generatedKeys.getInt(1));
-                        System.out.println("✅ Crop saved with ID: " + crop.getId());
+                        System.out.println(" Crop saved with ID: " + crop.getId());
                     }
                 }
                 return true;
             }
             
         } catch (SQLException e) {
-            System.err.println("❌ CropDAO error saving crop: " + e.getMessage());
+            System.err.println(" CropDAO error saving crop: " + e.getMessage());
             e.printStackTrace();
         }
         return false;
@@ -77,7 +77,7 @@ public class CropDAO {
     public boolean update(Crop crop) {
         String sql = "UPDATE crops SET crop_name=?, crop_type=?, planting_date=?, harvest_date=?, status=?, quantity=?, field_name=? WHERE crop_id=? AND farmer_id=?";
         
-        System.out.println("🔄 CropDAO: Updating crop ID: " + crop.getId());
+        System.out.println(" CropDAO: Updating crop ID: " + crop.getId());
         
         try (Connection conn = DBHandle.getInstance().getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -93,11 +93,11 @@ public class CropDAO {
             stmt.setInt(9, crop.getFarmerId());
             
             boolean success = stmt.executeUpdate() > 0;
-            System.out.println(success ? "✅ Crop updated successfully" : "❌ Crop update failed");
+            System.out.println(success ? " Crop updated successfully" : " Crop update failed");
             return success;
             
         } catch (SQLException e) {
-            System.err.println("❌ CropDAO error updating crop: " + e.getMessage());
+            System.err.println(" CropDAO error updating crop: " + e.getMessage());
             e.printStackTrace();
             return false;
         }
@@ -106,7 +106,7 @@ public class CropDAO {
     public boolean delete(int cropId) {
         String sql = "DELETE FROM crops WHERE crop_id=? AND farmer_id=?";
         
-        System.out.println("🗑️ CropDAO: Deleting crop ID: " + cropId);
+        System.out.println(" CropDAO: Deleting crop ID: " + cropId);
         
         try (Connection conn = DBHandle.getInstance().getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -115,18 +115,18 @@ public class CropDAO {
             stmt.setInt(2, getCurrentFarmerId());
             
             boolean success = stmt.executeUpdate() > 0;
-            System.out.println(success ? "✅ Crop deleted successfully" : "❌ Crop delete failed");
+            System.out.println(success ? " Crop deleted successfully" : " Crop delete failed");
             return success;
             
         } catch (SQLException e) {
-            System.err.println("❌ CropDAO error deleting crop: " + e.getMessage());
+            System.err.println(" CropDAO error deleting crop: " + e.getMessage());
             e.printStackTrace();
             return false;
         }
     }
     
     public int getCount() {
-        String sql = "SELECT COUNT(*) FROM crops WHERE farmer_id = ?"; // Fixed: Added WHERE clause
+        String sql = "SELECT COUNT(*) FROM crops WHERE farmer_id = ?"; 
         
         try (Connection conn = DBHandle.getInstance().getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -136,17 +136,16 @@ public class CropDAO {
             
             if (rs.next()) {
                 int count = rs.getInt(1);
-                System.out.println("📈 Total crops count: " + count);
+                System.out.println(" Total crops count: " + count);
                 return count;
             }
         } catch (SQLException e) {
-            System.err.println("❌ CropDAO error getting count: " + e.getMessage());
+            System.err.println(" CropDAO error getting count: " + e.getMessage());
             e.printStackTrace();
         }
         return 0;
     }
     
-    // Helper method to map ResultSet to Crop object
     private Crop mapResultSetToCrop(ResultSet rs) throws SQLException {
         Crop crop = new Crop();
         crop.setId(rs.getInt("crop_id"));
@@ -172,27 +171,22 @@ public class CropDAO {
     }
 
     private int getCurrentFarmerId() {
-        // Implement logic to get current logged-in farmer ID
-        // This could be from session, authentication context, etc.
-        return 1; // Placeholder - replace with actual implementation
+       
+        return 1; 
     }
 
-    // Remove or fix these methods as they have compilation errors
     public boolean saveFactoryRequest(Crop crop) {
-        // TODO: Implement factory request logic
-        System.out.println("⚠️ saveFactoryRequest not implemented");
+        System.out.println(" saveFactoryRequest not implemented");
         return false;
     }
 
     public List<Crop> findByFactoryStatus() {
-        // TODO: Implement factory status logic
-        System.out.println("⚠️ findByFactoryStatus not implemented");
+        System.out.println(" findByFactoryStatus not implemented");
         return new ArrayList<>();
     }
 
     public String getFactoryStatus(int cropId, int currentFarmerId) {
-        // TODO: Implement factory status logic
-        System.out.println("⚠️ getFactoryStatus not implemented");
+        System.out.println(" getFactoryStatus not implemented");
         return "NOT_IMPLEMENTED";
     }
 

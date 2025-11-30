@@ -12,7 +12,7 @@ public class DashboardDAO {
                 "COUNT(*) as total_orders, " +
                 "COUNT(CASE WHEN order_date >= DATE_SUB(NOW(), INTERVAL 7 DAY) THEN 1 END) as weekly_orders " +
                 "FROM orders " +
-                "WHERE farmer_id = ? OR ? = 1"; // Adjust based on your farmer_id logic
+                "WHERE farmer_id = ? OR ? = 1"; 
 
         try (Connection conn = DBHandle.getInstance().getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {

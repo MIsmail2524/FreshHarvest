@@ -27,10 +27,14 @@ public class SceneManager {
         SCENE_PATHS.put("addcrop", "/fxml/AddCrop.fxml");
         SCENE_PATHS.put("updatecrop", "/fxml/UpdateCrop.fxml");
         SCENE_PATHS.put("order", "/fxml/Order.fxml");
+        SCENE_PATHS.put("batch", "/fxml/FarmerBatch.fxml");
+
         SCENE_PATHS.put("customer", "/fxml/Customers.fxml");
         SCENE_PATHS.put("inventory", "/fxml/inventory.fxml");
         SCENE_PATHS.put("reports", "/fxml/reports.fxml");
         SCENE_PATHS.put("make_payment", "/fxml/Customers/payment.fxml");
+        
+        
         
 
         

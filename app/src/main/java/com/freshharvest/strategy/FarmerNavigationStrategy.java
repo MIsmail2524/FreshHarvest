@@ -4,10 +4,7 @@ import javafx.scene.control.Button;
 import java.util.Arrays;
 import java.util.List;
 
-/**
- * Navigation strategy for Farmer role
- * Provides access to crop management, orders, and farm operations
- */
+
 public class FarmerNavigationStrategy implements NavigationStrategy {
     
     @Override
@@ -68,9 +65,7 @@ public class FarmerNavigationStrategy implements NavigationStrategy {
         return "Welcome to Your Farm Management Dashboard!";
     }
     
-    /**
-     * Farmer-specific view mappings
-     */
+ 
     public String getViewForButton(String buttonId) {
         switch (buttonId) {
             case "btnDashboard": return "dashboard";

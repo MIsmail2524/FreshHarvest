@@ -37,31 +37,31 @@
                        style="-fx-font-size: 10px; -fx-font-weight: 600; -fx-text-fill: #95a5a6; -fx-padding: 8 16 4 16;"/>
                 
                 <Button fx:id="btnDashboard" 
-                        text="📊  Dashboard" 
+                        text="  Dashboard" 
                         onAction="#onDashboard"
                         styleClass="sidebar-button"
                         style="-fx-alignment: CENTER_LEFT; -fx-padding: 12 16; -fx-background-radius: 8; -fx-cursor: hand;"/>
                 
                 <Button fx:id="btnProducts" 
-                        text="📦  My Orders" 
+                        text="  My Orders" 
                         onAction="#onProducts"
                         styleClass="sidebar-button"
                         style="-fx-alignment: CENTER_LEFT; -fx-padding: 12 16; -fx-background-radius: 8; -fx-cursor: hand;"/>
                 
                 <Button fx:id="btnAddOrder" 
-                        text="➕  Place Order" 
+                        text="  Place Order" 
                         onAction="#onAddOrder"
                         styleClass="sidebar-button"
                         style="-fx-alignment: CENTER_LEFT; -fx-padding: 12 16; -fx-background-radius: 8; -fx-cursor: hand;"/>
                 
                 <Button fx:id="btnMakePayment" 
-                        text="💳  Payments" 
+                        text="  Payments" 
                         onAction="#onMakePayment"
                         styleClass="sidebar-button"
                         style="-fx-alignment: CENTER_LEFT; -fx-padding: 12 16; -fx-background-radius: 8; -fx-cursor: hand;"/>
                 
                 <Button fx:id="btnReports" 
-                        text="📈  Reports" 
+                        text="  Reports" 
                         onAction="#onReports"
                         styleClass="sidebar-button"
                         style="-fx-alignment: CENTER_LEFT; -fx-padding: 12 16; -fx-background-radius: 8; -fx-cursor: hand;"/>
@@ -74,7 +74,7 @@
             <VBox spacing="8" style="-fx-padding: 12 8 16 8;">
                 <Separator style="-fx-background-color: #e8e8e8;"/>
                 <Button fx:id="btnLogout" 
-                        text="🚪  Logout" 
+                        text="  Logout" 
                         onAction="#onLogout" 
                         styleClass="sidebar-button"
                         style="-fx-alignment: CENTER_LEFT; -fx-padding: 12 16; -fx-background-radius: 8; -fx-cursor: hand; -fx-text-fill: #e74c3c;"/>

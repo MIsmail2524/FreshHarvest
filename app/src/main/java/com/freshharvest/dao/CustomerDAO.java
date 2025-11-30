@@ -778,8 +778,6 @@ public List<Object[]> getPaymentMethodDistribution(int customerId) {
         return new Object[]{0, 0, 0, 0.0};
     }
 
-    // Alternative method with safer type handling
-   // Alternative method with safer type handling
 public List<CustomerOrder> getCustomerOrdersSafe(int customerId) {
     List<CustomerOrder> orders = new ArrayList<>();
     String sql = "SELECT " +
@@ -803,7 +801,7 @@ public List<CustomerOrder> getCustomerOrdersSafe(int customerId) {
         stmt.setInt(1, customerId);
         try (ResultSet rs = stmt.executeQuery()) {
             while (rs.next()) {
-                int orderId = rs.getInt("order_id"); // CHANGED: from "id" to "order_id"
+                int orderId = rs.getInt("order_id"); 
                 String orderNumber = rs.getString("order_number");
                 
                 // Safe date handling

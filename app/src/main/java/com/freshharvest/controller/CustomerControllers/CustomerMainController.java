@@ -18,10 +18,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-/**
- * CustomerMainController - Handles the main customer dashboard layout.
- * Implements sidebar navigation and dynamic content loading in the center pane.
- */
+
 public class CustomerMainController implements Initializable {
 
     @FXML

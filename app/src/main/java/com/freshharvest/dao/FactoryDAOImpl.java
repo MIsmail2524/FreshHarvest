@@ -354,60 +354,55 @@ public List<Shipment> getAllShipments() {
 
 
 
-       // BATCH PROCESSING METHODS - ONLY USING batch_processing TABLE
    
-    @Override
-    public List<Batch> getReceivedBatches() {
-        List<Batch> batches = new ArrayList<>();
-        String sql = "SELECT process_id, process_name, process_status, " +
-                     "start_time, end_time, operator_name, notes, " +
-                     "grade, processed_date, created_at " +
-                     "FROM batch_processing " +
-                     "WHERE process_status IN ('Pending', 'In Progress') " +
-                     "ORDER BY created_at DESC";
+@Override
+public List<Batch> getReceivedBatches() {
+    List<Batch> batches = new ArrayList<>();
+    String sql = "SELECT bp.*, c.crop_name " +
+                 "FROM batch_processing bp " +
+                 "LEFT JOIN crops c ON bp.crop_id = c.crop_id " +
+                 "WHERE bp.process_status IN ('Pending', 'In Progress') " +
+                 "ORDER BY bp.created_at DESC";
+    
+    try (Connection conn = DBHandle.getInstance().getConnection();
+         PreparedStatement pstmt = conn.prepareStatement(sql);
+         ResultSet rs = pstmt.executeQuery()) {
         
-        try (Connection conn = DBHandle.getInstance().getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql);
-             ResultSet rs = pstmt.executeQuery()) {
-            
-            while (rs.next()) {
-                Batch batch = mapResultSetToBatch(rs);
-                batches.add(batch);
-            }
-            
-        } catch (SQLException e) {
-            LOGGER.log(Level.SEVERE, "Error getting received batches", e);
+        while (rs.next()) {
+            batches.add(mapResultSetToBatch(rs));
         }
         
-        return batches;
+    } catch (SQLException e) {
+        LOGGER.log(Level.SEVERE, "Error getting received batches", e);
     }
+    
+    return batches;
+}
 
-    @Override
-    public List<Batch> getBatchesForProcessing() {
-        List<Batch> batches = new ArrayList<>();
-        String sql = "SELECT process_id, process_name, process_status, " +
-                     "start_time, end_time, operator_name, notes, " +
-                     "grade, processed_date, created_at " +
-                     "FROM batch_processing " +
-                     "WHERE process_status IN ('Pending', 'In Progress') " +
-                     "ORDER BY start_time ASC";
+
+   @Override
+public List<Batch> getBatchesForProcessing() {
+    List<Batch> batches = new ArrayList<>();
+    String sql = "SELECT bp.*, c.crop_name " +
+                 "FROM batch_processing bp " +
+                 "LEFT JOIN crops c ON bp.crop_id = c.crop_id " +
+                 "WHERE bp.process_status IN ('Pending', 'In Progress') " +
+                 "ORDER BY bp.start_time ASC";
+    
+    try (Connection conn = DBHandle.getInstance().getConnection();
+         PreparedStatement pstmt = conn.prepareStatement(sql);
+         ResultSet rs = pstmt.executeQuery()) {
         
-        try (Connection conn = DBHandle.getInstance().getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql);
-             ResultSet rs = pstmt.executeQuery()) {
-            
-            while (rs.next()) {
-                Batch batch = mapResultSetToBatch(rs);
-                batches.add(batch);
-            }
-            
-        } catch (SQLException e) {
-            LOGGER.log(Level.SEVERE, "Error getting batches for processing", e);
+        while (rs.next()) {
+            batches.add(mapResultSetToBatch(rs));
         }
         
-        return batches;
+    } catch (SQLException e) {
+        LOGGER.log(Level.SEVERE, "Error getting batches for processing", e);
     }
-
+    
+    return batches;
+}
     @Override
     public boolean startBatchProcess(int cropId, String processName, String operatorName) {
         String sql = "INSERT INTO batch_processing (crop_id, process_name, process_status, start_time, operator_name) " +
@@ -429,22 +424,40 @@ public List<Shipment> getAllShipments() {
         }
     }
 
-    @Override
-    public boolean updateBatchProcessing(int processId, String grade, String status, String qualityNotes) {
-        String updateBatchSql = "UPDATE batch_processing SET process_status = ?, notes = ?, grade = ? WHERE process_id = ?";
+   @Override
+public boolean updateBatchProcessing(int processId, String grade, String status, String qualityNotes) {
+    Connection conn = null;
+    try {
+        conn = DBHandle.getInstance().getConnection();
+        conn.setAutoCommit(false); // Start transaction
         
-        try (Connection conn = DBHandle.getInstance().getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(updateBatchSql)) {
-            
+        // First get batch details including crop_id
+        String getBatchSql = "SELECT crop_id, process_name FROM batch_processing WHERE process_id = ?";
+        int cropId = -1;
+        String processName = "";
+        
+        try (PreparedStatement getStmt = conn.prepareStatement(getBatchSql)) {
+            getStmt.setInt(1, processId);
+            try (ResultSet rs = getStmt.executeQuery()) {
+                if (rs.next()) {
+                    cropId = rs.getInt("crop_id");
+                    processName = rs.getString("process_name");
+                }
+            }
+        }
+        
+        // Update batch processing
+        String updateBatchSql = "UPDATE batch_processing SET process_status = ?, notes = ?, grade = ? WHERE process_id = ?";
+        try (PreparedStatement pstmt = conn.prepareStatement(updateBatchSql)) {
             pstmt.setString(1, status);
             pstmt.setString(2, qualityNotes);
             pstmt.setString(3, grade);
             pstmt.setInt(4, processId);
             
-            boolean batchUpdated = pstmt.executeUpdate() > 0;
+            int rowsAffected = pstmt.executeUpdate();
             
-            // If completing the process, set end_time and processed_date
-            if (batchUpdated && "Completed".equals(status)) {
+            if (rowsAffected > 0 && "Completed".equals(status)) {
+                // Set end_time and processed_date for completed batches
                 String completeSql = "UPDATE batch_processing SET end_time = ?, processed_date = ? WHERE process_id = ?";
                 try (PreparedStatement completeStmt = conn.prepareStatement(completeSql)) {
                     Timestamp now = new Timestamp(System.currentTimeMillis());
@@ -453,16 +466,164 @@ public List<Shipment> getAllShipments() {
                     completeStmt.setInt(3, processId);
                     completeStmt.executeUpdate();
                 }
+                
+                // Move to inventory if this is the final processing step
+                if (cropId > 0 && isFinalProcessingStep(processName)) {
+                    boolean inventoryMoved = moveCompletedBatchToInventory(conn, cropId, processId, grade, qualityNotes);
+                    if (!inventoryMoved) {
+                        conn.rollback();
+                        return false;
+                    }
+                }
             }
             
-            return batchUpdated;
+            conn.commit();
+            return true;
             
         } catch (SQLException e) {
-            LOGGER.log(Level.SEVERE, "Error updating batch processing for ID: " + processId, e);
-            return false;
+            conn.rollback();
+            throw e;
+        }
+        
+    } catch (SQLException e) {
+        LOGGER.log(Level.SEVERE, "Error updating batch processing for ID: " + processId, e);
+        return false;
+    } finally {
+        if (conn != null) {
+            try {
+                conn.setAutoCommit(true);
+                conn.close();
+            } catch (SQLException e) {
+                LOGGER.log(Level.SEVERE, "Error closing connection", e);
+            }
         }
     }
+}
 
+private boolean isFinalProcessingStep(String processName) {
+    // Define which processes are final and should move to inventory
+    return processName.toLowerCase().contains("packaging") || 
+           processName.toLowerCase().contains("final") ||
+           processName.toLowerCase().contains("quality") ||
+           processName.toLowerCase().contains("complete");
+}private boolean moveCompletedBatchToInventory(Connection conn, int cropId, int processId, String grade, String notes) throws SQLException {
+    try {
+        // First get crop details - make sure farmer_id is retrieved
+        String getCropSql = "SELECT crop_name, quantity, unit, farmer_id FROM crops WHERE crop_id = ?";
+        String cropName = "";
+        double quantity = 0;
+        String unit = "";
+        int farmerId = 0;
+        
+        try (PreparedStatement getStmt = conn.prepareStatement(getCropSql)) {
+            getStmt.setInt(1, cropId);
+            try (ResultSet rs = getStmt.executeQuery()) {
+                if (rs.next()) {
+                    cropName = rs.getString("crop_name");
+                    quantity = rs.getDouble("quantity");
+                    unit = rs.getString("unit");
+                    farmerId = rs.getInt("farmer_id");
+                    
+                    // Debug logging
+                    System.out.println("Retrieved farmer_id: " + farmerId + " for crop: " + cropName);
+                } else {
+                    throw new SQLException("Crop not found with ID: " + cropId);
+                }
+            }
+        }
+        
+        // If farmer_id is 0 or invalid, set to default value 1
+        if (farmerId <= 0) {
+            farmerId = 1;
+            System.out.println("Using default farmer_id: 1 for crop: " + cropName);
+        }
+        
+        // Create or get product ID
+        int productId = getOrCreateProduct(conn, cropName, grade);
+        
+        double currentStock = getCurrentStock(conn, productId);
+        
+        // Create inventory movement - make sure farmer_id is included
+        String movementSql = "INSERT INTO inventory_movements (product_id, farmer_id, movement_type, quantity, " +
+                           "previous_stock, new_stock, reason, reference_id) " +
+                           "VALUES (?, ?, 'IN', ?, ?, ?, ?, ?)";
+        
+        try (PreparedStatement movementStmt = conn.prepareStatement(movementSql)) {
+            movementStmt.setInt(1, productId);
+            movementStmt.setInt(2, farmerId); // This must be set to a valid value
+            movementStmt.setDouble(3, quantity);
+            movementStmt.setDouble(4, currentStock);
+            movementStmt.setDouble(5, currentStock + quantity);
+            movementStmt.setString(6, "Batch Processing Completed");
+            movementStmt.setInt(7, processId);
+            
+            int rowsAffected = movementStmt.executeUpdate();
+            
+            if (rowsAffected > 0) {
+                String updateCropSql = "UPDATE crops SET status = 'Sold', processed_date = ? WHERE crop_id = ?";
+                try (PreparedStatement cropStmt = conn.prepareStatement(updateCropSql)) {
+                    cropStmt.setTimestamp(1, new Timestamp(System.currentTimeMillis()));
+                    cropStmt.setInt(2, cropId);
+                    cropStmt.executeUpdate();
+                }
+                
+                LOGGER.info("Successfully moved crop ID " + cropId + " to inventory");
+                return true;
+            }
+        }
+        
+        return false;
+        
+    } catch (SQLException e) {
+        LOGGER.log(Level.SEVERE, "Error moving completed batch to inventory for crop ID: " + cropId, e);
+        throw e;
+    }
+}
+private int getOrCreateProduct(Connection conn, String cropName, String grade) throws SQLException {
+    // Try to find existing product
+    String findSql = "SELECT product_id FROM products WHERE product_name = ?";
+    try (PreparedStatement findStmt = conn.prepareStatement(findSql)) {
+        findStmt.setString(1, cropName);
+        
+        try (ResultSet rs = findStmt.executeQuery()) {
+            if (rs.next()) {
+                return rs.getInt("product_id");
+            }
+        }
+    }
+    
+    // FIXED: Removed description column
+    String createSql = "INSERT INTO products (product_name, grade, price, last_updated) " +
+                      "VALUES (?, ?, 0.0, ?)";
+    try (PreparedStatement createStmt = conn.prepareStatement(createSql, Statement.RETURN_GENERATED_KEYS)) {
+        createStmt.setString(1, cropName);
+        createStmt.setString(2, grade);
+        createStmt.setTimestamp(3, new Timestamp(System.currentTimeMillis()));
+        
+        int rowsAffected = createStmt.executeUpdate();
+        if (rowsAffected > 0) {
+            try (ResultSet generatedKeys = createStmt.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    return generatedKeys.getInt(1);
+                }
+            }
+        }
+    }
+    
+    throw new SQLException("Failed to create or find product");
+}
+private double getCurrentStock(Connection conn, int productId) throws SQLException {
+    String sql = "SELECT new_stock FROM inventory_movements WHERE product_id = ? ORDER BY movement_date DESC LIMIT 1";
+    try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+        stmt.setInt(1, productId);
+        try (ResultSet rs = stmt.executeQuery()) {
+            if (rs.next()) {
+                return rs.getDouble("new_stock");
+            }
+        }
+    }
+    return 0.0; 
+}
     @Override
     public boolean updateBatchProcessStatus(int processId, String status, String notes) {
         String sql = "UPDATE batch_processing SET process_status = ?, notes = ? WHERE process_id = ?";
@@ -630,37 +791,37 @@ public List<Shipment> getAllShipments() {
         return statusCounts;
     }
 
-    @Override
-    public List<Batch> getRecentBatches(int limit) {
-        List<Batch> batches = new ArrayList<>();
-        String sql = "SELECT process_id, process_name, process_status, " +
-                     "start_time, end_time, operator_name, notes, " +
-                     "grade, processed_date, created_at " +
-                     "FROM batch_processing ORDER BY created_at DESC LIMIT ?";
+   
+@Override
+public List<Batch> getRecentBatches(int limit) {
+    List<Batch> batches = new ArrayList<>();
+    String sql = "SELECT bp.*, c.crop_name " +
+                 "FROM batch_processing bp " +
+                 "LEFT JOIN crops c ON bp.crop_id = c.crop_id " +
+                 "ORDER BY bp.created_at DESC LIMIT ?";
+    
+    try (Connection conn = DBHandle.getInstance().getConnection();
+         PreparedStatement pstmt = conn.prepareStatement(sql)) {
         
-        try (Connection conn = DBHandle.getInstance().getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            
-            pstmt.setInt(1, limit);
-            try (ResultSet rs = pstmt.executeQuery()) {
-                while (rs.next()) {
-                    Batch batch = mapResultSetToBatch(rs);
-                    batches.add(batch);
-                }
+        pstmt.setInt(1, limit);
+        try (ResultSet rs = pstmt.executeQuery()) {
+            while (rs.next()) {
+                Batch batch = mapResultSetToBatch(rs);
+                batches.add(batch);
             }
-            
-        } catch (SQLException e) {
-            LOGGER.log(Level.SEVERE, "Error getting recent batches", e);
         }
         
-        return batches;
+    } catch (SQLException e) {
+        LOGGER.log(Level.SEVERE, "Error getting recent batches", e);
     }
+    
+    return batches;
+}
 
 
 
 
 
-// Query Builder Methods - UPDATED FOR YOUR ACTUAL TABLES
 private String buildBatchProductionQuery(String timePeriod) {
     String baseQuery = "SELECT " +
                       "bp.process_id, " +
@@ -805,7 +966,6 @@ public int getTotalInventoryQuantity() {
 public Map<String, Integer> getInventoryByProduct() {
     Map<String, Integer> inventoryByProduct = new HashMap<>();
     
-    // Since we don't have product-specific inventory, we'll use location-based data
     String sql = "SELECT location_name, current_quantity FROM inventory_locations WHERE current_quantity > 0";
     
     try (Connection conn = DBHandle.getInstance().getConnection();
@@ -865,22 +1025,37 @@ public Map<String, Integer> getInventoryByProduct() {
         return !rs.wasNull() && value;
     }
 
-    // Updated mapper for batch_processing table
-    private Batch mapResultSetToBatch(ResultSet rs) throws SQLException {
-        return new Batch(
-            rs.getInt("process_id"),
-            getStringSafe(rs, "process_name"),
-            getStringSafe(rs, "process_status"),
-            rs.getTimestamp("start_time"),
-            rs.getTimestamp("end_time"),
-            getStringSafe(rs, "operator_name"),
-            getStringSafe(rs, "notes"),
-            getStringSafe(rs, "grade"),
-            rs.getTimestamp("processed_date"),
-            rs.getTimestamp("created_at")
-        );
+  
+private Batch mapResultSetToBatch(ResultSet rs) throws SQLException {
+    Batch batch = new Batch();
+    batch.setProcessId(rs.getInt("process_id"));
+    
+    int cropId = rs.getInt("crop_id");
+    if (!rs.wasNull()) {
+        batch.setCropId(cropId);
+    } else {
+        batch.setCropId(null);
     }
-
+    
+    try {
+        String cropName = rs.getString("crop_name");
+        batch.setCropName(cropName != null ? cropName : "No Crop");
+    } catch (SQLException e) {
+        batch.setCropName("Unknown");
+    }
+    
+    batch.setProcessName(getStringSafe(rs, "process_name"));
+    batch.setProcessStatus(getStringSafe(rs, "process_status"));
+    batch.setStartTime(rs.getTimestamp("start_time"));
+    batch.setEndTime(rs.getTimestamp("end_time"));
+    batch.setOperatorName(getStringSafe(rs, "operator_name"));
+    batch.setNotes(getStringSafe(rs, "notes"));
+    batch.setGrade(getStringSafe(rs, "grade"));
+    batch.setProcessedDate(rs.getTimestamp("processed_date"));
+    batch.setCreatedAt(rs.getTimestamp("created_at"));
+    
+    return batch;
+}
     @Override
     public List<Map<String, Object>> getBatchProductionReport(String timePeriod) {
         List<Map<String, Object>> reportData = new ArrayList<>();
@@ -1187,7 +1362,6 @@ public Map<String, Integer> getInventoryByProduct() {
         return reportData;
     }
 
-    // Helper method for time filtering
     private String buildTimeWhereClause(String dateColumn, String timePeriod) {
         return buildTimeWhereClause(dateColumn, timePeriod, "WHERE");
     }
@@ -1217,47 +1391,81 @@ public Map<String, Integer> getInventoryByProduct() {
         }
     }
 
-    // Your existing methods continue here...
-    @Override
-    public List<Batch> getAllBatches() {
-        List<Batch> batches = new ArrayList<>();
-        String query = "SELECT * FROM batch_processing ORDER BY created_at DESC";
+   @Override
+public List<Batch> getAllBatches() {
+    List<Batch> batches = new ArrayList<>();
+    String query = "SELECT bp.*, c.crop_name " +
+                   "FROM batch_processing bp " +
+                   "LEFT JOIN crops c ON bp.crop_id = c.crop_id " +
+                   "ORDER BY bp.created_at DESC";
+    
+    try (Connection conn = DBHandle.getInstance().getConnection();
+         PreparedStatement stmt = conn.prepareStatement(query);
+         ResultSet rs = stmt.executeQuery()) {
         
-        try (Connection conn = DBHandle.getInstance().getConnection();
-             PreparedStatement stmt = conn.prepareStatement(query);
-             ResultSet rs = stmt.executeQuery()) {
-            
-            while (rs.next()) {
-                batches.add(mapResultSetToBatch(rs));
-            }
-        } catch (SQLException e) {
-            System.err.println("Error getting all batches: " + e.getMessage());
-            e.printStackTrace();
+        while (rs.next()) {
+            batches.add(mapResultSetToBatch(rs));
         }
-        return batches;
+    } catch (SQLException e) {
+        System.err.println("Error getting all batches: " + e.getMessage());
+        e.printStackTrace();
     }
+    return batches;
+}
 
-    // Implement all other required methods from FactoryDAO interface...
-    @Override
-    public List<Batch> getBatchesByStatus(String status) {
-        List<Batch> batches = new ArrayList<>();
-        String query = "SELECT * FROM batch_processing WHERE process_status = ? ORDER BY created_at DESC";
+   @Override
+public List<Batch> getBatchesByStatus(String status) {
+    List<Batch> batches = new ArrayList<>();
+    String query = "SELECT bp.*, c.crop_name " +
+                   "FROM batch_processing bp " +
+                   "LEFT JOIN crops c ON bp.crop_id = c.crop_id " +
+                   "WHERE bp.process_status = ? " +
+                   "ORDER BY bp.created_at DESC";
+    
+    try (Connection conn = DBHandle.getInstance().getConnection();
+         PreparedStatement stmt = conn.prepareStatement(query)) {
+        stmt.setString(1, status);
+        ResultSet rs = stmt.executeQuery();
         
-        try (Connection conn = DBHandle.getInstance().getConnection();
-             PreparedStatement stmt = conn.prepareStatement(query)) {
-            stmt.setString(1, status);
-            ResultSet rs = stmt.executeQuery();
-            
-            while (rs.next()) {
-                batches.add(mapResultSetToBatch(rs));
-            }
-        } catch (SQLException e) {
-            System.err.println("Error getting batches by status: " + e.getMessage());
-            e.printStackTrace();
+        while (rs.next()) {
+            batches.add(mapResultSetToBatch(rs));
         }
-        return batches;
+    } catch (SQLException e) {
+        System.err.println("Error getting batches by status: " + e.getMessage());
+        e.printStackTrace();
     }
+    return batches;
+}
 
 
+    @Override
+public List<Map<String, Object>> getAvailableCropsForProcessing() {
+    List<Map<String, Object>> crops = new ArrayList<>();
+    // Removed crop_type from SELECT
+    String sql = "SELECT crop_id, crop_name, quantity, unit, farm_name " +
+                 "FROM crops WHERE status IN ('Harvested', 'Ready for Harvest') " +
+                 "ORDER BY crop_name";
+    
+    try (Connection conn = DBHandle.getInstance().getConnection();
+         PreparedStatement pstmt = conn.prepareStatement(sql);
+         ResultSet rs = pstmt.executeQuery()) {
+        
+        while (rs.next()) {
+            Map<String, Object> crop = new HashMap<>();
+            crop.put("crop_id", rs.getInt("crop_id"));
+            crop.put("crop_name", rs.getString("crop_name"));
+            crop.put("quantity", rs.getDouble("quantity"));
+            crop.put("unit", rs.getString("unit"));
+            crop.put("farm_name", rs.getString("farm_name"));
+            crops.add(crop);
+        }
+        
+    } catch (SQLException e) {
+        LOGGER.log(Level.SEVERE, "Error getting available crops for processing", e);
+        return new ArrayList<>();
+    }
+    
+    return crops;
+}
 
 }

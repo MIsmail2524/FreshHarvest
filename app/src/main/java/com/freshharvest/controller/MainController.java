@@ -28,6 +28,7 @@ public class MainController implements Initializable {
     private Button btnProducts;
     @FXML
     private Button btnOrders;
+
     @FXML
     private Button btnCustomers;
     @FXML
@@ -99,8 +100,11 @@ public class MainController implements Initializable {
     void openAddCrop() {
     loadPopup("AddCrop.fxml");
 }
+ @FXML 
+void onmakeBatch()
+{loadPopup("batch.fxml");
 
-
+}
 
 
 

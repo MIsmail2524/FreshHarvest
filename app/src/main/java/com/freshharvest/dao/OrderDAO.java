@@ -9,7 +9,6 @@ import java.util.List;
 
 public class OrderDAO {
     
-    // Get all orders for a farmer with complete details
  public List<Order> findByFarmerId(int farmerId) {
     List<Order> orders = new ArrayList<>();
 
@@ -50,8 +49,8 @@ String sql = """
     order.setOrderNumber(rs.getString("order_number"));
     order.setCustomerId(rs.getInt("customer_id"));
     order.setCustomerName(rs.getString("customer_name"));
-    order.setCustomerEmail(rs.getString("customer_email"));   // <- fetched from customers table
-    order.setCustomerPhone(rs.getString("customer_phone"));   // <- fetched from customers table
+    order.setCustomerEmail(rs.getString("customer_email"));   
+    order.setCustomerPhone(rs.getString("customer_phone"));   
     order.setFarmerId(rs.getInt("farmer_id"));
 
     Timestamp orderDate = rs.getTimestamp("order_date");
@@ -64,7 +63,6 @@ String sql = """
     order.setDeliveryType(rs.getString("delivery_type"));
     order.setDeliveryAddress(rs.getString("delivery_address"));
     order.setNotes(rs.getString("notes"));
-   // order.setItemCount(rs.getInt("item_count"));  // <- now uses correct column
 
     return order;
 }
@@ -250,7 +248,6 @@ String sql = """
         return false;
     }
     
-    // Get order statistics for dashboard
     public OrderStatistics getOrderStatistics(int farmerId) {
         OrderStatistics stats = new OrderStatistics();
         String sql = """

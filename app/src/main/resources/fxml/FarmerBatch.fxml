@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<VBox xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" 
+      fx:controller="com.freshharvest.controller.FarmerBatchController" 
+      spacing="20" style="-fx-background-color: #f5f5f5;">
+   
+   <padding>
+      <Insets top="20" right="20" bottom="20" left="20"/>
+   </padding>
+   
+   <!-- Header -->
+   <Label text="Batch Management" style="-fx-text-fill: #2c3e50; -fx-font-weight: bold; -fx-font-size: 24;">
+      <padding>
+         <Insets bottom="10"/>
+      </padding>
+   </Label>
+   
+   <HBox spacing="20" VBox.vgrow="ALWAYS">
+      
+      <!-- Left Side - Batch Creation Form -->
+      <VBox spacing="15" style="-fx-background-color: white; -fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: #ddd; -fx-padding: 20;" 
+            prefWidth="350">
+         
+         <Label text="Create New Batch" style="-fx-text-fill: #27ae60; -fx-font-weight: bold; -fx-font-size: 18;">
+            <padding>
+               <Insets bottom="10"/>
+            </padding>
+         </Label>
+         
+         <!-- Crop Type -->
+         <VBox spacing="5">
+            <Label text="Crop Type *" style="-fx-text-fill: #2c3e50; -fx-font-weight: bold;"/>
+            <TextField fx:id="txtCropType" promptText="Enter crop type" style="-fx-background-radius: 5;"/>
+         </VBox>
+         
+         <!-- Quantity and Unit -->
+         <HBox spacing="10">
+            <VBox spacing="5" HBox.hgrow="ALWAYS">
+               <Label text="Quantity *" style="-fx-text-fill: #2c3e50; -fx-font-weight: bold;"/>
+               <TextField fx:id="txtQuantity" promptText="0.00" style="-fx-background-radius: 5;"/>
+            </VBox>
+            
+            <VBox spacing="5" prefWidth="100">
+               <Label text="Unit *" style="-fx-text-fill: #2c3e50; -fx-font-weight: bold;"/>
+               <ComboBox fx:id="cmbUnit" style="-fx-background-radius: 5;" promptText="Select unit"/>
+            </VBox>
+         </HBox>
+         
+         <!-- Quality Grade -->
+         <VBox spacing="5">
+            <Label text="Quality Grade" style="-fx-text-fill: #2c3e50; -fx-font-weight: bold;"/>
+            <ComboBox fx:id="cmbQualityGrade" style="-fx-background-radius: 5;" promptText="Select grade"/>
+         </VBox>
+         
+         <!-- Notes -->
+         <VBox spacing="5" VBox.vgrow="ALWAYS">
+            <Label text="Notes" style="-fx-text-fill: #2c3e50; -fx-font-weight: bold;"/>
+            <TextArea fx:id="txtNotes" promptText="Additional notes..." style="-fx-background-radius: 5;" 
+                      wrapText="true" prefRowCount="3"/>
+         </VBox>
+         
+         <!-- Create Batch Button -->
+         <Button fx:id="btnCreateBatch" text="Create Batch" onAction="#onCreateBatch" 
+                 style="-fx-background-color: #27ae60; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 5; -fx-padding: 10 20;"
+                 maxWidth="Infinity">
+            <padding>
+               <Insets top="10" bottom="10"/>
+            </padding>
+         </Button>
+         
+      </VBox>
+      
+      <!-- Right Side - Batch List and Actions -->
+      <VBox spacing="15" VBox.vgrow="ALWAYS">
+         
+         <!-- Action Buttons -->
+         <HBox spacing="10" alignment="CENTER_LEFT">
+            <Button fx:id="btnSendToFactory" text="Send to Factory" onAction="#onSendToFactory" 
+                    style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 5; -fx-padding: 8 15;"
+                    disable="true"/>
+            
+            <Button text="Refresh" onAction="#onRefresh" 
+                    style="-fx-background-color: #95a5a6; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 5; -fx-padding: 8 15;"/>
+            
+            <Label text="* Select a PENDING batch to send to factory" style="-fx-text-fill: #7f8c8d; -fx-font-size: 11;"/>
+         </HBox>
+         
+         <!-- Batch Table -->
+         <VBox spacing="10" VBox.vgrow="ALWAYS" style="-fx-background-color: white; -fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: #ddd; -fx-padding: 15;">
+            <Label text="My Batches" style="-fx-text-fill: #2c3e50; -fx-font-weight: bold; -fx-font-size: 16;"/>
+            
+            <TableView fx:id="batchTable" VBox.vgrow="ALWAYS" style="-fx-background-radius: 5;">
+               
+               <columns>
+                  <TableColumn fx:id="colBatchNumber" text="Batch No" prefWidth="100"/>
+                  <TableColumn fx:id="colCropType" text="Crop Type" prefWidth="120"/>
+                  <TableColumn fx:id="colQuantity" text="Quantity" prefWidth="80"/>
+                  <TableColumn fx:id="colStatus" text="Status" prefWidth="120"/>
+                  <TableColumn fx:id="colCreatedDate" text="Created Date" prefWidth="120"/>
+               </columns>
+               
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+               </columnResizePolicy>
+               
+            </TableView>
+            
+            <!-- Status Legend -->
+            <HBox spacing="15" alignment="CENTER">
+               <HBox spacing="5" alignment="CENTER_LEFT">
+                  <Rectangle width="15" height="15" style="-fx-fill: #fff3cd; -fx-stroke: #ddd;"/>
+                  <Label text="PENDING" style="-fx-font-size: 11;"/>
+               </HBox>
+               <HBox spacing="5" alignment="CENTER_LEFT">
+                  <Rectangle width="15" height="15" style="-fx-fill: #d1ecf1; -fx-stroke: #ddd;"/>
+                  <Label text="SENT_TO_FACTORY" style="-fx-font-size: 11;"/>
+               </HBox>
+               <HBox spacing="5" alignment="CENTER_LEFT">
+                  <Rectangle width="15" height="15" style="-fx-fill: #d4edda; -fx-stroke: #ddd;"/>
+                  <Label text="IN_PROCESSING" style="-fx-font-size: 11;"/>
+               </HBox>
+               <HBox spacing="5" alignment="CENTER_LEFT">
+                  <Rectangle width="15" height="15" style="-fx-fill: #e2e3e5; -fx-stroke: #ddd;"/>
+                  <Label text="COMPLETED" style="-fx-font-size: 11;"/>
+               </HBox>
+               <HBox spacing="5" alignment="CENTER_LEFT">
+                  <Rectangle width="15" height="15" style="-fx-fill: #f8d7da; -fx-stroke: #ddd;"/>
+                  <Label text="REJECTED" style="-fx-font-size: 11;"/>
+               </HBox>
+            </HBox>
+            
+         </VBox>
+         
+      </VBox>
+      
+   </HBox>
+   
+</VBox>
