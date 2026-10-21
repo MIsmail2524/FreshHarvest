@@ -32,3 +32,10 @@ DB_URL=jdbc:mysql://localhost:3306/testdb
 DB_USER=root
 DB_PASS=123
 ```
+## Credits
+
+- [Muhammad Ismail](https://github.com/MIsmail2524): Farmer module (screens, till report), Customer module, integrated final application, database SQL file.
+- [Mohammad Saeed Saeedi](https://github.com/msaeedsaeedi): project setup, database integration, login and signup, UI styling.
+- [Muhammad Haris](https://github.com/muhammad-haris2): Factory manager dashboard and shipments (branches `Factory` and `haris/factoryDashboard`).
+
+Group project. Full commit history and authorship are preserved; the original repository is msaeedsaeedi/FreshHarvest.
